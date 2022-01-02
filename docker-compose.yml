@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  #mysql 사용 예정
+  db:
+    platform: linux/x86_64 # m1이신 분만 사용하기
+    image: mysql:latest
+    volumes:
+      - /var/lib/docker/volumes/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "Chltpdus6738*"
+    ports:
+      - "3307:3306"
+    command:
+      - --character-set-server=utf8mb4      # 인코딩
+      - --collation-server=utf8mb4_unicode_ci
+
+  backend:
+    build:
+      context: ./backend
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend/:/lego2me/
+    expose:
+      - 8000
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+    command: ["npm", "start"]
+    ports:
+      - 80:3000
+    volumes:
+      - ./frontend/:/frontend
+      - ./frontend/node_modules/:/frontend/node_modules
+    environment:
+      - CI=true
+      - CHOKIDAR_USEPOLLING=true
+    tty: true
+
+volumes:
+  lego2me:
