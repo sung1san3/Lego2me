@@ -1,5 +1,7 @@
 # Lego2me
 
+- Our service was created through the AI Application Development by Silicon Valley Engineering program organized by Headstart Silicon Valley.
+
 - [Lego2me](#lego2me)
   - [1. Prerequisites](#1-prerequisites)
   - [2. Installation Process](#2-installation-process)
