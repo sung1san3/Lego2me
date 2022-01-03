@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import my_setting
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = my_setting.SECRET_KEY
+SECRET_KEY = 'django-insecure-exb@4++=mm2j71#g87#e1d98!p#8xbh%8*s9cj%6c#+15-4_c*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,7 +77,16 @@ WSGI_APPLICATION = 'lego2me.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-DATABASES = my_setting.DATABASES
+DATABASES = {
+    'default' : {
+        'ENGINE': 'django.db.backends.mysql',    
+        'NAME': 'lego2me.test',                  
+        'USER': 'root',                          
+        'PASSWORD': 'choi6738',                  
+        'HOST': 'localhost',                     
+        'PORT': '3306',                          
+    }
+}
 
 
 # Password validation
