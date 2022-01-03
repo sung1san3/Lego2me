@@ -1,9 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Nav from "../components/Nav";
 
 const Home: NextPage = () => {
-  return <h1 className="text-3xl font-bold underline">Test branch</h1>;
+  return (
+    <>
+      <Nav></Nav>
+      <p>main</p>
+    </>
+  );
 };
 
 export default Home;
