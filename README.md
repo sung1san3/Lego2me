@@ -27,7 +27,7 @@
 | Name    | 최세연                                        | 김태원                               | 권종석                                        | 허민                                    |
 | ------- | --------------------------------------------- | ------------------------------------ | --------------------------------------------- | --------------------------------------- |
 | Profile | ![image]()                                    | ![image]()                           | ![image]()                                    | ![imgae]()                              |
-| role    | Team Reader, <br>Backend & AI                 | Backend & AI                         | Backend & AI                                  | Frontend & AI                           |
+| role    | Team ㅣLeader, <br>Backend & AI                 | Backend & AI                         | Backend & AI                                  | Frontend & AI                           |
 | Github  | [@Seyeon_Choi](https://github.com/barabobBOB) | [@teawon](https://github.com/teawon) | [@jongseok Kwon](https://github.com/himJJong) | [@Heo Min](https://github.com/hhhminme) |
 
 ## 8. Troubleshooting
