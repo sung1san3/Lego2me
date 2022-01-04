@@ -82,8 +82,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',    
         'NAME': 'lego2me.test',                  
         'USER': 'root',                          
-        'PASSWORD': 'choi6738',                  
-        'HOST': 'localhost',                     
+        'PASSWORD': '990902',                  
+        'HOST': 'db',                     
         'PORT': '3306',                          
     }
 }

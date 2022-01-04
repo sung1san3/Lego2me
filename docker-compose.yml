@@ -3,17 +3,28 @@ version: "3"
 services:
   #mysql 사용 예정
   db:
-    platform: linux/x86_64 # m1이신 분만 사용하기
+    #platform: linux/x86_64 # m1이신 분만 사용하기
     image: mysql:latest
+    
     volumes:
-      - /var/lib/docker/volumes/mysql
+      #- /var/lib/docker/volumes/mysql
+      - ../volumes-mysql/mysql/:/var/lib/mysql/
     environment:
-      MYSQL_ROOT_PASSWORD: "Chltpdus6738*"
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: '990902'
+      #MYSQL_ROOT_PASSWORD: choi6738
+      MYSQL_ROOT_PASSWORD: '990902'
+    
     ports:
-      - "3307:3306"
+      - "3306:3306"
+      
     command:
       - --character-set-server=utf8mb4      # 인코딩
       - --collation-server=utf8mb4_unicode_ci
+      
+
+
 
   backend:
     build:
@@ -31,12 +42,12 @@ services:
   frontend:
     build:
       context: ./frontend
-    command: ["npm", "start"]
+    #command: ["npm", "start"]
     ports:
       - 80:3000
     volumes:
       - ./frontend/:/frontend
-      - ./frontend/node_modules/:/frontend/node_modules
+     # - ./frontend/node_modules/:/frontend/node_modules
     environment:
       - CI=true
       - CHOKIDAR_USEPOLLING=true

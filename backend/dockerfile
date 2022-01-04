@@ -12,12 +12,44 @@ ENV DJANGO_ALLOWED_HOSTS $DJANGO_ALLOWED_HOSTS
 ENV DJANGO_SECRET_KEY $DJANGO_SECRET_KEY
 ENV DJANGO_CORS_ORIGIN_WHITELIST $DJANGO_CORS_ORIGIN_WHITELIST
 
+RUN mkdir /backend
+#추가
+
+
 WORKDIR /backend
-COPY requirements.txt /backend/
+
+ADD requirements.txt /backend
+#추가
+
+#COPY requirements.txt /backend/
+#삭제
 
 RUN apk add postgresql-dev libressl-dev libffi-dev gcc musl-dev gcc python3-dev musl-dev zlib-dev jpeg-dev #--(5.2)
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-COPY . /backend/
+ADD . /backend/
+#추가
+
+#COPY . /backend/
+#삭제
+
+
+RUN apk update \
+    && apk add --virtual build-deps gcc python3-dev musl-dev \
+    && apk add --no-cache mariadb-dev
+
+
+RUN pip install mysqlclient  
+
+RUN apk del build-deps
+
+
+
+#ENV DOCKERIZE_VERSION v0.6.1
+#RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+#    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+#    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+
+#ENTRYPOINT ["dockerize", "-wait", "tcp://mysql_service:3306", "-timeout", "20s"]
