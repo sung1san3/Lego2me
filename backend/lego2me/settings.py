@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,6 +54,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'lego2me.urls'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 TEMPLATES = [
     {
@@ -80,9 +83,9 @@ WSGI_APPLICATION = 'lego2me.wsgi.application'
 DATABASES = {
     'default' : {
         'ENGINE': 'django.db.backends.mysql',    
-        'NAME': 'lego2me.test',                  
+        'NAME': 'lego2me',                  
         'USER': 'root',                          
-        'PASSWORD': 'choi6738',                  
+        'PASSWORD': 'Chltpdus6738*',                  
         'HOST': 'localhost',                     
         'PORT': '3306',                          
     }
