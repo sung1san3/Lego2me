@@ -8,7 +8,7 @@ const Nav = () => {
     <nav className="sticky top-0 z-50 flex items-center justify-between flex-wrap bg-white p-5 shadow-lg px-10">
       <div
         onClick={() => router.push("/")}
-        className="flex items-center flex-shrink-0 cursor-pointer text-white mr-6 hover:scale-105 transistion duration-150"
+        className="flex items-center flex-shrink-0 cursor-pointer text-white mr-6 hoverAnimation"
       >
         <Image
           className="fill-current h-8 w-8 mr-2"

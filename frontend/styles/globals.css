@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .hoverAnimation {
+    @apply hover:scale-105 transform transition duration-300;
+  }
+}
+
 html,
 body {
   padding: 0;

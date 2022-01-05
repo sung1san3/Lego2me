@@ -13,7 +13,7 @@ const Banner = () => {
         </p>
       </div>
       <div className="flex w-[60%] m-10 mt-10 ml-10 relative">
-        <div className="hidden xl:inline-block flex-shrink-0 hover:scale-105 transition transform duration-150 ease-out">
+        <div className="hidden xl:inline-block flex-shrink-0 hoverAnimation">
           <Image
             src="/images/lego2.png"
             width="238px"
@@ -21,7 +21,7 @@ const Banner = () => {
             alt="lego1"
           ></Image>
         </div>
-        <div className="hidden xl:inline flex-shrink-0 mt-36 overflow-visible hover:scale-105 transition transform duration-150 ease-out">
+        <div className="hidden xl:inline flex-shrink-0 mt-36 overflow-visible hoverAnimation">
           <Image
             src="/images/lego1.png"
             width="238px"
