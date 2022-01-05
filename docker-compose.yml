@@ -1,13 +1,12 @@
 version: "3"
 
 services:
- #mongo Db 
-  db: 
+  #mongo Db
+  db:
     image: mongo:latest
     restart: unless-stopped
     volumes:
-      
-       - /var/lib/docker/volumes/mongo
+      - /var/lib/docker/volumes/mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: legolego
@@ -15,7 +14,6 @@ services:
       MONGODB_DATA_DIR: /var/lib/docker/volumes/mongo
     ports:
       - 27017:27017
-    
 
   backend:
     build:
@@ -30,20 +28,16 @@ services:
     depends_on:
       - db
 
-  #django
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     #command: ["npm", "start"]
-  #   ports:
-  #     - 80:3000
-  #   volumes:
-  #     - ./frontend/:/frontend
-  #    # - ./frontend/node_modules/:/frontend/node_modules
-  #   environment:
-  #     - CI=true
-  #     - CHOKIDAR_USEPOLLING=true
-  #   tty: true
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
 
   # flask:
   #   build: ./ai_flask_api
@@ -51,6 +45,3 @@ services:
   #     - ./ai_flask_api:/ai_flask_api
   #   ports:
   #     - '5000:5000'
-
-volumes:
-  lego2me:
