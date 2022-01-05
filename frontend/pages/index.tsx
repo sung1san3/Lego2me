@@ -1,17 +1,24 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
+
 import Banner from "../components/Banner";
 import Nav from "../components/Nav";
-import "animate.css/animate.min.css";
-import Howto from "../components/Howto";
+import HowtoCard from "../components/HowtoCard";
+import IntroBanner from "../components/IntroBanner";
 
 const Home: NextPage = () => {
   return (
     <>
+      <head>
+        <title>Lego2me</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+        />
+      </head>
       <Nav></Nav>
       <Banner></Banner>
-      <Howto></Howto>
+      <HowtoCard></HowtoCard>
+      <IntroBanner></IntroBanner>
     </>
   );
 };
