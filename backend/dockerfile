@@ -4,42 +4,29 @@ FROM python:3.7-alpine
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-ARG DJANGO_ALLOWED_HOSTS
-ARG DJANGO_SECRET_KEY
-ARG DJANGO_CORS_ORIGIN_WHITELIST
 
-ENV DJANGO_ALLOWED_HOSTS $DJANGO_ALLOWED_HOSTS
-ENV DJANGO_SECRET_KEY $DJANGO_SECRET_KEY
-ENV DJANGO_CORS_ORIGIN_WHITELIST $DJANGO_CORS_ORIGIN_WHITELIST
 
 RUN mkdir /backend
-#추가
-
 
 WORKDIR /backend
 
 ADD requirements.txt /backend
-
-RUN apk add postgresql-dev libressl-dev libffi-dev gcc musl-dev gcc python3-dev musl-dev zlib-dev jpeg-dev #--(5.2)
-
+ADD . /backend/
 RUN pip3 install --upgrade pip
-RUN pip3 install -r requirements.txt
+
 RUN pip3 install djongo
 RUN pip3 install mongoengine
+RUN pip3 install -r requirements.txt
 
-ADD . /backend/
-
-
-
-RUN apk update \
-    && apk add --virtual build-deps gcc python3-dev musl-dev \
-    && apk add --no-cache mariadb-dev
+#ADD . /backend/
 
 
+# RUN apk update \
+#     && apk add --virtual build-deps gcc python3-dev musl-dev \
+#     && apk add --no-cache mariadb-dev
 
 
-
-RUN apk del build-deps
+# RUN apk del build-deps
 
 
 

@@ -77,18 +77,19 @@ WSGI_APPLICATION = 'lego2me.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-DATABASES = {
+DATABASE = {
     'default': {
         'ENGINE': 'djongo',
-        'HOST': 'mongodb',
-        'PORT': '27017',
-        'USER': 'root',
-        'PASSWORD': 'legolego',
-        'AUTH_SOURCE': 'admin',
-        'AUTH_MECHANISM': 'SCRAM-SHA-1',
+        'NAME': 'your-database-name',
+        'CLIENT': {
+            'host': 'mongodb://mongodb:27017',
+            'username': 'root',
+            'password': 'mongoadmin',
+            'authSource': 'admin',
+            'authMechanism': 'SCRAM-SHA-1',
+        }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
