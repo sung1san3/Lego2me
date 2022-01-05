@@ -78,13 +78,14 @@ WSGI_APPLICATION = 'lego2me.wsgi.application'
 
 
 DATABASES = {
-    'default' : {
-        'ENGINE': 'django.db.backends.mysql',    
-        'NAME': 'lego2me.test',                  
-        'USER': 'root',                          
-        'PASSWORD': '990902',                  
-        'HOST': 'db',                     
-        'PORT': '3306',                          
+    'default': {
+        'ENGINE': 'djongo',
+        'HOST': 'mongodb',
+        'PORT': '27017',
+        'USER': 'root',
+        'PASSWORD': 'legolego',
+        'AUTH_SOURCE': 'admin',
+        'AUTH_MECHANISM': 'SCRAM-SHA-1',
     }
 }
 

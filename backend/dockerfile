@@ -19,21 +19,16 @@ RUN mkdir /backend
 WORKDIR /backend
 
 ADD requirements.txt /backend
-#추가
-
-#COPY requirements.txt /backend/
-#삭제
 
 RUN apk add postgresql-dev libressl-dev libffi-dev gcc musl-dev gcc python3-dev musl-dev zlib-dev jpeg-dev #--(5.2)
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip3 install --upgrade pip
+RUN pip3 install -r requirements.txt
+RUN pip3 install djongo
+RUN pip3 install mongoengine
 
 ADD . /backend/
-#추가
 
-#COPY . /backend/
-#삭제
 
 
 RUN apk update \
@@ -41,15 +36,13 @@ RUN apk update \
     && apk add --no-cache mariadb-dev
 
 
-RUN pip install mysqlclient  
+
+
 
 RUN apk del build-deps
 
 
 
-#ENV DOCKERIZE_VERSION v0.6.1
-#RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-#    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-#    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
-#ENTRYPOINT ["dockerize", "-wait", "tcp://mysql_service:3306", "-timeout", "20s"]
+
+

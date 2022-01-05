@@ -1,6 +1,6 @@
 asgiref==3.4.1
 certifi==2021.10.8
-Django==3.2.10
+#Django==3.2.10
 djangorestframework==3.13.1
 #mysqlclient @ file:///opt/concourse/worker/volumes/live/a00baea8-7042-4e61-5922-65c2a6fb6552/volume/mysqlclient_1609786256659/work
 pytz==2021.3

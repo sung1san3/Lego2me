@@ -1,30 +1,18 @@
 version: "3"
 
 services:
-  #mysql 사용 예정
-  db:
-    #platform: linux/x86_64 # m1이신 분만 사용하기
-    image: mysql:latest
-    
+ #mongo Db 
+  db: 
+    image: mongo:latest
+    restart: always
     volumes:
-      #- /var/lib/docker/volumes/mysql
-      - ../volumes-mysql/mysql/:/var/lib/mysql/
+      - /var/lib/docker/volumes/mongo
     environment:
-      MYSQL_DATABASE: mydb
-      MYSQL_USER: root
-      MYSQL_PASSWORD: '990902'
-      #MYSQL_ROOT_PASSWORD: choi6738
-      MYSQL_ROOT_PASSWORD: '990902'
-    
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: legolego
+      MONGO_INITDB_DATABASE: django_mongodb_docker
     ports:
-      - "3306:3306"
-      
-    command:
-      - --character-set-server=utf8mb4      # 인코딩
-      - --collation-server=utf8mb4_unicode_ci
-      
-
-
+      - 27017:27017
 
   backend:
     build:
@@ -38,7 +26,8 @@ services:
       - 8000
     depends_on:
       - db
-
+      
+  #django
   frontend:
     build:
       context: ./frontend
@@ -52,6 +41,13 @@ services:
       - CI=true
       - CHOKIDAR_USEPOLLING=true
     tty: true
+
+  flask:
+    build: ./ai_flask_api
+    volumes:
+      - ./ai_flask_api:/ai_flask_api
+    ports:
+      - '5000:5000'
 
 volumes:
   lego2me:
