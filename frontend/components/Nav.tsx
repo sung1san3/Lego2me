@@ -5,7 +5,7 @@ const Nav = () => {
   const router = useRouter();
 
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between flex-wrap bg-white p-5 shadow-lg px-10">
+    <nav className="sticky top-0 z-10 flex items-center justify-between flex-wrap bg-white p-5 shadow-lg px-10">
       <div
         onClick={() => router.push("/")}
         className="flex items-center flex-shrink-0 cursor-pointer text-white mr-6 hoverAnimation"
@@ -23,6 +23,7 @@ const Nav = () => {
       </div>
       {/* width48 h14 text-xl px-10 */}
       <button
+        onClick={() => router.push("/test")}
         className="flex items-center  w-28 md:w-48 h-14 px-5 md:px-11 bg-red-500 rounded-lg 
       text-sm md:text-xl font-semibold text-white hover:shadow-xl active:scale-90 transition duration-150"
       >
