@@ -1,6 +1,9 @@
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 const IntroBanner = () => {
+  const router = useRouter();
+
   return (
     <section className="mt-72">
       <div className="flex-col-2 justify-center lg:flex md:items-center bg-red-50 px-10 pb-10">
@@ -29,6 +32,7 @@ const IntroBanner = () => {
             Valley. For more information, visit GitHub!
           </p>
           <button
+            onClick={() => router.push("https://github.com/sung1san3/Lego2me")}
             className="flex items-center mt-6 w-28 md:w-48 h-14 px-5 md:px-12 bg-red-500 rounded-lg 
       text-sm md:text-xl font-semibold text-white hover:shadow-xl active:scale-90 transition duration-150"
           >
