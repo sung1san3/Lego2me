@@ -2,9 +2,9 @@ asgiref==3.4.1
 certifi==2021.10.8
 #Django==3.2.10
 djangorestframework==3.13.1
-mysqlclient
-pymysql
+
 pytz==2021.3
 sqlparse==0.4.2
 typing_extensions==4.0.1
 
+pillow==8.1

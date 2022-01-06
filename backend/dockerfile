@@ -14,9 +14,21 @@ ADD requirements.txt /backend
 ADD . /backend/
 RUN pip3 install --upgrade pip
 
-RUN pip3 install djongo
+RUN pip3 install django
 RUN pip3 install mongoengine
+
+RUN apk add --no-cache jpeg-dev zlib-dev
+RUN apk add --no-cache --virtual .build-deps build-base linux-headers
+
 RUN pip3 install -r requirements.txt
+
+
+#-- 구글클라우드 -- 
+RUN pip install --upgrade google-api-python-client
+RUN pip install --upgrade google-cloud-storage
+
+
+
 
 #ADD . /backend/
 
