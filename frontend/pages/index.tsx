@@ -9,17 +9,12 @@ import Footer from "../components/Footer";
 const Home: NextPage = () => {
   return (
     <>
-      <head>
-        <title>Lego2me</title>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
-        />
-      </head>
       <Nav></Nav>
-      <Banner></Banner>
-      <HowtoCard></HowtoCard>
-      <IntroBanner></IntroBanner>
+      <body>
+        <Banner></Banner>
+        <HowtoCard></HowtoCard>
+        <IntroBanner></IntroBanner>
+      </body>
       <Footer></Footer>
     </>
   );
