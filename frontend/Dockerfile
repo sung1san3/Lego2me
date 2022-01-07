@@ -1,16 +1,21 @@
-FROM node:14.16.0
-USER root
+FROM node:12
 
-WORKDIR /frontend
-COPY . /frontend
+ENV PORT 3000
 
-# Make variable API_URL to put uri into url
-# uri 변수 형태로 받아서 url에 넣어 작동하도록 함
-ARG API_URL
-ENV REACT_APP_HOST_IP_ADDRESS $API_URL
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
+# Installing dependencies
+COPY package*.json /usr/src/app/
 RUN npm install
-COPY . ./
 
-# build file을 개발용에서는 불러오지 않기 때문에 개발용에서는 npm start 가능
+# Copying source files
+COPY . /usr/src/app
+
+# Building app
 RUN npm run build
+EXPOSE 3000
+
+# Running the app
+CMD "npm" "run" "dev"
