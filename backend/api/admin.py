@@ -1,4 +1,5 @@
 from django.contrib import admin
-from .models import img_fileuplaod
-
-admin.site.register(img_fileuplaod)
+from django.db import router
+from .models import test
+# Register your models here.
+admin.site.register(test)

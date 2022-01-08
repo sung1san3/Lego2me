@@ -6,7 +6,7 @@ services:
     image: mongo:latest
     restart: unless-stopped
     volumes:
-      - /var/lib/docker/volumes/mongo
+      - lego2me_db:/var/lib/docker/volumes/mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: legolego
@@ -39,9 +39,12 @@ services:
       - /usr/src/app/node_modules
       - /usr/src/app/.next
 
-  # flask:
-  #   build: ./ai_flask_api
-  #   volumes:
-  #     - ./ai_flask_api:/ai_flask_api
-  #   ports:
-  #     - '5000:5000'
+  flask:
+    build: ./ai_flask_api
+    volumes:
+       - ./ai_flask_api:/ai_flask_api
+    ports:
+       - '5001:5001'
+
+volumes:
+  lego2me_db:

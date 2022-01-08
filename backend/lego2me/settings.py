@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,8 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
-SECRET_KEY = 'django-insecure-exb@4++=mm2j71#g87#e1d98!p#8xbh%8*s9cj%6c#+15-4_c*'
+SECRET_KEY = 'django-insecure-fio=9zg%ci60tyb!fql1@n^4a#)+-!f+*in&!b^n-p=es^9__2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api',
+    'api.apps.ApiConfig',
     'rest_framework',
 ]
 
@@ -54,8 +52,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'lego2me.urls'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 TEMPLATES = [
     {
@@ -79,21 +75,26 @@ WSGI_APPLICATION = 'lego2me.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-
-DATABASE = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'your-database-name',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+DATABASES = {
+    'default':
+    { 'ENGINE': 'djongo',
         'CLIENT': {
-            'host': 'mongodb://mongodb:27017',
+            'name': 'lego2me',
+            'host': 'db',
             'username': 'root',
-            'password': 'mongoadmin',
+            'password': 'legolego',
             'authSource': 'admin',
-            'authMechanism': 'SCRAM-SHA-1',
+            'authMechanism': 'SCRAM-SHA-1'
+            }
         }
-    }
 }
-
+#mongodb://localhost:27017
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -118,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Seoul'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
