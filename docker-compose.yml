@@ -1,12 +1,12 @@
 version: "3"
 
 services:
-  #mongo Db
+  # mongo Db
   db:
     image: mongo:latest
     restart: unless-stopped
     volumes:
-      - /var/lib/docker/volumes/mongo
+      - mongoVolume:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: legolego
@@ -15,33 +15,37 @@ services:
     ports:
       - 27017:27017
 
-  backend:
-    build:
-      context: ./backend
-    command: python manage.py runserver 0.0.0.0:8000
-    ports:
-      - 8000:8000
-    volumes:
-      - ./backend/:/lego2me/
-    expose:
-      - 8000
-    depends_on:
-      - db
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - 3000:3000
-    volumes:
-      - ./frontend:/usr/src/app
-      - /usr/src/app/node_modules
-      - /usr/src/app/.next
-
-  # flask:
-  #   build: ./ai_flask_api
-  #   volumes:
-  #     - ./ai_flask_api:/ai_flask_api
+  # backend:
+  #   build:
+  #     context: ./backend
+  #   command: python manage.py runserver 0.0.0.0:8000
   #   ports:
-  #     - '5000:5000'
+  #     - 8000:8000
+  #   volumes:
+  #     - ./backend/:/lego2me/
+  #   expose:
+  #     - 8000
+  #   depends_on:
+  #      - db
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./frontend:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #     - /usr/src/app/.next
+
+  flask:
+    build: ./ai_flask_api
+    volumes:
+      - ./ai_flask_api:/ai_flask_api
+    ports:
+       - '5000:5000'
+    depends_on:
+       - db
+volumes:
+   mongoVolume:
