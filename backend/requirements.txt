@@ -8,3 +8,4 @@ sqlparse==0.4.2
 typing_extensions==4.0.1
 
 pillow==8.1
+pymongo
