@@ -13,14 +13,13 @@ WORKDIR /backend
 ADD requirements.txt /backend
 ADD . /backend/
 RUN pip3 install --upgrade pip
-
+RUN pip install djangorestframework djangorestframework-jwt
 #RUN pip3 install djongo
 #RUN pip3 install mongoengine
 #RUN pip3 install Pillow
 
 RUN apk add --no-cache jpeg-dev zlib-dev
 RUN apk add --no-cache --virtual .build-deps build-base linux-headers
-
 RUN pip3 install -r requirements.txt
 
 #ADD . /backend/
