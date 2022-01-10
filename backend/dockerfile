@@ -13,15 +13,8 @@ WORKDIR /backend
 ADD requirements.txt /backend
 ADD . /backend/
 RUN pip3 install --upgrade pip
-<<<<<<< HEAD
-RUN pip install djangorestframework djangorestframework-jwt
-#RUN pip3 install djongo
-#RUN pip3 install mongoengine
-#RUN pip3 install Pillow
-=======
 
 RUN pip install djangorestframework djangorestframework-jwt
->>>>>>> a80cafe... fix: django + mongo + docker
 
 RUN apk add --no-cache jpeg-dev zlib-dev
 RUN apk add --no-cache --virtual .build-deps build-base linux-headers
