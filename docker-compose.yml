@@ -49,8 +49,15 @@ services:
        - $PWD:/home
     ports:
        - '5001:5001'
+<<<<<<< HEAD
 
 volumes:
   lego2me_db:
 
   #- CHOKIDAR_USEPOLLING=true
+=======
+    depends_on:
+       - db
+volumes:
+  mongoVolume:
+>>>>>>> a80cafe... fix: django + mongo + docker
