@@ -6,7 +6,7 @@ interface MediumCardProps {
   title: string;
 }
 
-const ItemSelect: React.FunctionComponent<MediumCardProps> = ({
+const MediumCard: React.FunctionComponent<MediumCardProps> = ({
   img,
   title,
 }) => {
@@ -24,4 +24,4 @@ const ItemSelect: React.FunctionComponent<MediumCardProps> = ({
   );
 };
 
-export default ItemSelect;
+export default MediumCard;

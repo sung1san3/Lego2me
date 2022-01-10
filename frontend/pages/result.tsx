@@ -9,6 +9,7 @@ import {
   ArrowCircleLeftIcon,
   ArrowCircleRightIcon,
 } from "@heroicons/react/solid";
+import ItemSelect from "../components/ItemSelect";
 
 const result = () => {
   const onDownload = () => {
@@ -22,20 +23,7 @@ const result = () => {
     }
   };
 
-  function handleClickLeft() {
-    if (process.browser) {
-      const horizontalScroll = document.getElementById("cardcontainer");
-      if (horizontalScroll !== null) horizontalScroll.scrollLeft -= 200;
-    }
-  }
-
-  function handleClickRight() {
-    if (process.browser) {
-      const horizontalScroll = document.getElementById("cardcontainer");
-      if (horizontalScroll !== null) horizontalScroll.scrollLeft += 200;
-    }
-  }
-  const cardsData = [
+  const hairStyle = [
     {
       img: "/images/lego2me.png",
       title: "Outdoor getaways",
@@ -92,32 +80,15 @@ const result = () => {
       <section className="flex-col-2 p-10 md:flex">
         <article className="w-full md:w-[50%] flex-sh bg-lime-300 p-3">
           {/* item select */}
-
-          <div className="flex-grow text-xl font-semibold">
-            <h2>Horizontal Slide</h2>
-          </div>
-          <div className="flex items-center space-x-4 justify-end">
-            <button
-              className="hover:scale-110 transition duration-200"
-              onClick={handleClickLeft}
-            >
-              <ArrowCircleLeftIcon className="h-8" />
-            </button>
-            <button
-              className="hover:scale-110 transition duration-200"
-              onClick={handleClickRight}
-            >
-              <ArrowCircleRightIcon className="h-8" />
-            </button>
-          </div>
-          <div
-            id="cardcontainer"
-            className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3 scroll-smooth"
-          >
-            {cardsData.map(({ img, title }) => (
-              <MediumCard key={img} img={img} title={title} />
-            ))}
-          </div>
+          <ItemSelect
+            cardsData={hairStyle}
+            itemListTitle={"HairStyle"}
+          ></ItemSelect>
+          <ItemSelect cardsData={hairStyle} itemListTitle={"Top"}></ItemSelect>
+          <ItemSelect
+            cardsData={hairStyle}
+            itemListTitle={"Bottom"}
+          ></ItemSelect>
         </article>
 
         <article className="w-full md:w-[50%] bg-blue-200 p-3">
