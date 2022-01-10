@@ -1,4 +1,6 @@
 from django.db import models
 
-class img_fileuplaod(models.Model):
-    photo = models.ImageField(upload_to="api/img_file")
+# Create your models here.
+class test(models.Model):
+    title = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)

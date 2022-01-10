@@ -38,6 +38,29 @@ services:
   #     - ./frontend:/usr/src/app
   #     - /usr/src/app/node_modules
   #     - /usr/src/app/.next
+  backend:
+    build:
+      context: ./backend
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend/:/lego2me/
+    expose:
+      - 8000
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
 
   flask:
     build: ./ai_flask_api
@@ -48,4 +71,3 @@ services:
     depends_on:
        - db
 volumes:
-   mongoVolume:
