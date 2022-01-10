@@ -1,8 +1,14 @@
+from django.db.models import fields
 from rest_framework import serializers
-from .models import WiseSaying
+from .models import img_fileuplaod
 
-
-class WiseSayingSerializer(serializers.ModelSerializer):
+"""class Clothes_info(serializers.ModelSerializer):
     class Meta:
-        model = WiseSaying
+    """
+
+class ImgSerializer(serializers.HyperlinkedModelSerializer):
+    image = serializers.ImageField(use_url=True)
+
+    class Meta:
+        model = img_fileuplaod
         fields = '__all__'
