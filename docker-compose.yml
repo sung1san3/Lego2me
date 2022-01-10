@@ -67,7 +67,8 @@ services:
     volumes:
       - ./ai_flask_api:/ai_flask_api
     ports:
-       - '5000:5000'
+       - '5001:5001'
     depends_on:
        - db
 volumes:
+  mongoVolume:
