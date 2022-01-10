@@ -78,7 +78,7 @@ const result = () => {
     <div>
       <Nav></Nav>
       <section className="flex-col-2 p-10 md:flex">
-        <article className="w-full md:w-[50%] flex-sh bg-lime-300 p-3">
+        <article className="w-full md:w-[50%] flex-sh  p-3">
           {/* item select */}
           <ItemSelect
             cardsData={hairStyle}
@@ -91,7 +91,7 @@ const result = () => {
           ></ItemSelect>
         </article>
 
-        <article className="w-full md:w-[50%] bg-blue-200 p-3">
+        <article className="w-full md:w-[50%] p-3">
           <div>
             <h1 className="text-center text-Montserrat font-bold text-xl lg:text-2xl">
               It&apos;s your{" "}
