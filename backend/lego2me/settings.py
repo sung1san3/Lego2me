@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_jwt',
     'corsheaders',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -155,6 +156,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+#APPEND_SLASH = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

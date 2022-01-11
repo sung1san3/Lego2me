@@ -10,8 +10,8 @@ class Image_data(models.Model):
     image_uri = models.CharField(max_length=100)
 
 class Img_upload(models.Model):
-    img = models.ImageField(upload_to="api")
+    img = models.ImageField()
     title = models.TextField()
-    
+
     def __str__(self):
         return self.title
