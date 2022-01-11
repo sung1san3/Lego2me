@@ -38,10 +38,6 @@ const result = () => {
     },
     {
       img: "/images/lego2me.png",
-      title: "Pet allowed",
-    },
-    {
-      img: "/images/lego2me.png",
       title: "Outdoor getaways",
     },
     {
@@ -54,10 +50,6 @@ const result = () => {
     },
     {
       img: "/images/lego2me.png",
-      title: "Pet allowed",
-    },
-    {
-      img: "/images/lego2me.png",
       title: "Outdoor getaways",
     },
     {
@@ -67,10 +59,6 @@ const result = () => {
     {
       img: "/images/lego2me.png",
       title: "Entire homes",
-    },
-    {
-      img: "/images/lego2me.png",
-      title: "Pet allowed",
     },
   ];
 
