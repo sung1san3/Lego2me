@@ -5,8 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      Montserrat: ["Montserrat", "sans-serif"],
+    },
   },
   plugins: [require("tailwind-scrollbar-hide")],
 };
-
-
