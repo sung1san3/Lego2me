@@ -1,11 +1,14 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  webpackDevMiddleware: (config) => {
-    config.watchOptions = {
-      poll: 1000,
-      aggregateTimeout: 300,
-    };
-
-    return config;
+  reactStrictMode: true,
+  purge: [], //remove this line
+  purge: ["./components/**/*.tsx", "./pages/**/*.tsx", "./public/**/*.html"], //add this line
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {},
   },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
 };
