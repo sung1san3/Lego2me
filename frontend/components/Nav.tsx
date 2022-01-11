@@ -7,6 +7,8 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { styled, SxProps, Theme } from "@mui/material/styles";
 import { isMainThread } from "worker_threads";
+import axios from "axios";
+import FormData from "form-data";
 
 const Nav = () => {
   const router = useRouter();
@@ -33,8 +35,24 @@ const Nav = () => {
 
   const setFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files instanceof FileList) {
-      let file = e.target.files[0];
-      console.log(file);
+      const fd = new FormData();
+      const upload_file = e.target.files[0];
+      console.log(upload_file);
+      fd.append("img", upload_file);
+      fd.append("title", upload_file.name);
+
+      axios
+        .post("http://localhost:8001/api/posts/", fd, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log("success");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -91,6 +109,7 @@ const Nav = () => {
                   color="error"
                   component="span"
                   className="mt-4"
+                  // onClick={uplodeFile}
                 >
                   Upload
                 </Button>
