@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Box from "@mui/material/Box";
@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { styled, SxProps, Theme } from "@mui/material/styles";
+import { isMainThread } from "worker_threads";
 
 const Nav = () => {
   const router = useRouter();
@@ -28,6 +29,13 @@ const Nav = () => {
       boxShadow: 24,
       p: 4,
     };
+  };
+
+  const setFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files instanceof FileList) {
+      let file = e.target.files[0];
+      console.log(file);
+    }
   };
 
   return (
@@ -76,6 +84,7 @@ const Nav = () => {
                   id="contained-button-file"
                   multiple
                   type="file"
+                  onChange={(e) => setFile(e)}
                 />
                 <Button
                   variant="contained"
