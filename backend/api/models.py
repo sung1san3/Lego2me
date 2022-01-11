@@ -1,7 +1,4 @@
 from django.db import models
 
-class WiseSaying(models.Model):
-    text = models.TextField()
-
-    def __str__(self):
-        return self.text
+class img_fileuplaod(models.Model):
+    photo = models.ImageField(upload_to="api/img_file")

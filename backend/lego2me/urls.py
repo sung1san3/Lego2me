@@ -14,15 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
 from django.urls import path, include
 from rest_framework import routers
 from api import views
 
-router = routers.DefaultRouter()
-router.register('wisesaying', views.WiseSayingView, 'wisesaying')
+from django.views.static import serve
+from django.conf import settings
+from django.conf.urls.static import static
+
+#from backend.api.views import file_upload
+
+router = routers.SimpleRouter()
+router.register('imgContentView', views.imgContentView, 'imgContentView')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
-]
+    #path('fileUpload/'),include(router.urls),
+    #path('fileupload/', views.file_upload, name = 'file_upload')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
