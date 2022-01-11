@@ -115,7 +115,11 @@ DATABASES = {
     { 'ENGINE': 'djongo',
         'CLIENT': {
             'name': 'lego2me',
-            'host': 'mongodb://localhost:27017',
+            #로컬용
+            #mongodb://localhost:27017
+            #도커용
+            #db
+            'host': 'db',
             'username': 'root',
             'password': 'legolego',
             'authSource': 'admin',
@@ -123,7 +127,7 @@ DATABASES = {
             }
         }
 }
-#mongodb://localhost:27017
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
