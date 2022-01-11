@@ -6,7 +6,8 @@ services:
     image: mongo:latest
     restart: unless-stopped
     volumes:
-      - /var/lib/docker/volumes/mongo
+      - lego2me_db:/var/lib/docker/volumes/mongo
+      - $PWD:/home
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: legolego
@@ -18,13 +19,14 @@ services:
   backend:
     build:
       context: ./backend
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8001
     ports:
-      - 8000:8000
+      - 8001:8001
     volumes:
       - ./backend/:/lego2me/
+      - $PWD:/home
     expose:
-      - 8000
+      - 8001
     depends_on:
       - db
 
@@ -38,10 +40,17 @@ services:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
       - /usr/src/app/.next
+      - $PWD:/home
 
-  # flask:
-  #   build: ./ai_flask_api
-  #   volumes:
-  #     - ./ai_flask_api:/ai_flask_api
-  #   ports:
-  #     - '5000:5000'
+  flask:
+    build: ./ai_flask_api
+    volumes:
+       - ./ai_flask_api:/ai_flask_api
+       - $PWD:/home
+    ports:
+       - '5001:5001'
+    depends_on:
+       - db
+volumes:
+  mongoVolume:
+

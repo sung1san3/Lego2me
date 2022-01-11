@@ -14,21 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.db import router
 from django.urls import path, include
-from rest_framework import routers
-from api import views
-
-from django.views.static import serve
 from django.conf import settings
 from django.conf.urls.static import static
+from api import views
+from rest_framework import routers
+from rest_framework.permissions import AllowAny, IsAuthenticated, BasePermission
 
-#from backend.api.views import file_upload
-
-router = routers.SimpleRouter()
-router.register('imgContentView', views.imgContentView, 'imgContentView')
+from .yasg import *
+#router = routers.DefaultRouter()
+#router.register('Img_upload', views.Img_upload_view, 'Img_upload')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('fileUpload/'),include(router.urls),
-    #path('fileupload/', views.file_upload, name = 'file_upload')
+    path('api/', include('api.urls')),
+
+    path('swagger<str:format>', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('docs/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
