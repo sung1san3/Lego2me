@@ -119,7 +119,7 @@ DATABASES = {
             #mongodb://localhost:27017
             #도커용
             #db
-            'host': 'db',
+            'host': 'mongodb://localhost:27017',
             'username': 'root',
             'password': 'legolego',
             'authSource': 'admin',
