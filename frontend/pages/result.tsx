@@ -25,40 +25,44 @@ const result = () => {
 
   const hairStyle = [
     {
-      img: "/images/lego2me.png",
-      title: "Outdoor getaways",
+      img: "/items/hair1.jpg",
+      title: "hair1",
     },
     {
-      img: "/images/lego2me.png",
-      title: "Unique stays",
+      img: "/items/hair2.jpg",
+      title: "hair2",
     },
     {
-      img: "/images/lego2me.png",
-      title: "Entire homes",
+      img: "/items/hair3.jpg",
+      title: "hair3",
+    },
+  ];
+  const topStyle = [
+    {
+      img: "/items/top1.jpg",
+      title: "top1",
     },
     {
-      img: "/images/lego2me.png",
-      title: "Outdoor getaways",
+      img: "/items/top2.jpg",
+      title: "top2",
     },
     {
-      img: "/images/lego2me.png",
-      title: "Unique stays",
+      img: "/items/top3.jpg",
+      title: "top3",
+    },
+  ];
+  const bottomStyle = [
+    {
+      img: "/items/bottom1.jpg",
+      title: "bottom1",
     },
     {
-      img: "/images/lego2me.png",
-      title: "Entire homes",
+      img: "/items/bottom2.jpg",
+      title: "bottom2",
     },
     {
-      img: "/images/lego2me.png",
-      title: "Outdoor getaways",
-    },
-    {
-      img: "/images/lego2me.png",
-      title: "Unique stays",
-    },
-    {
-      img: "/images/lego2me.png",
-      title: "Entire homes",
+      img: "/items/bottom3.jpg",
+      title: "bottom3",
     },
   ];
 
@@ -72,9 +76,9 @@ const result = () => {
             cardsData={hairStyle}
             itemListTitle={"HairStyle"}
           ></ItemSelect>
-          <ItemSelect cardsData={hairStyle} itemListTitle={"Top"}></ItemSelect>
+          <ItemSelect cardsData={topStyle} itemListTitle={"Top"}></ItemSelect>
           <ItemSelect
-            cardsData={hairStyle}
+            cardsData={bottomStyle}
             itemListTitle={"Bottom"}
           ></ItemSelect>
         </article>
