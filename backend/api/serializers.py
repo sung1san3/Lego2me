@@ -10,3 +10,9 @@ class Img_upload_serializers(serializers.ModelSerializer):
     class Meta:
         model = Img_upload
         fields = '__all__'
+
+class Img_data_serializers(serializers.ModelSerializer):
+
+    class Meta:
+        model = Image_data
+        fields = '__all__'

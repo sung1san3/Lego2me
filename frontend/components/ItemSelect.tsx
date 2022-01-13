@@ -53,7 +53,7 @@ const ItemSelect: React.FunctionComponent<ItemSelectProps> = ({
       </div>
       <div
         id={itemListTitle}
-        className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3 scroll-smooth"
+        className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3 scroll-smooth bg-gray-200 rounded-lg"
       >
         {/* items */}
         {cardsData.map(({ img, title }) => (
