@@ -11,8 +11,8 @@ const MediumCard: React.FunctionComponent<MediumCardProps> = ({
   title,
 }) => {
   return (
-    <div className="cursor-pointer hover:scale-105 transform transition duration-300">
-      <div className="relative h-20 w-20">
+    <div className="cursor-pointer hover:scale-110 transform transition duration-300">
+      <div className="relative h-32 w-32">
         <Image
           src={img}
           alt="image"
