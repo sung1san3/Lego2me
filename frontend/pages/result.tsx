@@ -1,28 +1,13 @@
-import React from "react";
+import type { NextPage } from "next";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import Image from "next/image";
 import { Button } from "@mui/material";
 import { saveAs } from "file-saver";
-import MediumCard from "../components/MediumCard";
-import {
-  ArrowCircleLeftIcon,
-  ArrowCircleRightIcon,
-} from "@heroicons/react/solid";
 import ItemSelect from "../components/ItemSelect";
 
-const result = () => {
-  const onDownload = () => {
-    element: HTMLImageElement; /* Defining element */
-    const img = document.querySelector("#resultimg");
-    if (img !== null) {
-      let imgSrc = (img as HTMLImageElement).src;
-      saveAs(imgSrc, "image.png");
-    } else {
-      window.alert("Error! try upload again");
-    }
-  };
-
+const Result: NextPage = () => {
   const hairStyle = [
     {
       img: "/items/hair/hair1_black.png",
@@ -66,6 +51,32 @@ const result = () => {
     },
   ];
 
+  const onDownload = () => {
+    element: HTMLImageElement; /* Defining element */
+    const img = document.querySelector("#resultimg");
+    if (img !== null) {
+      let imgSrc = (img as HTMLImageElement).src;
+      saveAs(imgSrc, "image.png");
+    } else {
+      window.alert("Error! try upload again");
+    }
+  };
+
+  const [hair, setHair] = useState("Default");
+  useEffect(() => {
+    // console.log(`change Hair ${hair}`);
+  }, [hair]);
+
+  const [top, setTop] = useState("Default");
+  useEffect(() => {
+    // console.log(`change top ${top}`);
+  }, [top]);
+
+  const [bottom, setBottom] = useState("Default");
+  useEffect(() => {
+    // console.log(`change Bottom${bottom}`);
+  }, [bottom]);
+
   return (
     <div>
       <Nav></Nav>
@@ -75,11 +86,17 @@ const result = () => {
           <ItemSelect
             cardsData={hairStyle}
             itemListTitle={"HairStyle"}
+            setState={setHair}
           ></ItemSelect>
-          <ItemSelect cardsData={topStyle} itemListTitle={"Top"}></ItemSelect>
+          <ItemSelect
+            cardsData={topStyle}
+            itemListTitle={"Top"}
+            setState={setTop}
+          ></ItemSelect>
           <ItemSelect
             cardsData={bottomStyle}
             itemListTitle={"Bottom"}
+            setState={setBottom}
           ></ItemSelect>
         </article>
 
@@ -119,4 +136,4 @@ const result = () => {
 };
 // ssr
 
-export default result;
+export default Result;

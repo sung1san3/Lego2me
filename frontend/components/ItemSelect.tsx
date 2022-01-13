@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import {
   ArrowCircleLeftIcon,
   ArrowCircleRightIcon,
@@ -11,11 +11,13 @@ interface ItemSelectProps {
     title: string;
   }[];
   itemListTitle?: string;
+  setState: Dispatch<SetStateAction<string>>;
 }
 
 const ItemSelect: React.FunctionComponent<ItemSelectProps> = ({
   cardsData,
   itemListTitle,
+  setState,
 }) => {
   function handleClickLeft() {
     if (process.browser) {
