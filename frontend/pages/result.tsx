@@ -25,43 +25,43 @@ const result = () => {
 
   const hairStyle = [
     {
-      img: "/items/hair1.jpg",
+      img: "/items/hair/hair1_black.png",
       title: "hair1",
     },
     {
-      img: "/items/hair2.jpg",
+      img: "/items/hair/hair2_black.png",
       title: "hair2",
     },
     {
-      img: "/items/hair3.jpg",
+      img: "/items/hair/hair3_black.png",
       title: "hair3",
     },
   ];
   const topStyle = [
     {
-      img: "/items/top1.jpg",
+      img: "/items/top/top1_orange.png",
       title: "top1",
     },
     {
-      img: "/items/top2.jpg",
+      img: "/items/top/top2_green.png",
       title: "top2",
     },
     {
-      img: "/items/top3.jpg",
+      img: "/items/top/top3_blue.png",
       title: "top3",
     },
   ];
   const bottomStyle = [
     {
-      img: "/items/bottom1.jpg",
+      img: "/items/bottom/btm1_blue.png",
       title: "bottom1",
     },
     {
-      img: "/items/bottom2.jpg",
+      img: "/items/bottom/btm2_red.png",
       title: "bottom2",
     },
     {
-      img: "/items/bottom3.jpg",
+      img: "/items/bottom/btm3_orange.png",
       title: "bottom3",
     },
   ];
@@ -93,7 +93,7 @@ const result = () => {
               {/* api 결괏값으로 이후 이미지 태그를 생성해줄 예정 */}
               <Image
                 id="resultimg"
-                src="/images/lego_result.png"
+                src="/items/lego_default.png"
                 width="377px"
                 height="377px"
                 alt="result lego character"
