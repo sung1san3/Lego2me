@@ -1,10 +1,9 @@
 version: "3"
 
 services:
-  # mongo Db
   db:
     image: mongo:latest
-    restart: unless-stopped
+    restart: unless-stopped #컨테이너 스탑하기전까지 항상 재시작
     volumes:
       - mongoVolume:/data/db
     environment:
@@ -15,29 +14,6 @@ services:
     ports:
       - 27017:27017
 
-  # backend:
-  #   build:
-  #     context: ./backend
-  #   command: python manage.py runserver 0.0.0.0:8000
-  #   ports:
-  #     - 8000:8000
-  #   volumes:
-  #     - ./backend/:/lego2me/
-  #   expose:
-  #     - 8000
-  #   depends_on:
-  #      - db
-
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./frontend:/usr/src/app
-  #     - /usr/src/app/node_modules
-  #     - /usr/src/app/.next
   backend:
     build:
       context: ./backend
@@ -62,13 +38,30 @@ services:
       - /usr/src/app/node_modules
       - /usr/src/app/.next
 
-  flask:
-    build: ./ai_flask_api
-    volumes:
-      - ./ai_flask_api:/ai_flask_api
+  rabbitmq:
+    container_name: rabbitmq
+    hostname: rabbitmq
+    image: rabbitmq:latest
     ports:
-       - '5001:5001'
+      - "5672:5672"
+    restart: on-failure #정상적으로 종료되지않은 경우에만 재시작 (오류코드 0 아니면 재시작)
+
+  celery:
+    build: 
+      context: .
+    command: celery -A app worker -l info
+    volumes:
+      - ./backend/:/lego2me/
     depends_on:
-       - db
+      - db
+      - rabbitmq
+      - backend
+    restart: on-failure
+
+  redis:
+    image: redis:alpine
+    ports: 
+      - "6379:6379"
+
 volumes:
-  mongoVolume:
+  mongoVolume: null
