@@ -39,7 +39,7 @@ const Nav = () => {
       const upload_file = e.target.files[0];
       console.log(upload_file);
       fd.append("img", upload_file);
-      fd.append("title", upload_file.name);
+      //fd.append("title", upload_file.name);
 
       axios
         .post("http://localhost:8001/api/posts/", fd, {

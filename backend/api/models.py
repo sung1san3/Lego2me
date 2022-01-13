@@ -11,7 +11,4 @@ class Image_data(models.Model):
 
 class Img_upload(models.Model):
     img = models.ImageField()
-    title = models.TextField()
-
-    def __str__(self):
-        return self.title
+    #title = models.TextField()
