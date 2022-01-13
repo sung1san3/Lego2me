@@ -6,7 +6,7 @@ from rest_framework.decorators import parser_classes
 # from django.views.decorators.http import require_POST
 from rest_framework import viewsets
 
-from backend.api.img_upload import db_save
+#from backend.api.img_upload import db_save
 from .serializers import Img_upload_serializers
 from .models import Img_upload
 from rest_framework.views import APIView

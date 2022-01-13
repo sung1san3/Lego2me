@@ -21,7 +21,7 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./backend/:/lego2me/
+      - ./backend/:/backend/
     expose:
       - 8000
     depends_on:
@@ -49,9 +49,9 @@ services:
   celery:
     build: 
       context: .
-    command: celery -A app worker -l info
+    command: celery -A lego2me worker -l info
     volumes:
-      - ./backend/:/lego2me/
+      - ./backend/:/backend/
     depends_on:
       - db
       - rabbitmq
@@ -60,8 +60,8 @@ services:
 
   redis:
     image: redis:alpine
-    ports: 
+    ports:
       - "6379:6379"
 
 volumes:
-  mongoVolume: null
+  mongoVolume:
