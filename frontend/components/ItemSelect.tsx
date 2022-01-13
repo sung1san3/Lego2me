@@ -10,14 +10,14 @@ interface ItemSelectProps {
     img: string;
     title: string;
   }[];
-  itemListTitle?: string;
-  setState: Dispatch<SetStateAction<string>>;
+  itemListTitle: string;
+  //setState: Dispatch<SetStateAction<string>>;
 }
 
 const ItemSelect: React.FunctionComponent<ItemSelectProps> = ({
   cardsData,
   itemListTitle,
-  setState,
+  //setState,
 }) => {
   function handleClickLeft() {
     if (process.browser) {
@@ -59,7 +59,12 @@ const ItemSelect: React.FunctionComponent<ItemSelectProps> = ({
       >
         {/* items */}
         {cardsData.map(({ img, title }) => (
-          <MediumCard key={img} img={img} title={title} />
+          <MediumCard
+            key={img}
+            img={img}
+            title={title}
+            itemListTitle={itemListTitle}
+          />
         ))}
       </div>
     </div>

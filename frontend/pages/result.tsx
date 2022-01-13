@@ -6,6 +6,8 @@ import Image from "next/image";
 import { Button } from "@mui/material";
 import { saveAs } from "file-saver";
 import ItemSelect from "../components/ItemSelect";
+import { useRecoilState } from "recoil";
+import { hairState, topState, bottomState } from "../recoil/states";
 
 const Result: NextPage = () => {
   const hairStyle = [
@@ -62,21 +64,9 @@ const Result: NextPage = () => {
     }
   };
 
-  const [hair, setHair] = useState("Default");
-  useEffect(() => {
-    // console.log(`change Hair ${hair}`);
-  }, [hair]);
-
-  const [top, setTop] = useState("Default");
-  useEffect(() => {
-    // console.log(`change top ${top}`);
-  }, [top]);
-
-  const [bottom, setBottom] = useState("Default");
-  useEffect(() => {
-    // console.log(`change Bottom${bottom}`);
-  }, [bottom]);
-
+  const [hair, setHairState] = useRecoilState(hairState);
+  const [top, setTopState] = useRecoilState(topState);
+  const [bottom, setBottomState] = useRecoilState(bottomState);
   return (
     <div>
       <Nav></Nav>
@@ -86,17 +76,17 @@ const Result: NextPage = () => {
           <ItemSelect
             cardsData={hairStyle}
             itemListTitle={"HairStyle"}
-            setState={setHair}
+            //setState={setHair}
           ></ItemSelect>
           <ItemSelect
             cardsData={topStyle}
             itemListTitle={"Top"}
-            setState={setTop}
+            //setState={setTop}
           ></ItemSelect>
           <ItemSelect
             cardsData={bottomStyle}
             itemListTitle={"Bottom"}
-            setState={setBottom}
+            //setState={setBottom}
           ></ItemSelect>
         </article>
 
@@ -105,16 +95,47 @@ const Result: NextPage = () => {
             <h1 className="text-center text-Montserrat font-bold text-xl lg:text-2xl">
               It&apos;s your{" "}
               <em className="text-red-500 not-italic">character!</em>
+              {/* {hair}
+              {top}
+              {bottom} */}
             </h1>
-            <div className="w-fit m-auto">
-              {/* api 결괏값으로 이후 이미지 태그를 생성해줄 예정 */}
-              <Image
-                id="resultimg"
-                src="/items/lego_default.png"
-                width="377px"
-                height="377px"
-                alt="result lego character"
-              ></Image>
+            <div className="w-fit m-auto relative">
+              <div>
+                <Image
+                  id="resultimg"
+                  src="/items/lego_default.png"
+                  width="377px"
+                  height="377px"
+                  alt="result lego character"
+                ></Image>
+              </div>
+              <div className=" absolute w-[377px] h-[377px] top-0 left-0">
+                <Image
+                  id="hat"
+                  src={hair}
+                  width="377px"
+                  height="377px"
+                  alt="result lego HairStyle"
+                ></Image>
+              </div>
+              <div className=" absolute w-[377px] h-[377px] top-0 left-0">
+                <Image
+                  id="hat"
+                  src={top}
+                  width="377px"
+                  height="377px"
+                  alt="result lego HairStyle"
+                ></Image>
+              </div>
+              <div className=" absolute w-[377px] h-[377px] top-0 left-0">
+                <Image
+                  id="hat"
+                  src={bottom}
+                  width="377px"
+                  height="377px"
+                  alt="result lego HairStyle"
+                ></Image>
+              </div>
             </div>
             <div className="flex justify-center">
               <Button
