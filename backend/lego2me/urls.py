@@ -18,7 +18,7 @@ from django.db import router
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from api import views
+#from api import views
 from rest_framework import routers
 from rest_framework.permissions import AllowAny, IsAuthenticated, BasePermission
 
