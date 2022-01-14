@@ -14,12 +14,10 @@ ADD requirements.txt /backend
 ADD . /backend/
 RUN pip3 install --upgrade pip
 
-RUN pip3 install django
-RUN pip3 install mongoengine
+RUN pip install djangorestframework djangorestframework-jwt
 
 RUN apk add --no-cache jpeg-dev zlib-dev
 RUN apk add --no-cache --virtual .build-deps build-base linux-headers
-
 RUN pip3 install -r requirements.txt
 
 

@@ -25,52 +25,44 @@ const result = () => {
 
   const hairStyle = [
     {
-      img: "/images/lego2me.png",
-      title: "Outdoor getaways",
+      img: "/items/hair/hair1_black.png",
+      title: "hair1",
     },
     {
-      img: "/images/lego2me.png",
-      title: "Unique stays",
+      img: "/items/hair/hair2_black.png",
+      title: "hair2",
     },
     {
-      img: "/images/lego2me.png",
-      title: "Entire homes",
+      img: "/items/hair/hair3_black.png",
+      title: "hair3",
+    },
+  ];
+  const topStyle = [
+    {
+      img: "/items/top/top1_orange.png",
+      title: "top1",
     },
     {
-      img: "/images/lego2me.png",
-      title: "Pet allowed",
+      img: "/items/top/top2_green.png",
+      title: "top2",
     },
     {
-      img: "/images/lego2me.png",
-      title: "Outdoor getaways",
+      img: "/items/top/top3_blue.png",
+      title: "top3",
+    },
+  ];
+  const bottomStyle = [
+    {
+      img: "/items/bottom/btm1_blue.png",
+      title: "bottom1",
     },
     {
-      img: "/images/lego2me.png",
-      title: "Unique stays",
+      img: "/items/bottom/btm2_red.png",
+      title: "bottom2",
     },
     {
-      img: "/images/lego2me.png",
-      title: "Entire homes",
-    },
-    {
-      img: "/images/lego2me.png",
-      title: "Pet allowed",
-    },
-    {
-      img: "/images/lego2me.png",
-      title: "Outdoor getaways",
-    },
-    {
-      img: "/images/lego2me.png",
-      title: "Unique stays",
-    },
-    {
-      img: "/images/lego2me.png",
-      title: "Entire homes",
-    },
-    {
-      img: "/images/lego2me.png",
-      title: "Pet allowed",
+      img: "/items/bottom/btm3_orange.png",
+      title: "bottom3",
     },
   ];
 
@@ -84,9 +76,9 @@ const result = () => {
             cardsData={hairStyle}
             itemListTitle={"HairStyle"}
           ></ItemSelect>
-          <ItemSelect cardsData={hairStyle} itemListTitle={"Top"}></ItemSelect>
+          <ItemSelect cardsData={topStyle} itemListTitle={"Top"}></ItemSelect>
           <ItemSelect
-            cardsData={hairStyle}
+            cardsData={bottomStyle}
             itemListTitle={"Bottom"}
           ></ItemSelect>
         </article>
@@ -101,7 +93,7 @@ const result = () => {
               {/* api 결괏값으로 이후 이미지 태그를 생성해줄 예정 */}
               <Image
                 id="resultimg"
-                src="/images/lego_result.png"
+                src="/items/lego_default.png"
                 width="377px"
                 height="377px"
                 alt="result lego character"
