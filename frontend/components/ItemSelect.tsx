@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import {
   ArrowCircleLeftIcon,
   ArrowCircleRightIcon,
@@ -10,12 +10,14 @@ interface ItemSelectProps {
     img: string;
     title: string;
   }[];
-  itemListTitle?: string;
+  itemListTitle: string;
+  //setState: Dispatch<SetStateAction<string>>;
 }
 
 const ItemSelect: React.FunctionComponent<ItemSelectProps> = ({
   cardsData,
   itemListTitle,
+  //setState,
 }) => {
   function handleClickLeft() {
     if (process.browser) {
@@ -57,7 +59,12 @@ const ItemSelect: React.FunctionComponent<ItemSelectProps> = ({
       >
         {/* items */}
         {cardsData.map(({ img, title }) => (
-          <MediumCard key={img} img={img} title={title} />
+          <MediumCard
+            key={img}
+            img={img}
+            title={title}
+            itemListTitle={itemListTitle}
+          />
         ))}
       </div>
     </div>
