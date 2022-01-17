@@ -12,8 +12,8 @@ class Img_upload_serializers(serializers.ModelSerializer):
         model = Img_upload
         fields = ['img', 'img_title']
 
-    def __str__(self):
-        return self._id
+    # def __str__(self):
+    #     return self._id
 
 class Img_data_serializers(serializers.ModelSerializer):
 

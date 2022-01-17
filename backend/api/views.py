@@ -26,8 +26,8 @@ import glob
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Img_upload.objects.all()
     serializer_class = Img_upload_serializers
-    if serializer_class.is_valid():
-        print(serializer_class)
+    # if serializer_class.is_valid():
+    #     print(serializer_class)
     #id = Img_upload.objects.order_by('-id')
     #id 가져오기 (아마 파일명으로)
     #filename = Img_upload.objects.filter('img_title')
