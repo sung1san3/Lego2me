@@ -1,6 +1,6 @@
 import React from "react";
 
-const Footer = () => {
+const Footer: React.FunctionComponent = () => {
   return (
     <footer className="p-10">
       <div className="w-[300px] md:w-[500px] border border-gray-200 rounded-md m-auto"></div>

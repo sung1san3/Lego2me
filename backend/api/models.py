@@ -6,9 +6,9 @@ from django.db import models
 #from django.dispatch import receiver
 
 class Image_data(models.Model):
-    name = models.CharField(max_length=100)
+    id = models.CharField(primary_key=True,max_length=100)
     image_uri = models.CharField(max_length=100)
 
 class Img_upload(models.Model):
     img = models.ImageField()
-    #title = models.TextField()
+    img_title = models.CharField(max_length=100)

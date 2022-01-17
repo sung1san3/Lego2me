@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-const IntroBanner = () => {
+const IntroBanner: React.FunctionComponent = () => {
   const router = useRouter();
 
   return (

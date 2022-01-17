@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-const Howto = () => {
+const Howto: React.FunctionComponent = () => {
   return (
     <section className="m-10 pt-10 md:pt-20 lg:pt-32">
       <div className="flex flex-wrap justify-between space-x-3 space-y-32 xl:space-y-0">

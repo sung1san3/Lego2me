@@ -2,14 +2,19 @@ import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
-import Image from "next/image";
-import { Button } from "@mui/material";
-import { saveAs } from "file-saver";
 import ItemSelect from "../components/ItemSelect";
 import { useRecoilState } from "recoil";
 import { hairState, topState, bottomState } from "../recoil/states";
+import ResultLego from "../components/ResultLego";
 
 const Result: NextPage = () => {
+  const [hair, setHairState] = useRecoilState(hairState);
+  const [top, setTopState] = useRecoilState(topState);
+  const [bottom, setBottomState] = useRecoilState(bottomState);
+
+  console.log(`reesult ${top}`);
+  console.log(`reesult ${bottom}`);
+
   const hairStyle = [
     {
       img: "/items/hair/hair1_black.png",
@@ -37,6 +42,10 @@ const Result: NextPage = () => {
       img: "/items/top/top3_blue.png",
       title: "top3",
     },
+    {
+      img: "/items/top/red_shirts.png",
+      title: "top4",
+    },
   ];
   const bottomStyle = [
     {
@@ -51,22 +60,12 @@ const Result: NextPage = () => {
       img: "/items/bottom/btm3_orange.png",
       title: "bottom3",
     },
+    {
+      img: "/items/bottom/black_pants.png",
+      title: "bottom4",
+    },
   ];
 
-  const onDownload = () => {
-    element: HTMLImageElement; /* Defining element */
-    const img = document.querySelector("#resultimg");
-    if (img !== null) {
-      let imgSrc = (img as HTMLImageElement).src;
-      saveAs(imgSrc, "image.png");
-    } else {
-      window.alert("Error! try upload again");
-    }
-  };
-
-  const [hair, setHairState] = useRecoilState(hairState);
-  const [top, setTopState] = useRecoilState(topState);
-  const [bottom, setBottomState] = useRecoilState(bottomState);
   return (
     <div>
       <Nav></Nav>
@@ -89,66 +88,8 @@ const Result: NextPage = () => {
             //setState={setBottom}
           ></ItemSelect>
         </article>
-
         <article className="w-full md:w-[50%] p-3">
-          <div>
-            <h1 className="text-center text-Montserrat font-bold text-xl lg:text-2xl">
-              It&apos;s your{" "}
-              <em className="text-red-500 not-italic">character!</em>
-              {/* {hair}
-              {top}
-              {bottom} */}
-            </h1>
-            <div className="w-fit m-auto relative">
-              <div>
-                <Image
-                  id="resultimg"
-                  src="/items/lego_default.png"
-                  width="377px"
-                  height="377px"
-                  alt="result lego character"
-                ></Image>
-              </div>
-              <div className=" absolute w-[377px] h-[377px] top-0 left-0">
-                <Image
-                  id="hat"
-                  src={hair}
-                  width="377px"
-                  height="377px"
-                  alt="result lego HairStyle"
-                ></Image>
-              </div>
-              <div className=" absolute w-[377px] h-[377px] top-0 left-0">
-                <Image
-                  id="hat"
-                  src={top}
-                  width="377px"
-                  height="377px"
-                  alt="result lego HairStyle"
-                ></Image>
-              </div>
-              <div className=" absolute w-[377px] h-[377px] top-0 left-0">
-                <Image
-                  id="hat"
-                  src={bottom}
-                  width="377px"
-                  height="377px"
-                  alt="result lego HairStyle"
-                ></Image>
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <Button
-                onClick={onDownload}
-                variant="contained"
-                color="error"
-                component="span"
-                className="mt-4"
-              >
-                Download
-              </Button>
-            </div>
-          </div>
+          <ResultLego />
         </article>
       </section>
       <Footer></Footer>
