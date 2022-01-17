@@ -30,10 +30,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 CORS_ORIGIN_WHITELIST = ['http://localhost:3000'] #아까 설치한 corsheaders로 해당 서버와 연결할 서버의 url을 작성해준모습
-<<<<<<< HEAD
-=======
-
->>>>>>> docker
 
 # Application definition
 

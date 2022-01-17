@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-from django.urls import path
-from . import views
-
-urlpatterns = [
-    path('posts/', views.PostView.as_view(), name= 'posts_list'),
-]
-=======
 # from django.urls import path
 # from . import views
 
@@ -27,4 +19,3 @@ urlpatterns = router.urls
 # urlpatterns = [
 #    path('', include(router.urls)),
 # ]
->>>>>>> docker

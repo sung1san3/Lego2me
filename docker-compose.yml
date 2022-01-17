@@ -47,7 +47,7 @@ services:
     restart: on-failure #정상적으로 종료되지않은 경우에만 재시작 (오류코드 0 아니면 재시작)
 
   celery:
-    build: 
+    build:
       context: .
     command: celery -A lego2me worker -l info
     volumes:
@@ -61,13 +61,7 @@ services:
   redis:
     image: redis:alpine
     ports:
-<<<<<<< HEAD
-       - '5001:5001'
-    depends_on:
-       - db
-=======
       - "6379:6379"
 
->>>>>>> docker
 volumes:
   mongoVolume:
