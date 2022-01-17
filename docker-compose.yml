@@ -1,10 +1,9 @@
 version: "3"
 
 services:
-  #mongo Db
   db:
     image: mongo:latest
-    restart: unless-stopped
+    restart: unless-stopped #컨테이너 스탑하기전까지 항상 재시작
     volumes:
       - mongoVolume:/data/db
     environment:
@@ -22,7 +21,7 @@ services:
     ports:
       - 8001:8001
     volumes:
-      - ./backend/:/lego2me/
+      - ./backend/:/backend/
     expose:
       - 8001
     depends_on:
@@ -39,13 +38,36 @@ services:
       - /usr/src/app/node_modules
       - /usr/src/app/.next
 
-  flask:
-    build: ./ai_flask_api
-    volumes:
-       - ./ai_flask_api:/ai_flask_api
+  rabbitmq:
+    container_name: rabbitmq
+    hostname: rabbitmq
+    image: rabbitmq:latest
     ports:
+      - "5672:5672"
+    restart: on-failure #정상적으로 종료되지않은 경우에만 재시작 (오류코드 0 아니면 재시작)
+
+  celery:
+    build: 
+      context: .
+    command: celery -A lego2me worker -l info
+    volumes:
+      - ./backend/:/backend/
+    depends_on:
+      - db
+      - rabbitmq
+      - backend
+    restart: on-failure
+
+  redis:
+    image: redis:alpine
+    ports:
+<<<<<<< HEAD
        - '5001:5001'
     depends_on:
        - db
+=======
+      - "6379:6379"
+
+>>>>>>> docker
 volumes:
   mongoVolume:
