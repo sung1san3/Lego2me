@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const Banner = () => {
+const Banner: React.FunctionComponent = () => {
   return (
     <div className="flex mx-10 mt-10 rounded-t-[3rem] rounded-bl-[3rem] rounded-br-[15rem] lg:rounded-br-[20rem] h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px] bg-gradient-to-r from-red-600 via-red-400 to-red-200">
       <div className="p-10 flex-auto">

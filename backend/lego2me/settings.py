@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'corsheaders',
     'drf_yasg',
+    'movies.apps.MoviesConfig',
 ]
 
 MIDDLEWARE = [

@@ -23,13 +23,19 @@ from rest_framework import routers
 from rest_framework.permissions import AllowAny, IsAuthenticated, BasePermission
 
 from .yasg import *
+
+from movies.views import MovieViewSet
+
 #router = routers.DefaultRouter()
 #router.register('Img_upload', views.Img_upload_view, 'Img_upload')
+
+router = routers.DefaultRouter()
+router.register('movies',MovieViewSet) # prefix = movies , viewset = MovieViewSe
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-
+    url(r'^',include(router.urls)),
     path('swagger<str:format>', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('docs/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

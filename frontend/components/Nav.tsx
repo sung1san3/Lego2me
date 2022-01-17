@@ -9,16 +9,33 @@ import { styled, SxProps, Theme } from "@mui/material/styles";
 import { isMainThread } from "worker_threads";
 import axios from "axios";
 import FormData from "form-data";
+import { useRecoilValue, useSetRecoilState, useResetRecoilState } from "recoil";
+import { hairState, topState, bottomState } from "../recoil/states";
 
-const Nav = () => {
+const Nav: React.FunctionComponent = () => {
   const router = useRouter();
+
+  // 구독하는 아톰의 값만 반환한다.
+  const hairStateValue = useRecoilValue(hairState);
+  const topStateValue = useRecoilValue(topState);
+  const bottomStateValue = useRecoilValue(bottomState);
+
+  // 값을 변경하는 함수만 반환
+  const setTopUseSetRecoilState = useSetRecoilState(topState);
+  const setBottomUseSetRecoilState = useSetRecoilState(bottomState);
+
+  // 설정된 기본값으로 리셋
+  const resetHair = useResetRecoilState(hairState);
+  const resetTop = useResetRecoilState(topState);
+  const resetBottom = useResetRecoilState(bottomState);
+
+  // Image Upload Modal
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const Input = styled("input")({
     display: "none",
   });
-
   const sxBox: SxProps<Theme> = (theme: Theme) => {
     return {
       position: "absolute",
@@ -41,18 +58,33 @@ const Nav = () => {
       fd.append("img", upload_file);
       //fd.append("title", upload_file.name);
 
-      axios
-        .post("http://localhost:8001/api/posts/", fd, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          console.log("success");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      //이미지 업로드 체크를 해당 api로 대체
+      axios.get("http://localhost:8001/movies/5").then((res) => {
+        const imgPathTop = "/items/top/";
+        const imgPathBottom = "/items/bottom/";
+
+        const objTop = res.data.top;
+        const objBottom = res.data.bottom;
+
+        const resultTop = "".concat(imgPathTop, objTop, ".png");
+        const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
+
+        console.log(resultTop);
+        console.log(resultBottom);
+
+        if (
+          hairStateValue !== "/items/default.png" ||
+          topStateValue !== "/items/default.png" ||
+          bottomStateValue !== "/items/default.png"
+        ) {
+          resetHair();
+          resetTop();
+          resetBottom();
+        }
+        setTopUseSetRecoilState(`${resultTop}`);
+        setBottomUseSetRecoilState(`${resultBottom}`);
+        router.push("/result");
+      });
     }
   };
 

@@ -10,6 +10,13 @@ import { useRecoilState } from "recoil";
 import { hairState, topState, bottomState } from "../recoil/states";
 
 const Result: NextPage = () => {
+  const [hair, setHairState] = useRecoilState(hairState);
+  const [top, setTopState] = useRecoilState(topState);
+  const [bottom, setBottomState] = useRecoilState(bottomState);
+
+  console.log(`reesult ${top}`);
+  console.log(`reesult ${bottom}`);
+
   const hairStyle = [
     {
       img: "/items/hair/hair1_black.png",
@@ -37,6 +44,10 @@ const Result: NextPage = () => {
       img: "/items/top/top3_blue.png",
       title: "top3",
     },
+    {
+      img: "/items/top/red_shirts.png",
+      title: "top4",
+    },
   ];
   const bottomStyle = [
     {
@@ -51,6 +62,10 @@ const Result: NextPage = () => {
       img: "/items/bottom/btm3_orange.png",
       title: "bottom3",
     },
+    {
+      img: "/items/bottom/black_pants.png",
+      title: "bottom4",
+    },
   ];
 
   const onDownload = () => {
@@ -64,9 +79,6 @@ const Result: NextPage = () => {
     }
   };
 
-  const [hair, setHairState] = useRecoilState(hairState);
-  const [top, setTopState] = useRecoilState(topState);
-  const [bottom, setBottomState] = useRecoilState(bottomState);
   return (
     <div>
       <Nav></Nav>
