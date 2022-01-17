@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRecoilState } from "recoil";
 import { hairState, topState, bottomState } from "../recoil/states";
+import { Skeleton } from "antd";
 
 interface MediumCardProps {
   img: string;
@@ -55,16 +56,33 @@ const MediumCard: React.FunctionComponent<MediumCardProps> = ({
     }
   };
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []); // 2초 후 로딩완료
+
   return (
     <div className="cursor-pointer hover:scale-110 transform transition duration-300">
-      <div className="relative h-32 w-32" onClick={handleClick}>
-        <Image
-          src={img}
-          alt="image"
-          layout="fill"
-          className=" rounded-lg"
-        ></Image>
-      </div>
+      <Skeleton
+        loading={isLoading}
+        active
+        avatar
+        paragraph={false}
+        title={false}
+      >
+        <div className="relative h-32 w-32" onClick={handleClick}>
+          <Image
+            src={img}
+            alt="image"
+            layout="fill"
+            className=" rounded-lg"
+          ></Image>
+        </div>
+      </Skeleton>
     </div>
   );
 };
