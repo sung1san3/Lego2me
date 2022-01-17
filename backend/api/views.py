@@ -1,5 +1,6 @@
 import imp
 from pyexpat import model
+from urllib import request
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
@@ -10,31 +11,55 @@ from rest_framework import viewsets
 
 #from api.img_upload import db_save
 from rest_framework.viewsets import ModelViewSet
-from .serializers import Img_upload_serializers
+from .serializers import Img_upload_serializers, Img_data_serializers
 from .models import Img_upload
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
-from .forms import Img_uploadform
+#from .forms import Img_uploadform
 
 import sys
 import os, os.path
 from .img_upload import upload_blob, db_save
 import glob
+import shutil, time
+
+
 
 class PostViewSet(viewsets.ModelViewSet):
+
     queryset = Img_upload.objects.all()
     serializer_class = Img_upload_serializers
-    if serializer_class.is_valid():
-        print(serializer_class)
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        filename = data.__getitem__('img_title')
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        newFileName = str(Img_upload.objects.filter(img_title=filename).values('img')[0]['img'])
+        print(newFileName)
+        #os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='lego2me-1e9632c03309.json'
+
+        #구글 클라우드 스토리지 URL만들기
+        bucket = "lego2me_image"
+        imguri = "https://storage.googleapis.com/"+bucket+"/"+newFileName
+        # db 저장
+        db_save(newFileName, imguri)
+        # 구글 스토리지 업로드
+        upload_blob(newFileName, bucket)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    #print(serializer_class)
     #id = Img_upload.objects.order_by('-id')
     #id 가져오기 (아마 파일명으로)
     #filename = Img_upload.objects.filter('img_title')
     #print('filename')
-    # data = json.loads(request.body)
     
-    #Viewset으로 해볼려고 했으나 계속 오류남 ;;
+    #Viewset으로 해볼려고 했으나 계속 오류남
     # def get(self, request, format=None):
     #     snippets = Img_upload.objects.all()
     #     serializer = Img_upload_serializers(snippets, many=True)

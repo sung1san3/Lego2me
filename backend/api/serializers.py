@@ -10,10 +10,10 @@ class Img_upload_serializers(serializers.ModelSerializer):
 
     class Meta:
         model = Img_upload
-        fields = ['img', 'img_title']
+        fields = ['img', 'img_title','_id']
 
-    def __str__(self):
-        return self._id
+    # def __str__(self):
+    #     return self._id
 
 class Img_data_serializers(serializers.ModelSerializer):
 

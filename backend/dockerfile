@@ -27,8 +27,6 @@ RUN pip install --upgrade google-api-python-client
 RUN pip install --upgrade google-cloud-storage
 
 
-
-
 #ADD . /backend/
 
 
