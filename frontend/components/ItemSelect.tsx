@@ -1,9 +1,11 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { useEffect, useState } from "react";
+import { Skeleton, Avatar } from "antd";
 import {
   ArrowCircleLeftIcon,
   ArrowCircleRightIcon,
 } from "@heroicons/react/solid";
 import MediumCard from "./MediumCard";
+import { Square } from "@mui/icons-material";
 
 interface ItemSelectProps {
   cardsData: {
@@ -32,6 +34,8 @@ const ItemSelect: React.FunctionComponent<ItemSelectProps> = ({
       if (horizontalScroll !== null) horizontalScroll.scrollLeft += 200;
     }
   }
+  // Skeleton
+
   return (
     <div>
       <div className="flex items-center space-x-4 justify-between">
@@ -59,6 +63,8 @@ const ItemSelect: React.FunctionComponent<ItemSelectProps> = ({
       >
         {/* items */}
         {cardsData.map(({ img, title }) => (
+          // eslint-disable-next-line react/jsx-key
+
           <MediumCard
             key={img}
             img={img}
