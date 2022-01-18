@@ -58,17 +58,44 @@ const Nav: React.FunctionComponent = () => {
       fd.append("img", upload_file);
       fd.append("img_title", upload_file.name);
 
-      axios.post("http://localhost:8001/api/posts/", fd, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        console.log("success");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      axios
+        .post("http://localhost:8001/api/posts/", fd, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log("success");
+          axios.get("http://localhost:8001/movies/5").then((res) => {
+            const imgPathTop = "/items/top/";
+            const imgPathBottom = "/items/bottom/";
+
+            const objTop = res.data.top;
+            const objBottom = res.data.bottom;
+
+            const resultTop = "".concat(imgPathTop, objTop, ".png");
+            const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
+
+            console.log(resultTop);
+            console.log(resultBottom);
+
+            if (
+              hairStateValue !== "/items/default.png" ||
+              topStateValue !== "/items/default.png" ||
+              bottomStateValue !== "/items/default.png"
+            ) {
+              resetHair();
+              resetTop();
+              resetBottom();
+            }
+            setTopUseSetRecoilState(`${resultTop}`);
+            setBottomUseSetRecoilState(`${resultBottom}`);
+            router.push("/result");
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
       //이미지 업로드 체크를 해당 api로 대체
       // axios.get("http://localhost:8001/movies/5").then((res) => {
