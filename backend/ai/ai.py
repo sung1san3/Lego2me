@@ -2,7 +2,7 @@ from keras.models import load_model
 from PIL import Image, ImageOps
 import numpy as np
 
-def ai_model(filename):
+def ai_model(filename, dic):
     # Load the model
     model = load_model('keras_model.h5') #학습시킨 model 파일의 경로
 
@@ -37,7 +37,7 @@ def ai_model(filename):
 
     dataArr = []
     for i in range(20):
-    dataArr.append(float(strArray[i]))
+        dataArr.append(float(strArray[i]))
     #문자열로 나누어진 값을 실수형태의 리스트로 저장
 
 
@@ -51,23 +51,18 @@ def ai_model(filename):
 
     for i in range(1,topCount):  #상의 라벨 인덱스 구하기
     
-    if(dataArr[topIndex]<dataArr[i]) :
-        topIndex=i
+        if(dataArr[topIndex]<dataArr[i]) :
+            topIndex=i
     
 
     for i in range(topCount+1,topCount+btCount): #하의 라벨 인덱스 구하기
     
-    if(dataArr[buttomIndex]<dataArr[i]) :
-        buttomIndex=i
-
-
-
-    dic = ['Red_Shrits','Orange_Shrits','Yellow_Shrits','Green_Shrits','Blue_Shrits','Purple_Shrits','Brown_Shrits','Grey_Shrits','Black_Shrits','White_Shrits',
-        'Red_Pants','Orange_Pants','Yellow_Pants','Green_Pants','Blue_Pants','Purple_Pants','Brown_Pants','Grey_Pants','Black_Pants','White_Pants']
+        if(dataArr[buttomIndex]<dataArr[i]) :
+            buttomIndex=i
 
     resultData = [] #최종 두 개의 가능성이 높은 라벨값 [상의색 , 하의색]
     resultData.append(dic[topIndex])
     resultData.append(dic[buttomIndex])
     print(resultData)
-
+    
     return resultData
