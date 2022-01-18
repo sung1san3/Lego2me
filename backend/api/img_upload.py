@@ -4,7 +4,7 @@ import os, os.path
 from google.cloud import storage
 import glob
 #from .serializers import Img_data_serializers
-from .models import Image_data
+from .models import Image_data, Img_upload
 
 def upload_blob(filename, bucket_name):
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='/backend/api/lego2me-1e9632c03309.json'
@@ -21,8 +21,8 @@ def upload_blob(filename, bucket_name):
 
     if os.path.isfile(source_file_name):
         os.remove(source_file_name)
-        print(filename+'삭제 완료')
-
+        db_delete(filename)
+        print(filename+'<--- 삭제 완료')
 
 def db_save(filename, imguri):
     img_data = Image_data()
@@ -31,3 +31,7 @@ def db_save(filename, imguri):
     img_data.image_uri = imguri
     img_data.save()
     print('저장완료')
+
+def db_delete(filename):
+    record = Img_upload.objects.get(img = filename)
+    record.delete()

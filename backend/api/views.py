@@ -20,12 +20,15 @@ from rest_framework.response import Response
 from rest_framework import status
 #from .forms import Img_uploadform
 
+from . import want_to_import
 import sys
 import os, os.path
 from .img_upload import upload_blob, db_save
 import glob
 import shutil, time
 
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from ai import ai
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -51,6 +54,9 @@ class PostViewSet(viewsets.ModelViewSet):
         db_save(newFileName, imguri)
         # 구글 스토리지 업로드
         upload_blob(newFileName, bucket)
+
+        result_value = ai.ai_model(newFileName)
+        print(result_value)
         
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
