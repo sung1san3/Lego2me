@@ -1,7 +1,11 @@
 from keras.models import load_model
 from PIL import Image, ImageOps
 import numpy as np
+import pandas as pd
 
+
+dic = ['Red_Shrits','Orange_Shirts','Yellow_Shirts','Green_Shirts','Blue_Shirts','Purple_Shirts','Brown_Shirts','Grey_Shirts','Black_Shirts','White_Shirts',
+       'Red_Pants','Orange_Pants','Yellow_Pants','Green_Pants','Blue_Pants','Purple_Pants','Brown_Pants','Grey_Pants','Black_Pants','White_Pants']
 
 # Load the model
 model = load_model('/content/drive/MyDrive/lego_fashion/keras_model.h5') #학습시킨 model 파일의 경로
@@ -11,7 +15,7 @@ model = load_model('/content/drive/MyDrive/lego_fashion/keras_model.h5') #학습
 # determined by the first position in the shape tuple, in this case 1.
 data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 # Replace this with the path to your image
-image = Image.open('/content/drive/MyDrive/lego_fashion/테스트2.jpg') #이미지 경로
+image = Image.open('/content/drive/MyDrive/lego_fashion/테스트6.jpg') #이미지 경로
 #resize the image to a 224x224 with the same strategy as in TM2:
 #resizing the image to be at least 224x224 and then cropping from the center
 size = (224, 224)
@@ -41,31 +45,29 @@ for i in range(20):
 #문자열로 나누어진 값을 실수형태의 리스트로 저장
 
 
-topCount = 10 #상의 라벨의 개수
-btCount = 10  #하의 라벨의 개수
-
-topIndex = 0 #가장 확률이 높은 상의라벨의 인덱스
-buttomIndex = topCount #가장 확률이 높은 하의라벨의 인덱스
+selectedIndex = 0 #가장 확률이 높은 라벨의 인덱스
 
 
 
-for i in range(1,topCount):  #상의 라벨 인덱스 구하기
+
+######
+# print("-------------상의")
+# for i in range(20):
+#   #print (format(dataArr[i],'f'))
+#   print ('{0} : {1}'.format(format(dataArr[i],'f'),dic[i]))
+
+
+#   if(i == 9) :
+#       print("-------------하의")
+#각 라벨에 대한 확률을 소수점으로 표현 (이 부분은 실제 코드에서는 지울 것)
+####
+
+
+for i in range(1,20):  #라벨의 인덱스 구하기
   
-  if(dataArr[topIndex]<dataArr[i]) :
-    topIndex=i
+  if(dataArr[selectedIndex]<dataArr[i]) :
+    selectedIndex=i
    
+result = dic[selectedIndex]
+print(result)
 
-for i in range(topCount+1,topCount+btCount): #하의 라벨 인덱스 구하기
- 
-  if(dataArr[buttomIndex]<dataArr[i]) :
-    buttomIndex=i
-
-
-
-dic = ['Red_Shrits','Orange_Shrits','Yellow_Shrits','Green_Shrits','Blue_Shrits','Purple_Shrits','Brown_Shrits','Grey_Shrits','Black_Shrits','White_Shrits',
-       'Red_Pants','Orange_Pants','Yellow_Pants','Green_Pants','Blue_Pants','Purple_Pants','Brown_Pants','Grey_Pants','Black_Pants','White_Pants']
-
-resultData = [] #최종 두 개의 가능성이 높은 라벨값 [상의색 , 하의색]
-resultData.append(dic[topIndex])
-resultData.append(dic[buttomIndex])
-print(resultData)
