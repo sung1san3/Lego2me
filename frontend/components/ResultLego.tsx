@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { Button } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import { hairState, topState, bottomState } from "../recoil/states";
+import DomToImage from "dom-to-image";
 import { saveAs } from "file-saver";
 
 const ResultLego: React.FunctionComponent = () => {
@@ -12,13 +13,13 @@ const ResultLego: React.FunctionComponent = () => {
   const bottomStateValue = useRecoilValue(bottomState);
 
   const onDownload = () => {
-    element: HTMLImageElement; /* Defining element */
-    const img = document.querySelector("#resultimg");
-    if (img !== null) {
-      let imgSrc = (img as HTMLImageElement).src;
-      saveAs(imgSrc, "image.png");
-    } else {
-      window.alert("Error! try upload again");
+    if (process.browser) {
+      const downloadTarget = document.querySelector("#resultComponent");
+      if (downloadTarget !== null) {
+        DomToImage.toPng(downloadTarget).then((blob) => {
+          saveAs(blob, "result.png");
+        });
+      }
     }
   };
   return (
@@ -26,10 +27,9 @@ const ResultLego: React.FunctionComponent = () => {
       <h1 className="text-center text-Montserrat font-bold text-xl lg:text-2xl">
         It&apos;s your <em className="text-red-500 not-italic">character!</em>
       </h1>
-      <div className="w-fit m-auto relative">
+      <div className="w-fit m-auto relative" id="resultComponent">
         <div>
           <Image
-            id="resultimg"
             src="/items/lego_default.png"
             width="377px"
             height="377px"
@@ -38,7 +38,6 @@ const ResultLego: React.FunctionComponent = () => {
         </div>
         <div className=" absolute w-[377px] h-[377px] top-0 left-0">
           <Image
-            id="hat"
             src={hairStateValue}
             width="377px"
             height="377px"
@@ -47,7 +46,6 @@ const ResultLego: React.FunctionComponent = () => {
         </div>
         <div className=" absolute w-[377px] h-[377px] top-0 left-0">
           <Image
-            id="hat"
             src={topStateValue}
             width="377px"
             height="377px"
@@ -56,7 +54,6 @@ const ResultLego: React.FunctionComponent = () => {
         </div>
         <div className=" absolute w-[377px] h-[377px] top-0 left-0">
           <Image
-            id="hat"
             src={bottomStateValue}
             width="377px"
             height="377px"
