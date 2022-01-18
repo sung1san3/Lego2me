@@ -59,12 +59,11 @@ const ItemSelect: React.FunctionComponent<ItemSelectProps> = ({
       </div>
       <div
         id={itemListTitle}
-        className="flex overflow-scroll scrollbar-hide p-3 -ml-3 scroll-smooth bg-gray-200 rounded-lg"
+        className="flex space-x-3 overflow-scroll p-3 pb-4 -ml-3 mb-4 scroll-smooth bg-gray-200 rounded-lg border-x-8"
       >
         {/* items */}
         {cardsData.map(({ img, title }) => (
           // eslint-disable-next-line react/jsx-key
-
           <MediumCard
             key={img}
             img={img}

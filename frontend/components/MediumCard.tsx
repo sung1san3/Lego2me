@@ -20,13 +20,6 @@ const MediumCard: React.FunctionComponent<MediumCardProps> = ({
   const [bottom, setBottomState] = useRecoilState(bottomState);
 
   const handleClick = () => {
-    //console.log(img);
-    let originUrl = img;
-    // let splitUrl = originUrl.split("/");
-    // let FileName = splitUrl[splitUrl.length - 1];
-    // let splitFileName = FileName.split(".");
-    //console.log("itemListTitle : " + itemListTitle);
-    // HairStyle selct event
     if (itemListTitle === "HairStyle") {
       console.log(img);
       if (hair === img) {
@@ -56,33 +49,19 @@ const MediumCard: React.FunctionComponent<MediumCardProps> = ({
     }
   };
 
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []); // 2초 후 로딩완료
-
   return (
-    <div className="cursor-pointer hover:scale-110 transform transition duration-300">
-      <Skeleton
-        loading={isLoading}
-        active
-        avatar
-        paragraph={false}
-        title={false}
-      >
-        <div className="relative h-32 w-32" onClick={handleClick}>
-          <Image
-            src={img}
-            alt="image"
-            layout="fill"
-            className=" rounded-lg"
-          ></Image>
-        </div>
-      </Skeleton>
+    <div className="cursor-pointer bg-white rounded-xl hover:shadow-xl active:scale-90 transition duration-150">
+      <div className="relative h-32 w-32" onClick={handleClick}>
+        <Image
+          src={img}
+          alt="image"
+          layout="fill"
+          className=" rounded-lg"
+          quality={50}
+          blurDataURL={img}
+          placeholder="blur"
+        />
+      </div>
     </div>
   );
 };
