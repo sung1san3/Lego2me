@@ -57,7 +57,7 @@ const MediumCard: React.FunctionComponent<MediumCardProps> = ({
           alt="image"
           layout="fill"
           className=" rounded-lg"
-          quality={50}
+          quality={10}
           blurDataURL={img}
           placeholder="blur"
         />
