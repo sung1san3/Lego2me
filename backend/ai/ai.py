@@ -41,28 +41,21 @@ def ai_model(filename, dic):
     #문자열로 나누어진 값을 실수형태의 리스트로 저장
 
 
-    topCount = 10 #상의 라벨의 개수
-    btCount = 10  #하의 라벨의 개수
+    count = 10 #라벨의 개수
 
-    topIndex = 0 #가장 확률이 높은 상의라벨의 인덱스
-    buttomIndex = topCount #가장 확률이 높은 하의라벨의 인덱스
+    index = 0 #가장 확률이 높은 상의라벨의 인덱스
 
 
 
-    for i in range(1,topCount):  #상의 라벨 인덱스 구하기
+    for i in range(1, count):  #상의 라벨 인덱스 구하기
     
-        if(dataArr[topIndex]<dataArr[i]) :
-            topIndex=i
-    
+        if(dataArr[index]<dataArr[i]) :
+            index=i
 
-    for i in range(topCount+1,topCount+btCount): #하의 라벨 인덱스 구하기
+    resultData = dic[index] 
+    #resultData.append(dic[topIndex])
+    #resultData.append(dic[buttomIndex])
     
-        if(dataArr[buttomIndex]<dataArr[i]) :
-            buttomIndex=i
-
-    resultData = [] #최종 두 개의 가능성이 높은 라벨값 [상의색 , 하의색]
-    resultData.append(dic[topIndex])
-    resultData.append(dic[buttomIndex])
     print(resultData)
     
     return resultData
