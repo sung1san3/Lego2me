@@ -1,10 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-
-import { useRecoilValue, useSetRecoilState, useResetRecoilState } from "recoil";
-import { hairState, topState, bottomState } from "../recoil/states";
-import "react-image-crop/dist/ReactCrop.css";
 import UploadImgButton from "./UploadImgButton";
 
 const Nav: React.FunctionComponent = () => {

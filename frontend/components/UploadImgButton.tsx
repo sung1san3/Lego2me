@@ -16,7 +16,6 @@ import FormData from "form-data";
 import { useRecoilValue, useSetRecoilState, useResetRecoilState } from "recoil";
 import { hairState, topState, bottomState } from "../recoil/states";
 import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
 
 const UploadImgButton: React.FC = () => {
   const router = useRouter();
@@ -42,13 +41,14 @@ const UploadImgButton: React.FC = () => {
   const Input = styled("input")({
     display: "none",
   });
+  //모달 스타일
   const sxBox: SxProps<Theme> = (theme: Theme) => {
     return {
       position: "absolute",
       top: "50%",
       left: "50%",
       transform: "translate(-50%, -50%)",
-      width: 400,
+      width: 800,
       bgcolor: "background.paper",
       border: "2px solid #000",
       boxShadow: 24,
@@ -134,6 +134,7 @@ const UploadImgButton: React.FC = () => {
 
         const anchor = document.createElement("a");
         anchor.download = "cropPreview.png";
+
         anchor.href = URL.createObjectURL(blob);
         anchor.click();
 
@@ -206,37 +207,62 @@ const UploadImgButton: React.FC = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={sxBox}>
-          <div className="App">
-            <div>
+          <div>
+            <div className="flex justify-center ">
               <input type="file" accept="image/*" onChange={onSelectFile} />
             </div>
-            <ReactCrop
-              src={upImg}
-              onImageLoaded={onLoad}
-              crop={crop}
-              onChange={(c) => setCrop(c)}
-              onComplete={(c) => setCompletedCrop(c)}
-            />
-            <div>
-              <canvas
-                ref={previewCanvasRef}
-                // Rounding is important so the canvas width and height matches/is a multiple for sharpness.
-                style={{
-                  width: Math.round(completedCrop?.width ?? 0),
-                  height: Math.round(completedCrop?.height ?? 0),
-                }}
+            <div className="flex justify-items-center">
+              <ReactCrop
+                src={upImg}
+                onImageLoaded={onLoad}
+                crop={crop}
+                onChange={(c) => setCrop(c)}
+                onComplete={(c) => setCompletedCrop(c)}
+                maxWidth={300}
               />
+              <div className="items-center">
+                <canvas
+                  ref={previewCanvasRef}
+                  // Rounding is important so the canvas width and height matches/is a multiple for sharpness.
+                  style={{
+                    width: Math.round(completedCrop?.width ?? 0),
+                    height: Math.round(completedCrop?.height ?? 0),
+                  }}
+                />
+              </div>
             </div>
-            <p>test</p>
-            <button
-              type="button"
-              disabled={!completedCrop?.width || !completedCrop?.height}
-              onClick={() =>
-                generateDownload(previewCanvasRef.current, completedCrop)
-              }
-            >
-              Download cropped image
-            </button>
+            <div className="flex justify-around">
+              <button
+                className="border-2 border-black"
+                type="button"
+                disabled={!completedCrop?.width || !completedCrop?.height}
+                onClick={() =>
+                  generateDownload(previewCanvasRef.current, completedCrop)
+                }
+              >
+                Save Top
+              </button>
+              <button
+                className="border-2 border-black"
+                type="button"
+                disabled={!completedCrop?.width || !completedCrop?.height}
+                onClick={() =>
+                  generateDownload(previewCanvasRef.current, completedCrop)
+                }
+              >
+                Save Bottom
+              </button>
+              <button
+                className="border-2 border-black"
+                type="button"
+                disabled={!completedCrop?.width || !completedCrop?.height}
+                onClick={() =>
+                  generateDownload(previewCanvasRef.current, completedCrop)
+                }
+              >
+                View results
+              </button>
+            </div>
           </div>
         </Box>
       </Modal>
