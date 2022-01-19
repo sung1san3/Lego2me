@@ -53,7 +53,6 @@
     
 #     if(dataArr[topIndex]<dataArr[i]) :
 #         topIndex=i
-    
 
 #     for i in range(topCount+1,topCount+btCount): #하의 라벨 인덱스 구하기
     
@@ -71,3 +70,4 @@
 #     print(resultData)
 
 #     return resultData
+

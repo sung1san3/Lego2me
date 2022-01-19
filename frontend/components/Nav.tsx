@@ -55,7 +55,8 @@ const Nav: React.FunctionComponent = () => {
       const fd = new FormData();
       const upload_file = e.target.files[0];
       console.log(upload_file);
-      fd.append("img", upload_file);
+      fd.append("img_top", upload_file);
+      //fd.append("img_bottom", upload_file);
       fd.append("img_title", upload_file.name);
 
       axios

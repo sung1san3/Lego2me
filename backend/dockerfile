@@ -1,5 +1,6 @@
 # pull official base image
-FROM python:3.7-alpine
+#FROM python:3.7-alpine
+FROM --platform=linux/x86_64 python:3.7-alpine
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -26,7 +27,7 @@ RUN pip3 install -r requirements.txt
 RUN pip install --upgrade google-api-python-client
 RUN pip install --upgrade google-cloud-storage
 
-
+RUN pip install tensorflow==2.6.2
 #ADD . /backend/
 
 
@@ -37,8 +38,8 @@ RUN pip install --upgrade google-cloud-storage
 
 # RUN apk del build-deps
 
+# FROM --platform=linux/x86_64 python:3.9
 
+# RUN python -m pip install --upgrade pip
 
-
-
-
+# RUN pip install tensorflow==2.6.2

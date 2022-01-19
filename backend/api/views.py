@@ -1,6 +1,5 @@
 import imp
 from pyexpat import model
-from sre_constants import SUCCESS
 from urllib import request
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -43,20 +42,27 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        newFileName = str(Img_upload.objects.filter(img_title=filename).values('img')[0]['img'])
-        print(newFileName)
+        newFileName_top = str(Img_upload.objects.filter(img_title=filename).values('img_top')[0]['img_top'])
+        newFileName_bottoms = str(Img_upload.objects.filter(img_title=filename).values('img_bottoms')[0]['img_bottoms'])
+        print(newFileName_top+' // '+newFileName_bottoms)
         #os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='lego2me-1e9632c03309.json'
 
         #구글 클라우드 스토리지 URL만들기
         bucket = "lego2me_image"
-        imguri = "https://storage.googleapis.com/"+bucket+"/"+newFileName
+        #imguri = "https://storage.googleapis.com/"+bucket+"/"+newFileName
         # db 저장
-        db_save(newFileName, imguri)
+        #db_save(newFileName, imguri)
         # 구글 스토리지 업로드
-        upload_blob(newFileName, bucket)
+        upload_blob(newFileName_top, bucket)
+        upload_blob(newFileName_bottoms, bucket)
 
-        result_value = ai.ai_model(newFileName)
-        print(result_value)
+        dic_top = ['Red_Shrits','Orange_Shrits','Yellow_Shrits','Green_Shrits','Blue_Shrits','Purple_Shrits','Brown_Shrits','Grey_Shrits','Black_Shrits','White_Shrits']
+        dic_bottoms = ['Red_Pants','Orange_Pants','Yellow_Pants','Green_Pants','Blue_Pants','Purple_Pants','Brown_Pants','Grey_Pants','Black_Pants','White_Pants']
+    
+        # result_value_top = ai.ai_model(newFileName_top, dic_top)
+        # result_value_bottom = ai.ai_model(newFileName_bottoms, dic_bottoms)
+
+        # print(result_value_top, result_value_bottom)
         
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 

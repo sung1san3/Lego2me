@@ -13,7 +13,11 @@ class Image_data(models.Model):
 
 class Img_upload(models.Model):
     _id = models.ObjectIdField()
-    img = models.ImageField(upload_to=get_file_path,
+    img_top = models.ImageField(upload_to=get_file_path,
+                        null=True,
+                        blank=True,
+                        )
+    img_bottoms = models.ImageField(upload_to=get_file_path,
                         null=True,
                         blank=True,
                         )
