@@ -7,7 +7,7 @@ import glob
 from .models import Image_data, Img_upload
 
 def upload_blob(filename, bucket_name):
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='/backend/api/lego2me-1e9632c03309.json'
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='/backend/api/lego2meproject-3eaf5d63b3b9.json'
     source_file_name = "/backend/media/"+filename
     destination_blob_name = "image/"+filename
 

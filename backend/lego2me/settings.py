@@ -111,23 +111,41 @@ TEMPLATES = [
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+# DATABASES = {
+#     'default':
+#     { 'ENGINE': 'djongo',
+#         'CLIENT': {
+#             'name': 'lego2me',
+#             #로컬용
+#             #mongodb://localhost:27017
+#             #도커용
+#             #db
+#             'host': 'db',
+#             'username': 'root',
+#             'password': 'legolego',
+#             'authSource': 'admin',
+#             'authMechanism': 'SCRAM-SHA-1'
+#             }
+#         }
+# }
+# 환경변수 분리 전 , 혹시 문제가 생긴다면 환경변수쪽 주석처리 후 이 부분을 사용
+
+
 DATABASES = {
     'default':
     { 'ENGINE': 'djongo',
         'CLIENT': {
-            'name': 'lego2me',
-            #로컬용
-            #mongodb://localhost:27017
-            #도커용
-            #db
-            'host': 'db',
-            'username': 'root',
-            'password': 'legolego',
-            'authSource': 'admin',
-            'authMechanism': 'SCRAM-SHA-1'
+            'name': os.environ.get('name'),
+            'host': os.environ.get('host'),
+            'username': os.environ.get('username'),
+            'password': os.environ.get('password'),
+            'authSource': os.environ.get('authSource'),
+            'authMechanism': os.environ.get('authMechanism'),
             }
         }
-}
+} 
+# 환경변수 분리
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
