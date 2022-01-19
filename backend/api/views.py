@@ -24,6 +24,7 @@ from .img_upload import upload_blob
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from ai import ai
 
+from .tasks import ai_model
 
 class PostViewSet(viewsets.ModelViewSet):
 
@@ -52,9 +53,11 @@ class PostViewSet(viewsets.ModelViewSet):
         upload_blob(newFileName_top, bucket)
         upload_blob(newFileName_bottoms, bucket)
         
+        result_value = ai_model(newFileName_top, newFileName_bottoms)
         # result_value_top = ai.ai_model(newFileName_top, dic_top)
         # result_value_bottom = ai.ai_model(newFileName_bottoms, dic_bottoms)
 
+        
         # print(result_value_top, result_value_bottom)
         
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

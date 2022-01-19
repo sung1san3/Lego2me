@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from ai import ai
 
 @shared_task
-def ai_model_top(newFileName_top, newFileName_bottoms):
+def ai_model(newFileName_top, newFileName_bottoms):
     # 상, 하의 구별을 위한 인텍스 값
     index = 0
 
