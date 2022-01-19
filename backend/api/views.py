@@ -11,20 +11,15 @@ from rest_framework import viewsets
 
 #from api.img_upload import db_save
 from rest_framework.viewsets import ModelViewSet
-from .serializers import Img_upload_serializers, Img_data_serializers
+from .serializers import Img_upload_serializers
 from .models import Img_upload
-from rest_framework.views import APIView
-from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
-#from .forms import Img_uploadform
 
-#from . import want_to_import
 import sys
 import os, os.path
-from .img_upload import upload_blob, db_save
-import glob
-import shutil, time
+from .img_upload import upload_blob
+
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from ai import ai

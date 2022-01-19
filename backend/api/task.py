@@ -9,16 +9,20 @@ from ai import ai
 
 @shared_task
 def ai_model_top(newFileName_top, newFileName_bottoms):
-    dic_top = ['Red_Shrits','Orange_Shrits','Yellow_Shrits','Green_Shrits','Blue_Shrits','Purple_Shrits','Brown_Shrits','Grey_Shrits','Black_Shrits','White_Shrits']
-    dic_bottoms = ['Red_Pants','Orange_Pants','Yellow_Pants','Green_Pants','Blue_Pants','Purple_Pants','Brown_Pants','Grey_Pants','Black_Pants','White_Pants']
+    # 상, 하의 구별을 위한 인텍스 값
+    index = 0
 
-    result_value_top = ai.ai_model(newFileName_top, dic_top)
-    result_value_bottom = ai.ai_model(newFileName_bottoms, dic_bottoms)
+    #상의
+    result_value_top = ai.ai_model(newFileName_top, index)
+    #하의
+    result_value_bottom = ai.ai_model(newFileName_bottoms, index+10) #하의 인덱스는 10부터 시작
     
+    #상, 하의 결과값 딕셔너리
     result_sting = {}
     result_sting["top"] == result_value_top
     result_sting["bottem"] == result_value_bottom
 
+    # 결과값 json 변환
     json_string = json.dumps(result_sting)
     print(json_string)
     

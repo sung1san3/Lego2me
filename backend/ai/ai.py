@@ -1,17 +1,25 @@
 from keras.models import load_model
 from PIL import Image, ImageOps
 import numpy as np
+from . import gcs
+import os
 
-def ai_model(filename, dic):
+def ai_model(filename, index):
     # Load the model
     model = load_model('keras_model.h5') #학습시킨 model 파일의 경로
 
+    dic = ['Red_Shrits','Orange_Shrits','Yellow_Shrits','Green_Shrits','Blue_Shrits','Purple_Shrits','Brown_Shrits','Grey_Shrits','Black_Shrits','White_Shrits',
+    'Red_Pants','Orange_Pants','Yellow_Pants','Green_Pants','Blue_Pants','Purple_Pants','Brown_Pants','Grey_Pants','Black_Pants','White_Pants']
     # Create the array of the right shape to feed into the keras model
     # The 'length' or number of images you can put into the array is
     # determined by the first position in the shape tuple, in this case 1.
     data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
     # Replace this with the path to your image
-    image = Image.open("/backend/ai/image/"+filename) #이미지 경로
+    
+    # GSC에서 해당 이미지 다운로드
+    gcs.download_blob(filename)
+    image_path = "/backend/ai/image/"+filename
+    image = Image.open(image_path) #이미지 경로
     #resize the image to a 224x224 with the same strategy as in TM2:
     #resizing the image to be at least 224x224 and then cropping from the center
     size = (224, 224)
@@ -40,22 +48,19 @@ def ai_model(filename, dic):
         dataArr.append(float(strArray[i]))
     #문자열로 나누어진 값을 실수형태의 리스트로 저장
 
+    result = 0 #결과값 인덱스 
 
-    count = 10 #라벨의 개수
-
-    index = 0 #가장 확률이 높은 상의라벨의 인덱스
-
-
-
-    for i in range(1, count):  #상의 라벨 인덱스 구하기
+    for i in range(index, index+10):  #라벨 인덱스 구하기
     
         if(dataArr[index]<dataArr[i]) :
-            index=i
+            result=i
 
-    resultData = dic[index] 
-    #resultData.append(dic[topIndex])
-    #resultData.append(dic[buttomIndex])
+    resultData = dic[result]
     
     print(resultData)
     
+    if os.path.isfile(image_path):
+        os.remove(image_path)
+        print(filename+'<--- 삭제 완료')
+
     return resultData
