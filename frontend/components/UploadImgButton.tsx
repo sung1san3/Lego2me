@@ -67,7 +67,7 @@ const UploadImgButton: React.FC = () => {
   });
   const [completedCrop, setCompletedCrop] = useState<any>(null);
   const [topBlob, setTopBlob] = useState<File | null>(null);
-  const [bottomBlob, setBottomBlob] = useState<any>(null);
+  const [bottomBlob, setBottomBlob] = useState<File | null>(null);
 
   //FIXME: axios 통신
   // const setFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -210,6 +210,33 @@ const UploadImgButton: React.FC = () => {
     );
   }, [completedCrop]);
 
+  //FIXME:결과값 데이터 전송
+  const handleResult = () => {
+    const fd = new FormData();
+    if (topBlob !== null && bottomBlob !== null) {
+      fd.append("img_top", topBlob);
+      fd.append("img_top_title", topBlob.name);
+
+      fd.append("img_bottom", bottomBlob);
+      fd.append("img_bottom_title", bottomBlob.name);
+
+      axios
+        .post("http://localhost:8001/api/posts/", fd, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log("success");
+        })
+        .catch((err) => {
+          console.log(err);
+          handleClose();
+          window.alert("try again");
+        });
+    }
+  };
+
   return (
     <div>
       <Button
@@ -277,6 +304,7 @@ const UploadImgButton: React.FC = () => {
                 className="border-2 border-black"
                 type="button"
                 disabled={!completedCrop?.width || !completedCrop?.height}
+                onClick={handleResult}
               >
                 View results
               </button>
