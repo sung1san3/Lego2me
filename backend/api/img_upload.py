@@ -8,7 +8,7 @@ from .models import Img_upload
 
 # GSC에 사진 업로드
 def upload_blob(filename, bucket_name):
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='/backend/api/lego2me-1e9632c03309.json'
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='/backend/api/lego2meproject-3eaf5d63b3b9.json'
     source_file_name = "/backend/media/"+filename
     destination_blob_name = "image/"+filename
 
