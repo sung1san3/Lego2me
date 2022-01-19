@@ -20,7 +20,7 @@ from rest_framework.response import Response
 from rest_framework import status
 #from .forms import Img_uploadform
 
-from . import want_to_import
+#from . import want_to_import
 import sys
 import os, os.path
 from .img_upload import upload_blob, db_save
