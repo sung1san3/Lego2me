@@ -55,58 +55,7 @@ const UploadImgButton: React.FC = () => {
       p: 4,
     };
   };
-  //FIXME:
-  const setFile = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files instanceof FileList) {
-      const fd = new FormData();
-      const upload_file = e.target.files[0];
-      console.log(upload_file);
-      fd.append("img_top", upload_file);
-      //fd.append("img_bottom", upload_file);
-      fd.append("img_title", upload_file.name);
 
-      axios
-        .post("http://localhost:8001/api/posts/", fd, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          console.log("success");
-          axios.get("http://localhost:8001/movies/5").then((res) => {
-            const imgPathTop = "/items/top/";
-            const imgPathBottom = "/items/bottom/";
-
-            const objTop = res.data.top;
-            const objBottom = res.data.bottom;
-
-            const resultTop = "".concat(imgPathTop, objTop, ".png");
-            const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
-
-            console.log(resultTop);
-            console.log(resultBottom);
-
-            if (
-              hairStateValue !== "/items/default.png" ||
-              topStateValue !== "/items/default.png" ||
-              bottomStateValue !== "/items/default.png"
-            ) {
-              resetHair();
-              resetTop();
-              resetBottom();
-            }
-            setTopUseSetRecoilState(`${resultTop}`);
-            setBottomUseSetRecoilState(`${resultBottom}`);
-            router.push("/result");
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          handleClose();
-          window.alert("try again");
-        });
-    }
-  };
   //사진 저장 기능
   const [upImg, setUpImg] = useState<any>();
   const imgRef = useRef<any>(null);
@@ -117,8 +66,63 @@ const UploadImgButton: React.FC = () => {
     aspect: 1 / 1,
   });
   const [completedCrop, setCompletedCrop] = useState<any>(null);
+  const [topBlob, setTopBlob] = useState<File | null>(null);
+  const [bottomBlob, setBottomBlob] = useState<any>(null);
 
-  function generateDownload(
+  //FIXME: axios 통신
+  // const setFile = (e: ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files instanceof FileList) {
+  //     const fd = new FormData();
+  //     const upload_file = e.target.files[0];
+  //     console.log(upload_file);
+  //     fd.append("img_top", upload_file);
+  //     //fd.append("img_bottom", upload_file);
+  //     fd.append("img_title", upload_file.name);
+
+  //     axios
+  //       .post("http://localhost:8001/api/posts/", fd, {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       })
+  //       .then((res) => {
+  //         console.log("success");
+  //         axios.get("http://localhost:8001/movies/5").then((res) => {
+  //           const imgPathTop = "/items/top/";
+  //           const imgPathBottom = "/items/bottom/";
+
+  //           const objTop = res.data.top;
+  //           const objBottom = res.data.bottom;
+
+  //           const resultTop = "".concat(imgPathTop, objTop, ".png");
+  //           const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
+
+  //           console.log(resultTop);
+  //           console.log(resultBottom);
+
+  //           if (
+  //             hairStateValue !== "/items/default.png" ||
+  //             topStateValue !== "/items/default.png" ||
+  //             bottomStateValue !== "/items/default.png"
+  //           ) {
+  //             resetHair();
+  //             resetTop();
+  //             resetBottom();
+  //           }
+  //           setTopUseSetRecoilState(`${resultTop}`);
+  //           setBottomUseSetRecoilState(`${resultBottom}`);
+  //           router.push("/result");
+  //         });
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         handleClose();
+  //         window.alert("try again");
+  //       });
+  //   }
+  // };
+  //상의 결과 저장
+  function generateTopImage(
     canvas: {
       toBlob: (arg0: (blob: any) => void, arg1: string, arg2: number) => void;
     },
@@ -129,16 +133,32 @@ const UploadImgButton: React.FC = () => {
     }
 
     canvas.toBlob(
-      (blob: Blob | MediaSource) => {
-        const previewUrl = window.URL.createObjectURL(blob);
-
-        const anchor = document.createElement("a");
-        anchor.download = "cropPreview.png";
-
-        anchor.href = URL.createObjectURL(blob);
-        anchor.click();
-
-        window.URL.revokeObjectURL(previewUrl);
+      (blob: Blob) => {
+        const topFile = new File([blob], "image_top.png", { type: blob.type });
+        setTopBlob(topFile);
+        console.log(topBlob);
+      },
+      "image/png",
+      1
+    );
+  }
+  //하의 결과 저장
+  function generateBottomImage(
+    canvas: {
+      toBlob: (arg0: (blob: any) => void, arg1: string, arg2: number) => void;
+    },
+    crop: any
+  ) {
+    if (!crop || !canvas) {
+      return;
+    }
+    canvas.toBlob(
+      (blob: Blob) => {
+        const bottomFile = new File([blob], "image_bottom.png", {
+          type: blob.type,
+        });
+        setBottomBlob(bottomFile);
+        console.log(bottomBlob);
       },
       "image/png",
       1
@@ -237,7 +257,7 @@ const UploadImgButton: React.FC = () => {
                 type="button"
                 disabled={!completedCrop?.width || !completedCrop?.height}
                 onClick={() =>
-                  generateDownload(previewCanvasRef.current, completedCrop)
+                  generateTopImage(previewCanvasRef.current, completedCrop)
                 }
               >
                 Save Top
@@ -247,18 +267,16 @@ const UploadImgButton: React.FC = () => {
                 type="button"
                 disabled={!completedCrop?.width || !completedCrop?.height}
                 onClick={() =>
-                  generateDownload(previewCanvasRef.current, completedCrop)
+                  generateBottomImage(previewCanvasRef.current, completedCrop)
                 }
               >
                 Save Bottom
               </button>
+              {/* FIXME: */}
               <button
                 className="border-2 border-black"
                 type="button"
                 disabled={!completedCrop?.width || !completedCrop?.height}
-                onClick={() =>
-                  generateDownload(previewCanvasRef.current, completedCrop)
-                }
               >
                 View results
               </button>
