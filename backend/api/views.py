@@ -18,7 +18,7 @@ from rest_framework import status
 
 import sys
 import os, os.path
-from .img_upload import upload_blob
+from .img_upload import upload_blob, db_delete
 
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -52,6 +52,8 @@ class PostViewSet(viewsets.ModelViewSet):
         # 구글 스토리지 업로드
         upload_blob(newFileName_top, bucket)
         upload_blob(newFileName_bottoms, bucket)
+        db_delete(newFileName_top)
+        
         
         result_value = ai_model(newFileName_top, newFileName_bottoms)
         # result_value_top = ai.ai_model(newFileName_top, dic_top)

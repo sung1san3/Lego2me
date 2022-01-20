@@ -48,7 +48,7 @@ services:
 
   celery:
     build:
-      context: ./backend/celery
+      context: .
     command: celery -A lego2me worker -l info
     volumes:
       - ./backend/:/backend/

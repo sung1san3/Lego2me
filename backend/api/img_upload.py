@@ -23,7 +23,6 @@ def upload_blob(filename, bucket_name):
     # 버킷에 저장완료 후 로컬 이미지 파일 삭제
     if os.path.isfile(source_file_name):
         os.remove(source_file_name)
-        db_delete(filename)
         print(filename+'<--- 삭제 완료')
 
 # def db_save(filename, imguri):
@@ -36,5 +35,6 @@ def upload_blob(filename, bucket_name):
 
 # DB에 저장된 필드 삭제
 def db_delete(filename):
-    record = Img_upload.objects.get(img = filename)
+    record = Img_upload.objects.get(img_top = filename)
     record.delete()
+    print("db 삭제 완료")
