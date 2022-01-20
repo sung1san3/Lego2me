@@ -65,9 +65,12 @@ const UploadImgButton: React.FC = () => {
     width: 30,
     aspect: 1 / 1,
   });
+  // 자른 이미지 상태 저장
+
   const [completedCrop, setCompletedCrop] = useState<any>(null);
   const [topBlob, setTopBlob] = useState<File | null>(null);
   const [bottomBlob, setBottomBlob] = useState<File | null>(null);
+  const [uploadImgName, setUploadImgName] = useState<any>(null);
 
   //FIXME: axios 통신
   // const setFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -167,9 +170,14 @@ const UploadImgButton: React.FC = () => {
 
   const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
       const reader = new FileReader();
       reader.addEventListener("load", () => setUpImg(reader.result));
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(file);
+      // TODO:
+      const lastDot = file.name.lastIndexOf(".");
+      const fileName = file.name.substring(-1, lastDot).concat(".png");
+      setUploadImgName(fileName);
     }
   };
 
@@ -215,11 +223,11 @@ const UploadImgButton: React.FC = () => {
     const fd = new FormData();
     if (topBlob !== null && bottomBlob !== null) {
       fd.append("img_top", topBlob);
-      fd.append("img_top_title", topBlob.name);
-
-      fd.append("img_bottom", bottomBlob);
-      fd.append("img_bottom_title", bottomBlob.name);
-
+      //fd.append("img_top_title", topBlob.name);
+      fd.append("img_bottoms", bottomBlob);
+      //fd.append("img_bottom_title", bottomBlob.name);
+      //TODO:업로드된 파일 이름 보내 달라
+      fd.append("img_title", uploadImgName);
       axios
         .post("http://localhost:8001/api/posts/", fd, {
           headers: {
