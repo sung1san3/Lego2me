@@ -18,7 +18,7 @@ from rest_framework import status
 
 import sys
 import os, os.path
-from .img_upload import upload_blob, db_delete
+from .img_upload import *
 
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -45,9 +45,11 @@ class PostViewSet(viewsets.ModelViewSet):
 
         #구글 클라우드 스토리지 URL만들기
         bucket = "lego2me__image"
-        #imguri = "https://storage.googleapis.com/"+bucket+"/"+newFileName
-        # db 저장
-        #db_save(newFileName, imguri)
+        topimguri = "https://storage.googleapis.com/" + bucket + "/" + newFileName_top
+        bottomimguri = "https://storage.googleapis.com/"+ bucket + "/" + newFileName_bottoms
+
+        #db 저장
+        db_save(newFileName_top,newFileName_bottoms, topimguri, bottomimguri)
 
         # 구글 스토리지 업로드
         upload_blob(newFileName_top, bucket)

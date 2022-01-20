@@ -73,6 +73,7 @@ whitenoise==5.3.0
 zipp==3.7.0
 celery
 numpy
+keras
 django_celery_results
 google-api-python-client
 google-cloud-storage
