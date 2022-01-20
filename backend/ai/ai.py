@@ -6,7 +6,7 @@ import os
 
 def ai_model(filename, index):
     # Load the model
-    model = load_model('keras_model.h5') #학습시킨 model 파일의 경로
+    model = load_model('/backend/ai/keras_model.h5') #학습시킨 model 파일의 경로
 
     dic = ['Red_Shrits','Orange_Shrits','Yellow_Shrits','Green_Shrits','Blue_Shrits','Purple_Shrits','Brown_Shrits','Grey_Shrits','Black_Shrits','White_Shrits',
     'Red_Pants','Orange_Pants','Yellow_Pants','Green_Pants','Blue_Pants','Purple_Pants','Brown_Pants','Grey_Pants','Black_Pants','White_Pants']

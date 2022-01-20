@@ -12,6 +12,7 @@ from .views import *
 
 router = DefaultRouter()
 router.register(r'posts', PostViewSet, basename='Post')  
+#router.register(url에 들어갈 자원의 이름 , viewset , viewset의 이름)
 
 urlpatterns = router.urls
 # router = DefaultRouter()
