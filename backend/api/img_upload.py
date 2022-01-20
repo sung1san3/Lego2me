@@ -4,7 +4,7 @@ import os, os.path
 from google.cloud import storage
 import glob
 #from .serializers import Img_data_serializers
-from .models import Img_upload
+from .models import Img_upload, Image_data
 
 # GSC에 사진 업로드
 def upload_blob(filename, bucket_name):
@@ -25,13 +25,15 @@ def upload_blob(filename, bucket_name):
         os.remove(source_file_name)
         print(filename+'<--- 삭제 완료')
 
-# def db_save(filename, imguri):
-#     img_data = Image_data()
+def db_save(top, bottom,topimguri, bottomuri):
+    img_data = Image_data()
 
-#     img_data.id = filename
-#     img_data.image_uri = imguri
-#     img_data.save()
-#     print('저장완료')
+    img_data.id_top = top
+    img_data.id_bottom = bottom
+    img_data.image_url_top = topimguri
+    img_data.image_url_bottom = bottomuri
+    img_data.save()
+    print('저장완료')
 
 # DB에 저장된 필드 삭제
 def db_delete(filename):

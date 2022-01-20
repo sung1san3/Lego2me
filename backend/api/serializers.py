@@ -15,8 +15,8 @@ class Img_upload_serializers(serializers.ModelSerializer):
     # def __str__(self):
     #     return self._id
 
-# class Img_data_serializers(serializers.ModelSerializer):
+class Img_data_serializers(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = Image_data
-#         fields = '__all__'
+    class Meta:
+        model = Image_data
+        fields = '__all__'
