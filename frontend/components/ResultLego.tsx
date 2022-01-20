@@ -3,8 +3,8 @@ import Image from "next/image";
 import { Button } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import { hairState, topState, bottomState } from "../recoil/states";
-import DomToImage from "dom-to-image";
-import { saveAs } from "file-saver";
+// import DomToImage from "dom-to-image";
+// import { saveAs } from "file-saver";
 
 const ResultLego: React.FunctionComponent = () => {
   // 구독하는 아톰의 값만 반환한다.
@@ -12,16 +12,16 @@ const ResultLego: React.FunctionComponent = () => {
   const topStateValue = useRecoilValue(topState);
   const bottomStateValue = useRecoilValue(bottomState);
 
-  const onDownload = () => {
-    if (process.browser) {
-      const downloadTarget = document.querySelector("#resultComponent");
-      if (downloadTarget !== null) {
-        DomToImage.toPng(downloadTarget).then((blob) => {
-          saveAs(blob, "result.png");
-        });
-      }
-    }
-  };
+  // const onDownload = () => {
+  //   if (process.browser) {
+  //     const downloadTarget = document.querySelector("#resultComponent");
+  //     if (downloadTarget !== null) {
+  //       DomToImage.toPng(downloadTarget).then((blob) => {
+  //         saveAs(blob, "result.png");
+  //       });
+  //     }
+  //   }
+  // };
   return (
     <div>
       <h1 className="text-center text-Montserrat font-bold text-xl lg:text-2xl">
@@ -63,7 +63,7 @@ const ResultLego: React.FunctionComponent = () => {
       </div>
       <div className="flex justify-center">
         <Button
-          onClick={onDownload}
+          //onClick={onDownload}
           variant="contained"
           color="error"
           component="span"

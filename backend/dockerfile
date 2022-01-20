@@ -1,11 +1,9 @@
 # pull official base image
-#FROM python:3.7-alpine
-FROM --platform=linux/x86_64 python:3.7
+FROM python:3.7-alpine
+#FROM --platform=linux/x86_64 python:3.7-alpine
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
-
 
 RUN mkdir /backend
 
@@ -21,20 +19,7 @@ RUN pip install djangorestframework djangorestframework-jwt
 # RUN apk add --no-cache --virtual .build-deps build-base linux-headers
 
 RUN pip3 install -r requirements.txt
-RUN pip install tensorflow==2.6.2
 
-#ADD . /backend/
-
-
-# RUN apk update \
-#     && apk add --virtual build-deps gcc python3-dev musl-dev \
-#     && apk add --no-cache mariadb-dev
-
-
-# RUN apk del build-deps
-
-# FROM --platform=linux/x86_64 python:3.9
-
-# RUN python -m pip install --upgrade pip
-
-# RUN pip install tensorflow==2.6.2
+#-- 구글클라우드 -- 
+RUN pip install --upgrade google-api-python-client
+RUN pip install --upgrade google-cloud-storage
