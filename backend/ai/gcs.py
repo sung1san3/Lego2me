@@ -10,7 +10,7 @@ def download_blob(filename):
 
     storage_client = storage.Client()
     bucket_name = 'lego2me__image'
-    destination_file_name = "/backend/ai/image"
+    destination_file_name = "/backend/ai/" + filename
 
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(filename)
