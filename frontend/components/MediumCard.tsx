@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRecoilState } from "recoil";
 import { hairState, topState, bottomState } from "../recoil/states";
-import { Skeleton } from "antd";
 
 interface MediumCardProps {
   img: string;

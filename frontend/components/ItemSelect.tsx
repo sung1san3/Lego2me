@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Skeleton, Avatar } from "antd";
 import {
   ArrowCircleLeftIcon,
   ArrowCircleRightIcon,
