@@ -78,3 +78,5 @@ django_celery_results
 google-api-python-client
 google-cloud-storage
 #djangorestframework djangorestframework-jwt
+keras
+tensorflow

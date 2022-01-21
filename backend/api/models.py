@@ -9,7 +9,7 @@ from .uuid import get_file_path
 
 class Image_data(models.Model):
     id_top = models.CharField(primary_key=True, max_length=200)
-    id_bottom = models.CharField(primary_key=True, max_length=200)
+    id_bottom = models.CharField (max_length=200)
     image_url_top = models.CharField(max_length=200)
     image_url_bottom = models.CharField(max_length=200)
 

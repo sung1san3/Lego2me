@@ -1,7 +1,7 @@
 # pull official base image
-FROM python:3.7-alpine
-#FROM --platform=linux/x86_64 python:3.7-alpine
-
+#FROM python:3.7-alpine
+FROM --platform=linux/x86_64 python:3.7
+#-> 여기도 두 주석의 위치
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
@@ -15,11 +15,18 @@ RUN pip3 install --upgrade pip
 
 RUN pip install djangorestframework djangorestframework-jwt
 
-# RUN apk add --no-cache jpeg-dev zlib-dev
+# RUN apk add --no-cache jpeg-dev zlib-dev 
 # RUN apk add --no-cache --virtual .build-deps build-base linux-headers
-
+# 위 2줄 다시 만듦. 
+#ERROR: Could not find a version that satisfies the requirement ruamel.yaml.clib==0.2.6 (from versions: 0.1.0, 0.1.2, 0.2.0, 0.2.2, 0.2.3, 0.2.4, 0.2.6)
+#13 90.28 ERROR: No matching distribution found for ruamel.yaml.clib==0.2.6
+# executor failed running [/bin/sh -c pip3 install -r requirements.txt]: exit code: 1
+# ERROR: Service 'backend' failed to build : Build failed
 RUN pip3 install -r requirements.txt
 
 #-- 구글클라우드 -- 
 RUN pip install --upgrade google-api-python-client
 RUN pip install --upgrade google-cloud-storage
+
+# RUN pip install https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.8.0-py3-none-any.whl
+RUN pip install django-celery-results
