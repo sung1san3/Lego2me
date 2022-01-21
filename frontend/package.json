@@ -18,7 +18,7 @@
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.5",
     "form-data": "^4.0.0",
-    "next": "12.0.7",
+    "next": "^12.0.9-canary.4",
     "next-images": "^1.8.4",
     "nextjs-progressbar": "0.0.13",
     "react": "17.0.2",
