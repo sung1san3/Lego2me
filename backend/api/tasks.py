@@ -1,14 +1,20 @@
 from __future__ import absolute_import, unicode_literals
-
+from django.conf import settings
 from celery import shared_task
+from celery import Celery
 
 import json, os, sys
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from ai import ai
 
+brokers = [f'amqp://{settings.RABBITMQ_USER}:{settings.RABBITMQ_PASSWORD}@{host}//' 
+		for host in settings.RABBITMQ_HOSTS]
+
+app = Celery('puddlr', broker=brokers, 
+		broker_transport_options={'confirm_publish': True})
 @shared_task
-def ai_model_top(newFileName_top, newFileName_bottoms):
+def ai_model(newFileName_top, newFileName_bottoms):
     # 상, 하의 구별을 위한 인텍스 값
     index = 0
 

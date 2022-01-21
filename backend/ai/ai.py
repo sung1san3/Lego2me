@@ -6,7 +6,7 @@ import os
 
 def ai_model(filename, index):
     # Load the model
-    model = load_model('keras_model.h5') #학습시킨 model 파일의 경로
+    model = load_model('/backend/ai/keras_model.h5') #학습시킨 model 파일의 경로
 
     dic = ['Red_Shrits','Orange_Shrits','Yellow_Shrits','Green_Shrits','Blue_Shrits','Purple_Shrits','Brown_Shrits','Grey_Shrits','Black_Shrits','White_Shrits',
     'Red_Pants','Orange_Pants','Yellow_Pants','Green_Pants','Blue_Pants','Purple_Pants','Brown_Pants','Grey_Pants','Black_Pants','White_Pants']
@@ -18,8 +18,8 @@ def ai_model(filename, index):
     
     # GSC에서 해당 이미지 다운로드
     gcs.download_blob(filename)
-    image_path = "/backend/ai/image/"+filename
-    image = Image.open(image_path) #이미지 경로
+    image_path = "/backend/ai/image"+filename
+    image = Image.open(image_path).convert('RGB') #이미지 경로
     #resize the image to a 224x224 with the same strategy as in TM2:
     #resizing the image to be at least 224x224 and then cropping from the center
     size = (224, 224)
@@ -45,7 +45,7 @@ def ai_model(filename, index):
 
     dataArr = []
     for i in range(20):
-        dataArr.append(float(strArray[i]))
+     dataArr.append(float(strArray[i]))
     #문자열로 나누어진 값을 실수형태의 리스트로 저장
 
     result = 0 #결과값 인덱스 

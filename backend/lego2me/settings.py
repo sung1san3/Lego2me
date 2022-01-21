@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_yasg',
     'movies.apps.MoviesConfig',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -128,6 +129,23 @@ DATABASES = {
             }
         }
 }
+
+#CELERY_RESULT_BACKEND = 'django-db' 	#<- option(result db에 저장원할 때 필요)
+# CELERY_CACHE_BACKEND = 'django-cache'	#<- option
+# CELERY_BROKER_URL = 'amqp://localhost'	
+
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'Asia/Seoul'
+
+
+RABBITMQ_HOSTS = (os.environ.get('RABBITMQ_HOST'), )
+RABBITMQ_USER = os.environ.get('RABBITMQ_USER', guest)
+RABBITMQ_PASSWORD = os.environ.get('RABBITMQ_PASSWORD', guest)
+RABBITMQ_QUEUE_EXPIRES = 300.0 # seconds
+RABBITMQ_MESSAGE_EXPIRES = RABBITMQ_QUEUE_EXPIRES
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

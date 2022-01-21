@@ -3,7 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "~antd/dist/antd.css";
+@import "~react-image-crop/dist/ReactCrop.css";
 @layer components {
   .hoverAnimation {
     @apply hover:scale-105 transform transition duration-300;
