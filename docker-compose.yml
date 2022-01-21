@@ -15,6 +15,8 @@ services:
       - 27017:27017
 
   backend:
+    container_name: lego2me_django
+    image: django
     build:
       context: ./backend
     command: python manage.py runserver 0.0.0.0:8001
@@ -27,6 +29,7 @@ services:
     depends_on:
       - db
       - rabbitmq
+      - redis
       
 
   frontend:
@@ -55,10 +58,9 @@ services:
     #restart: on-failure #정상적으로 종료되지않은 경우에만 재시작 (오류코드 0 아니면 재시작)
 
   celery:
-    image: python
+    image: django
     working_dir: /backend/
-    command: > 
-      bash -c "celery -A tasks worker --loglevel=info" # tasks.py, loglevel : info
+    command: celery -A lego2me worker -l info
     volumes:
       - ./backend/:/backend/
     depends_on:
