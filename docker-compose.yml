@@ -71,6 +71,16 @@ services:
     image: redis:alpine
     ports:
       - "6379:6379"
+  
+  nginx:
+    image: nginx
+    container_name : nginx_service
+    volumes:
+      - ./leffe.conf:/etc/nginx/conf.d/leffe.conf
+    ports:
+      - "80:80"
+    depends_on :
+      - django
 
 volumes:
   mongoVolume:
