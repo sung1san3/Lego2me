@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
-
+from django.conf import settings
 from celery import shared_task
+from celery import Celery
 
 import json, os, sys
 
@@ -19,8 +20,8 @@ def ai_model(newFileName_top, newFileName_bottoms):
     
     #상, 하의 결과값 딕셔너리
     result_sting = {}
-    result_sting["top"] == result_value_top
-    result_sting["bottem"] == result_value_bottom
+    result_sting["top"] = result_value_top
+    result_sting["bottom"] = result_value_bottom
 
     # 결과값 json 변환
     json_string = json.dumps(result_sting)

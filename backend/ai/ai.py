@@ -19,10 +19,7 @@ def ai_model(filename, index):
     # GSC에서 해당 이미지 다운로드
     gcs.download_blob(filename)
     image_path = "/backend/ai/image/"+filename
-    #image = Image.open(image_path) #이미지 경로
-    image = Image.open(image_path).convert('RGB')
-  
-    #(x , x , 1 ) -> (x , x , 3)의 회색이미지에서 컬러로? 뭔가 그런 이미지 형태의 문제인 듯?
+    image = Image.open(image_path).convert('RGB') #이미지 경로
     #resize the image to a 224x224 with the same strategy as in TM2:
     #resizing the image to be at least 224x224 and then cropping from the center
     size = (224, 224)

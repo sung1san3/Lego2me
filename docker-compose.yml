@@ -15,6 +15,8 @@ services:
       - 27017:27017
 
   backend:
+    container_name: lego2me_django
+    image: django
     build:
       context: ./backend
     command: python manage.py runserver 0.0.0.0:8001
@@ -26,6 +28,9 @@ services:
       - 8001
     depends_on:
       - db
+      - rabbitmq
+      - redis
+      
 
   frontend:
     build:
@@ -39,24 +44,29 @@ services:
       - /usr/src/app/.next
 
   rabbitmq:
-    container_name: rabbitmq
     hostname: rabbitmq
-    image: rabbitmq:latest
+    image: rabbitmq:3.7.14-management-alpine # 웹 UI management 툴 포함
+    # 환경변수 설정
+    environment: 
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+      #- RABBITMQ_HOSTS=rabbitmq:5672
+
     ports:
-      - "5672:5672"
-    restart: on-failure #정상적으로 종료되지않은 경우에만 재시작 (오류코드 0 아니면 재시작)
+      - "5672:5672" # rabbitMQ default port
+      - "15672:15672" # UI를 위한 port
+
+    #restart: on-failure #정상적으로 종료되지않은 경우에만 재시작 (오류코드 0 아니면 재시작)
 
   celery:
-    build:
-      context: .
+    image: django
+    working_dir: /backend/
     command: celery -A lego2me worker -l info
     volumes:
       - ./backend/:/backend/
     depends_on:
-      - db
-      - rabbitmq
       - backend
-    restart: on-failure
+    #restart: on-failure
 
   redis:
     image: redis:alpine
