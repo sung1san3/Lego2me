@@ -64,3 +64,8 @@ def ai_model(filename, index):
         print(filename+'<--- 삭제 완료')
 
     return resultData
+
+
+
+
+    

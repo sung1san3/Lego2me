@@ -41,6 +41,7 @@ const UploadImgButton: React.FC = () => {
   const Input = styled("input")({
     display: "none",
   });
+
   //모달 스타일
   const sxBox: SxProps<Theme> = (theme: Theme) => {
     return {
@@ -48,11 +49,11 @@ const UploadImgButton: React.FC = () => {
       top: "50%",
       left: "50%",
       transform: "translate(-50%, -50%)",
-      width: 800,
       bgcolor: "background.paper",
-      border: "2px solid #000",
-      boxShadow: 24,
-      p: 4,
+      width: 700,
+      boxShadow: 1,
+      borderRadius: 2,
+      p: 2,
     };
   };
 
@@ -62,11 +63,10 @@ const UploadImgButton: React.FC = () => {
   const previewCanvasRef = useRef<any>(null);
   const [crop, setCrop] = useState<any>({
     unit: "%",
-    width: 30,
+    width: 40,
     aspect: 1 / 1,
   });
   // 자른 이미지 상태 저장
-
   const [completedCrop, setCompletedCrop] = useState<any>(null);
   const [topBlob, setTopBlob] = useState<File | null>(null);
   const [bottomBlob, setBottomBlob] = useState<File | null>(null);
@@ -174,7 +174,7 @@ const UploadImgButton: React.FC = () => {
       const reader = new FileReader();
       reader.addEventListener("load", () => setUpImg(reader.result));
       reader.readAsDataURL(file);
-      // TODO:
+
       const lastDot = file.name.lastIndexOf(".");
       const fileName = file.name.substring(-1, lastDot).concat(".png");
       setUploadImgName(fileName);
@@ -218,7 +218,6 @@ const UploadImgButton: React.FC = () => {
     );
   }, [completedCrop]);
 
-  //FIXME:결과값 데이터 전송
   const handleResult = () => {
     const fd = new FormData();
     if (topBlob !== null && bottomBlob !== null) {
@@ -226,7 +225,6 @@ const UploadImgButton: React.FC = () => {
       //fd.append("img_top_title", topBlob.name);
       fd.append("img_bottoms", bottomBlob);
       //fd.append("img_bottom_title", bottomBlob.name);
-      //TODO:업로드된 파일 이름 보내 달라
       fd.append("img_title", uploadImgName);
       axios
         .post("http://localhost:8001/api/posts/", fd, {
@@ -263,20 +261,33 @@ const UploadImgButton: React.FC = () => {
       >
         <Box sx={sxBox}>
           <div>
-            <div className="flex justify-center ">
-              <input type="file" accept="image/*" onChange={onSelectFile} />
+            <div className="flex justify-center mb-4">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={onSelectFile}
+                className="block w-full text-sm text-slate-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-full file:border-0
+      file:text-sm file:font-semibold
+      file:bg-red-50 file:text-red-500
+      hover:file:bg-red-100
+      font-Montserrat
+    "
+              />
             </div>
-            <div className="flex justify-items-center">
+            <div className="flex justify-around items-center align-middle">
               <ReactCrop
+                className="rounded-xl w-100 bg-none"
                 src={upImg}
                 onImageLoaded={onLoad}
                 crop={crop}
                 onChange={(c) => setCrop(c)}
                 onComplete={(c) => setCompletedCrop(c)}
-                maxWidth={300}
               />
-              <div className="items-center">
+              <div>
                 <canvas
+                  className=" p-1 rounded-xl"
                   ref={previewCanvasRef}
                   // Rounding is important so the canvas width and height matches/is a multiple for sharpness.
                   style={{
@@ -286,35 +297,36 @@ const UploadImgButton: React.FC = () => {
                 />
               </div>
             </div>
-            <div className="flex justify-around">
+
+            <div className="flex justify-around mt-4 font-Montserrat">
               <button
-                className="border-2 border-black"
+                className="bg-transparent rounded-full hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent"
                 type="button"
                 disabled={!completedCrop?.width || !completedCrop?.height}
                 onClick={() =>
                   generateTopImage(previewCanvasRef.current, completedCrop)
                 }
               >
-                Save Top
+                1. Select Top
               </button>
               <button
-                className="border-2 border-black"
+                className="bg-transparent rounded-full hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent font-Montserrat"
                 type="button"
                 disabled={!completedCrop?.width || !completedCrop?.height}
                 onClick={() =>
                   generateBottomImage(previewCanvasRef.current, completedCrop)
                 }
               >
-                Save Bottom
+                2. Select Bottom
               </button>
               {/* FIXME: */}
               <button
-                className="border-2 border-black"
+                className="bg-transparent rounded-full hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent font-Montserrat "
                 type="button"
                 disabled={!completedCrop?.width || !completedCrop?.height}
                 onClick={handleResult}
               >
-                View results
+                3. Check your character
               </button>
             </div>
           </div>
