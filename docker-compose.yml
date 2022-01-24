@@ -67,10 +67,10 @@ services:
       - backend
     #restart: on-failure
 
-  redis:
-    image: redis:alpine
-    ports:
-      - "6379:6379"
+  # redis:
+  #   image: redis:alpine
+  #   ports:
+  #     - "6379:6379"
 
   nginx:
     image: nginx
