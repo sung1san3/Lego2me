@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-fio=9zg%ci60tyb!fql1@n^4a#)+-!f+*in&!b^n-p=es^9__2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '34.69.160.195'
+]
 
 CORS_ORIGIN_WHITELIST = ['http://localhost:3000'] #아까 설치한 corsheaders로 해당 서버와 연결할 서버의 url을 작성해준모습
 

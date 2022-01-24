@@ -30,7 +30,6 @@ services:
       - db
       - rabbitmq
       - redis
-      
 
   frontend:
     build:
@@ -47,7 +46,7 @@ services:
     hostname: rabbitmq
     image: rabbitmq:3.7.14-management-alpine # 웹 UI management 툴 포함
     # 환경변수 설정
-    environment: 
+    environment:
       - RABBITMQ_USER=guest
       - RABBITMQ_PASSWORD=guest
       #- RABBITMQ_HOSTS=rabbitmq:5672
@@ -72,16 +71,16 @@ services:
     image: redis:alpine
     ports:
       - "6379:6379"
-  
+
   nginx:
     image: nginx
-    container_name : nginx_service
+    container_name: nginx_service
     volumes:
       - ./leffe.conf:/etc/nginx/conf.d/leffe.conf
     ports:
       - "80:80"
-    depends_on :
-      - django
+    depends_on:
+      - backend
 
 volumes:
   mongoVolume:
