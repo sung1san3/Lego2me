@@ -10,5 +10,6 @@ module.exports = {
   variants: {
     extend: {},
   },
+  swcMinify: false,
   plugins: [],
 };

@@ -27,10 +27,17 @@ SECRET_KEY = 'django-insecure-fio=9zg%ci60tyb!fql1@n^4a#)+-!f+*in&!b^n-p=es^9__2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '34.69.160.195'
+]
 
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000'] #아까 설치한 corsheaders로 해당 서버와 연결할 서버의 url을 작성해준모습
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000',
+'http://34.69.160.195:3000',
+'http://34.69.160.195:8000',
+'http://34.69.160.195:8080',
+]
 
+CORS_ALLOW_CREDENTIALS = True
 # Application definition
 
 # REST_FRAMEWORK = { # 추가
@@ -130,6 +137,7 @@ DATABASES = {
 
 
 RABBITMQ_HOSTS = (os.environ.get('RABBITMQ_HOST'), )
+RABBITMQ_HOSTS = os.environ.get('RABBITMQ_HOST','rabbitmq')
 RABBITMQ_USER = os.environ.get('RABBITMQ_USER', 'guest')
 RABBITMQ_PASSWORD = os.environ.get('RABBITMQ_PASSWORD', 'guest')
 RABBITMQ_QUEUE_EXPIRES = 300.0 # seconds

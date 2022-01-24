@@ -12,8 +12,8 @@ const Result: NextPage = () => {
   const [top, setTopState] = useRecoilState(topState);
   const [bottom, setBottomState] = useRecoilState(bottomState);
 
-  console.log(`reesult ${top}`);
-  console.log(`reesult ${bottom}`);
+  console.log(`result ${top}`);
+  console.log(`result ${bottom}`);
 
   const hairStyle = [
     {
