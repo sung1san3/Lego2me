@@ -75,8 +75,6 @@ services:
   nginx:
     image: nginx
     container_name: nginx_service
-    volumes:
-      - ./leffe.conf:/etc/nginx/conf.d/leffe.conf
     ports:
       - "80:80"
     depends_on:
