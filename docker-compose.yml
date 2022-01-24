@@ -25,11 +25,13 @@ services:
     volumes:
       - ./backend/:/backend/
     expose:
-      - 8001
+      - 8000
     depends_on:
       - db
       - rabbitmq
       - redis
+    networks:
+      - backend
 
   frontend:
     build:
@@ -81,6 +83,7 @@ services:
       - "80:80"
     depends_on:
       - backend
-
+    networks:
+      - backend
 volumes:
   mongoVolume:
