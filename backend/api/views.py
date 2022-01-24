@@ -8,7 +8,7 @@ from rest_framework.decorators import parser_classes
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from .serializers import Img_upload_serializers
+from .serializers import *
 from .models import Img_upload
 from rest_framework.response import Response
 from rest_framework import status
@@ -60,24 +60,17 @@ class PostViewSet(viewsets.ModelViewSet):
 
         ai_model(newFileName_top, newFileName_bottoms, task_id)
 
-        return task_id # task.id
-        #Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return task_id
+        # Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-# class Get_View(APIView):
-#     def get(self, request, slug, format=None):
-#         result = Task.objects.get(task_id=data)
-#         print(data)
-#         result = Task.objects.get(task_id=data).values()
-#         type(result)
-#         if kwargs.get('user_id') is None:
-#             user_queryset = User.objects.all() #모든 User의 정보를 불러온다.
-#             user_queryset_serializer = UserSerializer(user_queryset, many=True)
-#             return Response(user_queryset_serializer.data, status=status.HTTP_200_OK)
-#         else:
-#             user_id = kwargs.get('user_id')
-#             user_serializer = UserSerializer(User.objects.get(id=user_id)) #id에 해당하는 User의 정보를 불러온다
-#             return Response(user_serializer.data, status=status.HTTP_200_OK)
- 
+class Get_View(APIView):
+    def get(self, request, slug, format=None):
+        result = self.get_object(slug)
+        print(slug)
+        type(result)
+        seriallizer = Task_serializers(result)
+        return Response(serializers.data)
+
 #         # GET repeat http://localhost:8000/api/posts/tasks/<task_id>
 #         return result ## status = PENDING -> COMPLETED => result ={ top: res.data.top ,bottom: res.data.bottom}
     #print(serializer_class)
