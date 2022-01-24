@@ -234,6 +234,35 @@ const UploadImgButton: React.FC = () => {
         })
         .then((res) => {
           console.log("success");
+          //console.log(res.data);
+          // FIXME: -----------------------여기여기여기여기여기여기여기여기----------------------
+          //const taskId = res.data.task;
+          axios.get(`http://34.69.160.195:8000/${taskId}`).then((res) => {
+            const imgPathTop = "/items/top/";
+            const imgPathBottom = "/items/bottom/";
+
+            const objTop = res.data.top;
+            const objBottom = res.data.bottom;
+
+            const resultTop = "".concat(imgPathTop, objTop, ".png");
+            const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
+
+            console.log(resultTop); //White_shrirt
+            console.log(resultBottom); //red_Bottos
+
+            // if (
+            //   hairStateValue !== "/items/default.png" ||
+            //   topStateValue !== "/items/default.png" ||
+            //   bottomStateValue !== "/items/default.png"
+            // ) {
+            //   resetHair();
+            //   resetTop();
+            //   resetBottom();
+            // }
+            // setTopUseSetRecoilState(`${resultTop}`);
+            // setBottomUseSetRecoilState(`${resultBottom}`);
+            // router.push("/result");
+          });
         })
         .catch((err) => {
           console.log(err);
