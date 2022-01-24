@@ -60,8 +60,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
         ai_model(newFileName_top, newFileName_bottoms, task_id)
 
-        return task_id
-        # Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers, task = task.id)
 
 class Get_View(APIView):
     def get(self, request, slug, format=None):
