@@ -1,7 +1,7 @@
 from django.db.models import fields
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
-from .models import Img_upload,Image_data
+from .models import Img_upload
 #from django.contrib.auth.models import User
 
 # 사용 ++++++++++++++++++++++++++++++++++++++++
@@ -14,9 +14,3 @@ class Img_upload_serializers(serializers.ModelSerializer):
 
     # def __str__(self):
     #     return self._id
-
-class Img_data_serializers(serializers.ModelSerializer):
-
-    class Meta:
-        model = Image_data
-        fields = '__all__'

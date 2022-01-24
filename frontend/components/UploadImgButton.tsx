@@ -227,17 +227,17 @@ const UploadImgButton: React.FC = () => {
       //fd.append("img_bottom_title", bottomBlob.name);
       fd.append("img_title", uploadImgName);
       axios
-        .post("http://34.69.160.195:8000/api/posts/", fd, {
+        .post("http://localhost:8000/api/posts/", fd, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         })
         .then((res) => {
           console.log("success");
-          //console.log(res.data);
+          console.log(res.data);
           // FIXME: -----------------------여기여기여기여기여기여기여기여기----------------------
-          //const taskId = res.data.task;
-          axios.get(`http://34.69.160.195:8000/${taskId}`).then((res) => {
+          const taskId = res.data.task;
+          axios.get(`http://localhost:8000/api/posts/${taskId}`).then((res) => {
             const imgPathTop = "/items/top/";
             const imgPathBottom = "/items/bottom/";
 

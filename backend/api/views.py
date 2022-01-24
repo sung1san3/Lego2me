@@ -3,14 +3,10 @@ from pyexpat import model
 from urllib import request
 from django.shortcuts import render
 from django.http import HttpResponse
-#from backend.api.uuid import get_file_path
 from rest_framework.decorators import api_view
 from rest_framework.decorators import parser_classes
-# from django.views.decorators.csrf import csrf_exempt
-# from django.views.decorators.http import require_POST
 from rest_framework import viewsets
-
-#from api.img_upload import db_save
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from .serializers import Img_upload_serializers
 from .models import Img_upload
@@ -44,30 +40,46 @@ class PostViewSet(viewsets.ModelViewSet):
         newFileName_bottoms = str(Img_upload.objects.filter(img_title=filename).values('img_bottoms')[0]['img_bottoms'])
         print(newFileName_top+' // '+newFileName_bottoms)
 
-        #구글 클라우드 스토리지 URL만들기
-        bucket = "lego2me__image"
-   
-        topimguri = "https://storage.googleapis.com/" + bucket + "/" + newFileName_top
-        bottomimguri = "https://storage.googleapis.com/"+ bucket + "/" + newFileName_bottoms
 
-        #db 저장
-        db_save(newFileName_top,newFileName_bottoms, topimguri, bottomimguri)
+        db_delete(newFileName_top)
+        
+        bucket = "lego2me__image"
 
         # 구글 스토리지 업로드
         upload_blob(newFileName_top, bucket)
         upload_blob(newFileName_bottoms, bucket)
-        db_delete(newFileName_top)
         
+        task_id = str(uuid.uuid4())
+        print(task_id + 'task_ id 생성')
+
+        # db 저장
         task = Task()
-        task_id = get_file_path
+        task.id = task_id
+        task.status = 'false'
+        task.save()
+
         ai_model(newFileName_top, newFileName_bottoms, task_id)
 
-        return task # task.id
+        return task_id # task.id
+        #Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-    def get_queryset(self, task_id):
-        # GET repeat http://localhost:8000/api/posts/tasks/:task_id
-        return Task.objects.get(task_id=task_id) ## status = PENDING -> COMPLETED => result ={ top: res.data.top ,bottom: res.data.bottom}
-            
+# class Get_View(APIView):
+#     def get(self, request, slug, format=None):
+#         result = Task.objects.get(task_id=data)
+#         print(data)
+#         result = Task.objects.get(task_id=data).values()
+#         type(result)
+#         if kwargs.get('user_id') is None:
+#             user_queryset = User.objects.all() #모든 User의 정보를 불러온다.
+#             user_queryset_serializer = UserSerializer(user_queryset, many=True)
+#             return Response(user_queryset_serializer.data, status=status.HTTP_200_OK)
+#         else:
+#             user_id = kwargs.get('user_id')
+#             user_serializer = UserSerializer(User.objects.get(id=user_id)) #id에 해당하는 User의 정보를 불러온다
+#             return Response(user_serializer.data, status=status.HTTP_200_OK)
+ 
+#         # GET repeat http://localhost:8000/api/posts/tasks/<task_id>
+#         return result ## status = PENDING -> COMPLETED => result ={ top: res.data.top ,bottom: res.data.bottom}
     #print(serializer_class)
     #id = Img_upload.objects.order_by('-id')
     #id 가져오기 (아마 파일명으로)

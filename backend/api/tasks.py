@@ -13,7 +13,7 @@ brokers = [f'amqp://{settings.RABBITMQ_USER}:{settings.RABBITMQ_PASSWORD}@{host}
 
 app = Celery('puddlr', broker=brokers, 
 		broker_transport_options={'confirm_publish': True})
-        
+
 @shared_task
 def ai_model(newFileName_top, newFileName_bottoms, id):
     # 상, 하의 구별을 위한 인텍스 값
@@ -24,14 +24,14 @@ def ai_model(newFileName_top, newFileName_bottoms, id):
     #하의
     result_value_bottom = ai.ai_model(newFileName_bottoms, index+10) #하의 인덱스는 10부터 시작
     
-    #상, 하의 결과값 딕셔너리
-    result_sting = {}
-    result_sting["top"] = result_value_top
-    result_sting["bottom"] = result_value_bottom
+    # #상, 하의 결과값 딕셔너리
+    # result_sting = {}
+    # result_sting["top"] = result_value_top
+    # result_sting["bottom"] = result_value_bottom
 
-    # 결과값 json 변환
-    json_string = json.dumps(result_sting)
-    print(json_string)
+    # # 결과값 json 변환
+    # json_string = json.dumps(result_sting)
+    # print(json_string)
     
     task = Task.objects.get(task_id = id)
     task.top = result_value_top
@@ -39,4 +39,4 @@ def ai_model(newFileName_top, newFileName_bottoms, id):
     task.status = 'true'
     task.save()
 
-    return json_string
+    return id

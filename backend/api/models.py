@@ -1,17 +1,11 @@
 from distutils.command.upload import upload
 from django.db import models
 from djongo import models
-from .uuid import get_file_path
+from .uuids import get_file_path
 # Create your models here.
 #from django.contrib.auth.models import User
 #from django.db.models.signals import post_save
 #from django.dispatch import receiver
-
-class Image_data(models.Model):
-    id_top = models.CharField(primary_key=True, max_length=200)
-    id_bottom = models.CharField (max_length=200)
-    image_url_top = models.CharField(max_length=200)
-    image_url_bottom = models.CharField(max_length=200)
 
 
 # 이미지 업로드
@@ -28,7 +22,7 @@ class Img_upload(models.Model):
     img_title = models.CharField(max_length=100)
     
 class Task(models.Model):
-    task_id = models.TextField()
-    task_top = models.TextField()
-    task_bottom = models.TextField()
-    task_status = models.TextField()
+    id = models.TextField(primary_key=True)
+    top_result = models.TextField()
+    bottom_result = models.TextField()
+    status = models.TextField()
