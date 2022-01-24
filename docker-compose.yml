@@ -29,7 +29,7 @@ services:
     depends_on:
       - db
       - rabbitmq
-      - redis
+      # - redis
 
   frontend:
     build:
