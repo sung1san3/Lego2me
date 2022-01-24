@@ -30,8 +30,6 @@ services:
       - db
       - rabbitmq
       - redis
-    networks:
-      - backend
 
   frontend:
     build:
@@ -83,7 +81,7 @@ services:
       - "80:80"
     depends_on:
       - backend
-    networks:
-      - backend
+      - web
+
 volumes:
   mongoVolume:
