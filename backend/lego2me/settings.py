@@ -141,6 +141,7 @@ DATABASES = {
 
 
 RABBITMQ_HOSTS = (os.environ.get('RABBITMQ_HOST'), )
+RABBITMQ_HOSTS = os.environ.get('RABBITMQ_HOST','rabbitmq')
 RABBITMQ_USER = os.environ.get('RABBITMQ_USER', 'guest')
 RABBITMQ_PASSWORD = os.environ.get('RABBITMQ_PASSWORD', 'guest')
 RABBITMQ_QUEUE_EXPIRES = 300.0 # seconds

@@ -8,11 +8,6 @@ import json, os, sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from ai import ai
 
-brokers = [f'amqp://{settings.RABBITMQ_USER}:{settings.RABBITMQ_PASSWORD}@{host}//' 
-		for host in settings.RABBITMQ_HOSTS]
-
-app = Celery('puddlr', broker=brokers, 
-		broker_transport_options={'confirm_publish': True})
 @shared_task
 def ai_model(newFileName_top, newFileName_bottoms):
     # 상, 하의 구별을 위한 인텍스 값
@@ -25,8 +20,8 @@ def ai_model(newFileName_top, newFileName_bottoms):
     
     #상, 하의 결과값 딕셔너리
     result_sting = {}
-    result_sting["top"] == result_value_top
-    result_sting["bottem"] == result_value_bottom
+    result_sting["top"] = result_value_top
+    result_sting["bottom"] = result_value_bottom
 
     # 결과값 json 변환
     json_string = json.dumps(result_sting)
