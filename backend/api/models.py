@@ -27,3 +27,8 @@ class Img_upload(models.Model):
                         )
     img_title = models.CharField(max_length=100)
     
+class Task(models.Model):
+    task_id = models.TextField()
+    task_top = models.TextField()
+    task_bottom = models.TextField()
+    task_status = models.TextField()

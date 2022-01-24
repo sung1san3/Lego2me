@@ -3,6 +3,7 @@ from pyexpat import model
 from urllib import request
 from django.shortcuts import render
 from django.http import HttpResponse
+#from backend.api.uuid import get_file_path
 from rest_framework.decorators import api_view
 from rest_framework.decorators import parser_classes
 # from django.views.decorators.csrf import csrf_exempt
@@ -15,12 +16,12 @@ from .serializers import Img_upload_serializers
 from .models import Img_upload
 from rest_framework.response import Response
 from rest_framework import status
-
+from .models import Task
 import sys
 import os, os.path
 from .img_upload import upload_blob, db_delete
 from .img_upload import *
-
+import uuid
 
 #sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 #from ai import ai
@@ -33,13 +34,13 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = Img_upload_serializers
 
     def create(self, request, *args, **kwargs):
-        data = request.data #data가 아마 프론트엔드에서 form형태로 넘어온 데이터 인듯
-        filename = data.__getitem__('img_title') #그래서 그 데이터의 파일 이름 읽어서 filename에 저장하고
+        data = request.data
+        filename = data.__getitem__('img_title')
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        newFileName_top = str(Img_upload.objects.filter(img_title=filename).values('img_top')[0]['img_top']) # 그 파일이름을 가지고 DB의 상하의 이미지 지움
+        newFileName_top = str(Img_upload.objects.filter(img_title=filename).values('img_top')[0]['img_top'])
         newFileName_bottoms = str(Img_upload.objects.filter(img_title=filename).values('img_bottoms')[0]['img_bottoms'])
         print(newFileName_top+' // '+newFileName_bottoms)
 
@@ -57,12 +58,16 @@ class PostViewSet(viewsets.ModelViewSet):
         upload_blob(newFileName_bottoms, bucket)
         db_delete(newFileName_top)
         
-        
-        result_value = ai_model(newFileName_top, newFileName_bottoms)
-        #result_value = ai_model(newFileName_top, 10)
-        
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        task = Task()
+        task_id = get_file_path
+        ai_model(newFileName_top, newFileName_bottoms, task_id)
 
+        return task # task.id
+
+    def get_queryset(self, task_id):
+        # GET repeat http://localhost:8000/api/posts/tasks/:task_id
+        return Task.objects.get(task_id=task_id) ## status = PENDING -> COMPLETED => result ={ top: res.data.top ,bottom: res.data.bottom}
+            
     #print(serializer_class)
     #id = Img_upload.objects.order_by('-id')
     #id 가져오기 (아마 파일명으로)

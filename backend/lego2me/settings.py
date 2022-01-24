@@ -65,7 +65,6 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'corsheaders',
     'drf_yasg',
-    'movies.apps.MoviesConfig',
     'django_celery_results',
 ]
 
@@ -102,16 +101,6 @@ TEMPLATES = [
 #개발을 위해 로컬로 실행하면 주석처리
 #WSGI_APPLICATION = 'lego2me.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
     'default':
     { 'ENGINE': 'djongo',
@@ -141,8 +130,8 @@ DATABASES = {
 
 
 RABBITMQ_HOSTS = (os.environ.get('RABBITMQ_HOST'), )
-RABBITMQ_USER = os.environ.get('RABBITMQ_USER', guest)
-RABBITMQ_PASSWORD = os.environ.get('RABBITMQ_PASSWORD', guest)
+RABBITMQ_USER = os.environ.get('RABBITMQ_USER', 'guest')
+RABBITMQ_PASSWORD = os.environ.get('RABBITMQ_PASSWORD', 'guest')
 RABBITMQ_QUEUE_EXPIRES = 300.0 # seconds
 RABBITMQ_MESSAGE_EXPIRES = RABBITMQ_QUEUE_EXPIRES
 

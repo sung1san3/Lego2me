@@ -24,10 +24,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, BasePermission
 
 from .yasg import *
 
-from movies.views import MovieViewSet
 router = routers.DefaultRouter()
-#router.register('Img_upload', views.Img_upload_view, 'Img_upload')
-router.register('movies',MovieViewSet) # prefix = movies , viewset = MovieViewSe
 
 urlpatterns = [
     path('admin/', admin.site.urls),
