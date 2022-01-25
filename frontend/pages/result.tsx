@@ -6,6 +6,8 @@ import ItemSelect from "../components/ItemSelect";
 import { useRecoilState } from "recoil";
 import { hairState, topState, bottomState } from "../recoil/states";
 import ResultLego from "../components/ResultLego";
+import { useRouter } from "next/router";
+import { Button } from "@mui/material";
 
 const Result: NextPage = () => {
   const [hair, setHairState] = useRecoilState(hairState);
@@ -114,6 +116,10 @@ const Result: NextPage = () => {
     },
   ];
 
+  //TODO: TaskId 받아오기
+  const router = useRouter();
+  console.log(`taskId : ${router.query.taskId}`);
+
   return (
     <div>
       <Nav></Nav>
@@ -136,14 +142,23 @@ const Result: NextPage = () => {
             //setState={setBottom}
           ></ItemSelect>
         </article>
-        <article className="w-full md:w-[50%] p-3">
+        <article className="w-full md:w-[50%] p-3" id="ResultLego">
           <ResultLego />
+          <div className="flex justify-center">
+            <Button
+              variant="contained"
+              color="error"
+              component="span"
+              className="mt-4 font-Montserrat"
+            >
+              Submit Feedback!
+            </Button>
+          </div>
         </article>
       </section>
       <Footer></Footer>
     </div>
   );
 };
-// ssr
 
 export default Result;

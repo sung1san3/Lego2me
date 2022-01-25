@@ -29,11 +29,7 @@ services:
     depends_on:
       - db
       - rabbitmq
-<<<<<<< HEAD
-      - redis
-=======
       # - redis
->>>>>>> b5c7999d50536d4a9a66e1da89bf9ac3cf2e555d
 
   frontend:
     build:
@@ -69,26 +65,12 @@ services:
       - ./backend/:/backend/
     depends_on:
       - backend
-    #restart: on-failure
-
-  # redis:
-  #   image: redis:alpine
-  #   ports:
-  #     - "6379:6379"
+  
 
   nginx:
-<<<<<<< HEAD
-    image: nginx
-    container_name: nginx_service
-    # volumes:
-    #   - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
-=======
     image: nginx:latest
     container_name: nginx_service
+
     ports:
       - "8080:8080"
     depends_on:
@@ -96,10 +78,7 @@ services:
     - frontend
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-    #   - static_volume:/backend/staticfiles
-    #   - media_volume:/backend/mediafiles
-    #   - build_folder:/var/www/frontend
->>>>>>> b5c7999d50536d4a9a66e1da89bf9ac3cf2e555d
+   
 
 volumes:
   mongoVolume:
