@@ -19,9 +19,9 @@ services:
     image: django
     build:
       context: ./backend
-    command: python manage.py runserver 0.0.0.0:8001
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
-      - 8001:8001
+      - 8000:8000
     volumes:
       - ./backend/:/backend/
     expose:
@@ -29,7 +29,7 @@ services:
     depends_on:
       - db
       - rabbitmq
-      - redis
+      # - redis
 
   frontend:
     build:
@@ -67,16 +67,20 @@ services:
       - backend
     #restart: on-failure
 
-  redis:
-    image: redis:alpine
-    ports:
-      - "6379:6379"
+  # redis:
+  #   image: redis:alpine
+  #   ports:
+  #     - "6379:6379"
 
   nginx:
-    image: nginx
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: nginx_service
-    volumes:
-      - ./leffe.conf:/etc/nginx/conf.d/leffe.conf
+    # volumes:
+    #   - ./templates:/etc/nginx/templates
+    #   - ./nginx.conf:/etc/nginx/nginx.conf
+    #   - ./conf.d:/etc/nginx/conf.d
     ports:
       - "80:80"
     depends_on:

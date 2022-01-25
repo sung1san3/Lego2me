@@ -28,7 +28,8 @@ SECRET_KEY = 'django-insecure-fio=9zg%ci60tyb!fql1@n^4a#)+-!f+*in&!b^n-p=es^9__2
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '34.69.160.195'
+    '*'
+    #'34.69.160.195'
 ]
 
 CORS_ORIGIN_WHITELIST = ['http://localhost:3000',
@@ -72,8 +73,6 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'corsheaders',
     'drf_yasg',
-    'movies.apps.MoviesConfig',
-    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -109,16 +108,6 @@ TEMPLATES = [
 #개발을 위해 로컬로 실행하면 주석처리
 #WSGI_APPLICATION = 'lego2me.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
     'default':
     { 'ENGINE': 'djongo',
