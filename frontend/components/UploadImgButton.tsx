@@ -241,29 +241,28 @@ const UploadImgButton: React.FC = () => {
             .then((res) => {
               const imgPathTop = "/items/top/";
               const imgPathBottom = "/items/bottom/";
-              console.log(res.data);
 
-              // const objTop = res.data.top;
-              // const objBottom = res.data.bottom;
+              const objTop = res.data.top_result;
+              const objBottom = res.data.bottom_result;
 
-              // const resultTop = "".concat(imgPathTop, objTop, ".png");
-              // const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
+              const resultTop = "".concat(imgPathTop, objTop, ".png");
+              const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
 
-              // console.log(resultTop); //White_shrirt
-              // console.log(resultBottom); //red_Bottos
+              console.log(resultTop); //White_shrirt
+              console.log(resultBottom); //red_Bottos
 
-              // if (
-              //   hairStateValue !== "/items/default.png" ||
-              //   topStateValue !== "/items/default.png" ||
-              //   bottomStateValue !== "/items/default.png"
-              // ) {
-              //   resetHair();
-              //   resetTop();
-              //   resetBottom();
-              // }
-              // setTopUseSetRecoilState(`${resultTop}`);
-              // setBottomUseSetRecoilState(`${resultBottom}`);
-              // router.push("/result");
+              if (
+                hairStateValue !== "/items/default.png" ||
+                topStateValue !== "/items/default.png" ||
+                bottomStateValue !== "/items/default.png"
+              ) {
+                resetHair();
+                resetTop();
+                resetBottom();
+              }
+              setTopUseSetRecoilState(`${resultTop}`);
+              setBottomUseSetRecoilState(`${resultBottom}`);
+              router.push("/result");
             });
         })
         .catch((err) => {
