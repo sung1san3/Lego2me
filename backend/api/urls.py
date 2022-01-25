@@ -21,5 +21,4 @@ urlpatterns = router.urls
 
 urlpatterns = [
         path('', include(router.urls)),
-        path('<slug:slug>/', views.Get_View.as_view())
 ]

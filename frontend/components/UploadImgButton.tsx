@@ -237,7 +237,7 @@ const UploadImgButton: React.FC = () => {
           console.log(res.data);
           // FIXME: -----------------------여기여기여기여기여기여기여기여기----------------------
           const taskId = res.data.task;
-          axios.get(`http://localhost:8000/api/posts/${taskId}`).then((res) => {
+          axios.get(`http://localhost:8000/api/tasks/${taskId}`).then((res) => {
             const imgPathTop = "/items/top/";
             const imgPathBottom = "/items/bottom/";
 

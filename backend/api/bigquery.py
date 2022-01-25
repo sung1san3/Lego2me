@@ -6,7 +6,7 @@ import pandas
 import pytz
 import datetime
 
-def bigquery_save(newFileName_top, newFileName_bottoms,id):
+def bigquery_save(newFileName_top, newFileName_bottoms, id, top_label, bottom_label):
     credential_path = "/backend/api/json_key/bigquery-339204-ae0dfd4ee5d8.json"  #json파일 경로
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path #환경변수 세팅
 
@@ -24,14 +24,19 @@ def bigquery_save(newFileName_top, newFileName_bottoms,id):
     cur_time = data=datetime.datetime.now()
     records = [
         {
-            "id" : 1,
-            "img_url_top": u"google 스토리지 상의 링크1", 
-            "img_url_buttom": u"google 스토리지 하의 링크1",
-            "top_label": u"red",
-            "buttom_label": u"brown",
-            "upload_date": u"1999.09.02",
         }
     ]
+    records[0]['id'] = id
+    records[0]['img_url_top'] = topimguri
+    records[0]['img_url_bottom'] = bottomimguri
+    records[0]['']
+
+""""id" : ,
+"img_url_top": {}, 
+"img_url_buttom": {},
+"top_label": {},
+"buttom_label": {},
+"upload_date": {},"""
 
     dataframe = pandas.DataFrame(
         records,
