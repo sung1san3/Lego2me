@@ -32,6 +32,5 @@ def ai_model(newFileName_top, newFileName_bottoms, id):
     task.save()
 
     bigquery_save(newFileName_top, newFileName_bottoms, id, result_value_top, result_value_bottom)
-    #newFileName_top, newFileName_bottoms, id, top_label, bottom_label
     
     return id

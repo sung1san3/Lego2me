@@ -39,27 +39,6 @@ CORS_ORIGIN_WHITELIST = ['http://localhost:3000',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-# Application definition
-
-# REST_FRAMEWORK = { # 추가
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.IsAuthenticated',  #인증된 회원만 액세스 허용
-#         'rest_framework.permissions.AllowAny',         #모든 회원 액세스 허용
-#     ],
-#     'DEFAULT_AUTHENTICATION_CLASSES': ( #api가 실행됬을 때 인증할 클래스를 정의해주는데 우리는 JWT를 쓰기로 했으니
-#         'rest_framework_jwt.authentication.JSONWebTokenAuthentication', #이와 같이 추가해준 모습이다.
-#     ),
-# }
-
-# JWT_AUTH = { # 추가
-#    'JWT_SECRET_KEY': SECRET_KEY,
-#    'JWT_ALGORITHM': 'HS256',
-#    'JWT_VERIFY_EXPIRATION' : True, #토큰검증
-#    'JWT_ALLOW_REFRESH': True, #유효기간이 지나면 새로운 토큰반환의 refresh
-#    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=30),  # Access Token의 만료 시간
-#    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=3), # Refresh Token의 만료 시간
-#    'JWT_RESPONSE_PAYLOAD_HANDLER': 'api.custom_responses.my_jwt_response_handler'
-# }
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -126,16 +105,6 @@ DATABASES = {
         }
 }
 
-#CELERY_RESULT_BACKEND = 'django-db' 	#<- option(result db에 저장원할 때 필요)
-# CELERY_CACHE_BACKEND = 'django-cache'	#<- option
-# CELERY_BROKER_URL = 'amqp://localhost'	
-
-# CELERY_ACCEPT_CONTENT = ['application/json']
-# CELERY_TASK_SERIALIZER = 'json'
-# CELERY_RESULT_SERIALIZER = 'json'
-# CELERY_TIMEZONE = 'Asia/Seoul'
-
-
 RABBITMQ_HOSTS = (os.environ.get('RABBITMQ_HOST'), )
 RABBITMQ_HOSTS = os.environ.get('RABBITMQ_HOST','rabbitmq')
 RABBITMQ_USER = os.environ.get('RABBITMQ_USER', 'guest')
@@ -161,26 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-# REST_FRAMEWORK = {
-#     # Use Django's standard `django.contrib.auth` permissions,
-#     # or allow read-only access for unauthenticated users.
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-#     ]
-# }
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.AllowAny',
-#     ]
-# }
-# REST_FRAMEWORK = {
-#     # Use Django's standard `django.contrib.auth` permissions,
-#     # or allow read-only access for unauthenticated users.
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.IsAuthenticated',
-#     ]
-# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

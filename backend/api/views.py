@@ -1,10 +1,3 @@
-import imp
-from pyexpat import model
-from urllib import request
-from django.shortcuts import render
-from django.http import HttpResponse
-from rest_framework.decorators import api_view
-from rest_framework.decorators import parser_classes
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
@@ -13,14 +6,12 @@ from .models import Img_upload
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Task
+
 import sys
 import os, os.path
 from .img_upload import upload_blob, db_delete
 from .img_upload import *
 import uuid
-
-#sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-#from ai import ai
 
 from .tasks import ai_model
 
@@ -70,46 +61,3 @@ class Get_View(APIView):
         print(slug)
         serializer = Task_serializers(result)
         return Response(serializer.data)
-
-#         # GET repeat http://localhost:8000/api/posts/tasks/<task_id>
-#         return result ## status = PENDING -> COMPLETED => result ={ top: res.data.top ,bottom: res.data.bottom}
-    #print(serializer_class)
-    #id = Img_upload.objects.order_by('-id')
-    #id 가져오기 (아마 파일명으로)
-    #filename = Img_upload.objects.filter('img_title')
-    #print('filename')
-    
-    #Viewset으로 해볼려고 했으나 계속 오류남
-    # def get(self, request, format=None):
-    #     snippets = Img_upload.objects.all()
-    #     serializer = Img_upload_serializers(snippets, many=True)
-    #     return Response(serializer.data)
-
-    # def post(self, request, format=None):
-    #     queryset = Img_upload.objects.all()
-    #     serializer = Img_upload(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    #def get_queryset(self):
-    # path = './media'
-    # os.rename(path+filename, id)
-
-    # upload_blob(id)
-
-    # #파일 삭제
-    # if os.path.exists(file_path):
-    #     for file in os.scandir(file_path):
-    #         os.remove(file_path)
-
-    # #구글 클라우드 스토리지 URL만들기
-    # bucket = "lego_example"
-    # imguri = "https://storage.googleapis.com/"+bucket+"/"+"names"
-    # db_save(names[0], imguri)
-    # return Response(img_upload_serializers.data, status=status.HTTP_201_CREATED)
-
-#         else:
-#             print('error', img_upload_serializers.errors)
-#             return Response(img_upload_serializers.errors, status=status.HTTP_400_BAD_REQUEST)
