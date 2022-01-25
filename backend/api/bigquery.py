@@ -39,11 +39,8 @@ def bigquery_save(newFileName_top, newFileName_bottoms, id, top_label, bottom_la
             "top_label",
             "bottom_label",
             "upload_date",
+            "score",
         ],
-        #인덱스는 다음과 같이 표현 가능
-        # index=pandas.Index(
-        #     [u"Q24980", u"Q25043"], name="id"
-        # ),
     )
     job_config = bigquery.LoadJobConfig(
 
@@ -54,6 +51,7 @@ def bigquery_save(newFileName_top, newFileName_bottoms, id, top_label, bottom_la
             bigquery.SchemaField("img_url_bottom", bigquery.enums.SqlTypeNames.STRING),
             bigquery.SchemaField("top_label", bigquery.enums.SqlTypeNames.STRING),
             bigquery.SchemaField("bottom_label", bigquery.enums.SqlTypeNames.STRING),
+            bigquery.SchemaField("score", bigquery.enums.SqlTypeNames.INTEGER),
         ],
         #만약 데이터 덮어쓰기 하고 싶으면 다음과 같은 환경변수 정의(기존꺼 날라감)
         #write_disposition="WRITE_TRUNCATE",
@@ -70,3 +68,17 @@ def bigquery_save(newFileName_top, newFileName_bottoms, id, top_label, bottom_la
             table.num_rows, table_id
         )
     )
+
+def bigquery_score_save(id, score):
+    credential_path = "/backend/api/json_key/bigquery-339204-ae0dfd4ee5d8.json"  #json파일 경로
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path #환경변수 세팅
+    table_id= "bigquery.dataTable"
+    client = bigquery.Client()
+    query_text = (f"UPDATE bigquery.dataTable SET score = {score} WHERE result_id = {id}")
+    query_job = client.query(query_text)
+
+    # Wait for query job to finish.
+    query_job.result()
+
+    print(f"DML query modified {query_job.num_dml_affected_rows} rows.")
+    return query_job.num_dml_affected_rows

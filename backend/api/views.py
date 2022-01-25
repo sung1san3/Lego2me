@@ -1,3 +1,4 @@
+from .bigquery import bigquery_score_save
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
@@ -65,7 +66,7 @@ class Get_View(APIView):
 class PostViewScore(viewsets.ModelViewSet):
     queryset = Star_score.objects.all()
     serializer_class = Starscore_serializers
-
+    
     def create(self, request, *args, **kwargs):
         data = request.data
         id = data.__getitem__('id')
@@ -75,4 +76,5 @@ class PostViewScore(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         # bigquery 저장
+        bigquery_score_save(id, score)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

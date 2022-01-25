@@ -16,5 +16,5 @@ class Task_serializers(serializers.ModelSerializer):
 
 class Starscore_serializers(serializers.ModelSerializer):
     class Meta:
-        model = star_score
+        model = Star_score
         fields = '__all__'

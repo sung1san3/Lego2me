@@ -5,8 +5,8 @@ from .views import *
 from . import views
 
 router = DefaultRouter()
-router.register(r'posts', PostViewSet, basename='Post')  
-
+router.register(r'posts', PostViewSet, basename = 'Post')  
+router.register(r'scores', PostViewScore, basename = 'Post_score')
 urlpatterns = router.urls
 
 urlpatterns = [
