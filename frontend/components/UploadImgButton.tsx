@@ -239,8 +239,8 @@ const UploadImgButton: React.FC = () => {
           axios
             .get(`http://34.69.160.195:8000/api/tasks/${taskId}`)
             .then((res) => {
-              const imgPathTop = "/items/top/";
-              const imgPathBottom = "/items/bottom/";
+              const imgPathTop = "/legoItem/Top/";
+              const imgPathBottom = "/legoItem/Bottom/";
 
               const objTop = res.data.top_result;
               const objBottom = res.data.bottom_result;
