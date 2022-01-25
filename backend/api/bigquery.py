@@ -20,24 +20,24 @@ def bigquery_save(newFileName_top, newFileName_bottoms, id, top_label, bottom_la
     client = bigquery.Client()
 
 
-    table_id= "test.temp" #bigquery에 생성한 dataset_name.tableName 작성 (해당 테이블에 데이터 삽입)
+    table_id= "bigquery.dataTable" #bigquery에 생성한 dataset_name.tableName 작성 (해당 테이블에 데이터 삽입)
     cur_time = data=datetime.datetime.now()
     records = [{}]
-    records[0]['id'] = id
+    records[0]['result_id'] = id
     records[0]['img_url_top'] = topimguri
     records[0]['img_url_bottom'] = bottomimguri
     records[0]['top_label'] = top_label
-    records[0]['buttom_label'] = bottom_label
+    records[0]['bottom_label'] = bottom_label
     records[0]['upload_date'] = cur_time
 
     dataframe = pandas.DataFrame(
         records,
         columns=[ #테이블의 스키마명시
-            "id",
+            "result_id",
             "img_url_top",
-            "img_url_buttom",
+            "img_url_bottom",
             "top_label",
-            "buttom_label",
+            "bottom_label",
             "upload_date",
         ],
         #인덱스는 다음과 같이 표현 가능
@@ -49,11 +49,11 @@ def bigquery_save(newFileName_top, newFileName_bottoms, id, top_label, bottom_la
 
         schema=[
             # 각 스키마의 타입을 지정 (자동으로 해주기도하지만, object객체로 나오는 등 애매한 경우도 있어 다음과 같이 명시함으로 확실하게 데이터 타입 정의)
+            bigquery.SchemaField("result_id", bigquery.enums.SqlTypeNames.STRING),
             bigquery.SchemaField("img_url_top", bigquery.enums.SqlTypeNames.STRING),
-            bigquery.SchemaField("img_url_buttom", bigquery.enums.SqlTypeNames.STRING),
+            bigquery.SchemaField("img_url_bottom", bigquery.enums.SqlTypeNames.STRING),
             bigquery.SchemaField("top_label", bigquery.enums.SqlTypeNames.STRING),
-            bigquery.SchemaField("buttom_label", bigquery.enums.SqlTypeNames.STRING),
-        
+            bigquery.SchemaField("bottom_label", bigquery.enums.SqlTypeNames.STRING),
         ],
         #만약 데이터 덮어쓰기 하고 싶으면 다음과 같은 환경변수 정의(기존꺼 날라감)
         #write_disposition="WRITE_TRUNCATE",

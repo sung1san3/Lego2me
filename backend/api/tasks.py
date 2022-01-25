@@ -4,6 +4,7 @@ from celery import shared_task
 from celery import Celery
 from .models import Task
 import json, os, sys
+from .bigquery import bigquery_save
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from ai import ai
@@ -30,4 +31,7 @@ def ai_model(newFileName_top, newFileName_bottoms, id):
     task.status = 'true'
     task.save()
 
+    bigquery_save(newFileName_top, newFileName_bottoms, id, result_value_top, result_value_bottom)
+    #newFileName_top, newFileName_bottoms, id, top_label, bottom_label
+    
     return id
