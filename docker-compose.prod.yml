@@ -19,9 +19,9 @@ services:
     image: django
     build:
       context: ./backend
-    command: python manage.py runserver 0.0.0.0:8001
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
-      - 8001:8001
+      - 8000:8000
     volumes:
       - ./backend/:/backend/
     expose:
@@ -29,7 +29,11 @@ services:
     depends_on:
       - db
       - rabbitmq
+<<<<<<< HEAD
       - redis
+=======
+      # - redis
+>>>>>>> b5c7999d50536d4a9a66e1da89bf9ac3cf2e555d
 
   frontend:
     build:
@@ -49,6 +53,7 @@ services:
     environment:
       - RABBITMQ_USER=guest
       - RABBITMQ_PASSWORD=guest
+      #- RABBITMQ_HOSTS=rabbitmq:5672
 
     ports:
       - "5672:5672" # rabbitMQ default port
@@ -66,12 +71,13 @@ services:
       - backend
     #restart: on-failure
 
-  redis:
-    image: redis:alpine
-    ports:
-      - "6379:6379"
+  # redis:
+  #   image: redis:alpine
+  #   ports:
+  #     - "6379:6379"
 
   nginx:
+<<<<<<< HEAD
     image: nginx
     container_name: nginx_service
     # volumes:
@@ -80,6 +86,20 @@ services:
       - "80:80"
     depends_on:
       - backend
+=======
+    image: nginx:latest
+    container_name: nginx_service
+    ports:
+      - "8080:8080"
+    depends_on:
+    - backend
+    - frontend
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    #   - static_volume:/backend/staticfiles
+    #   - media_volume:/backend/mediafiles
+    #   - build_folder:/var/www/frontend
+>>>>>>> b5c7999d50536d4a9a66e1da89bf9ac3cf2e555d
 
 volumes:
   mongoVolume:
