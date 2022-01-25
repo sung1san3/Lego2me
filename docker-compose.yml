@@ -29,7 +29,7 @@ services:
     depends_on:
       - db
       - rabbitmq
-      - redis
+      # - redis
 
   frontend:
     build:
@@ -67,20 +67,20 @@ services:
       - backend
     #restart: on-failure
 
-  redis:
-    image: redis:alpine
-    ports:
-      - "6379:6379"
+  # redis:
+  #   image: redis:alpine
+  #   ports:
+  #     - "6379:6379"
 
-  # nginx:
-    # image: nginx
-    # container_name: nginx_service
-    # volumes:
-      # - ./leffe.conf:/etc/nginx/conf.d/leffe.conf
-    # ports:
-      # - "80:80"
-    # depends_on:
-      # - backend
+  nginx:
+    image: nginx
+    container_name: nginx_service
+    volumes:
+      - ./nginx:/etc/nginx/conf.d/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
 
 volumes:
   mongoVolume:
