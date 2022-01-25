@@ -24,18 +24,9 @@ def ai_model(newFileName_top, newFileName_bottoms, id):
     #하의
     result_value_bottom = ai.ai_model(newFileName_bottoms, index+10) #하의 인덱스는 10부터 시작
     
-    # #상, 하의 결과값 딕셔너리
-    # result_sting = {}
-    # result_sting["top"] = result_value_top
-    # result_sting["bottom"] = result_value_bottom
-
-    # # 결과값 json 변환
-    # json_string = json.dumps(result_sting)
-    # print(json_string)
-    
     task = Task.objects.get(id = id)
-    task.top = result_value_top
-    task.bottom = result_value_bottom
+    task.top_result = result_value_top
+    task.bottom_result = result_value_bottom
     task.status = 'true'
     task.save()
 

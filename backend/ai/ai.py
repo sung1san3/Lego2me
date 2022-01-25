@@ -54,7 +54,7 @@ def ai_model(filename, index):
     
         if(dataArr[index]<dataArr[i]) :
             result=i
-
+    
     resultData = dic[result]
     
     print(resultData)
@@ -62,10 +62,5 @@ def ai_model(filename, index):
     if os.path.isfile(image_path):
         os.remove(image_path)
         print(filename+'<--- 삭제 완료')
-
+    # 여기서 리턴
     return resultData
-
-
-
-
-    

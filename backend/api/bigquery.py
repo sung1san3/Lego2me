@@ -22,21 +22,13 @@ def bigquery_save(newFileName_top, newFileName_bottoms, id, top_label, bottom_la
 
     table_id= "test.temp" #bigquery에 생성한 dataset_name.tableName 작성 (해당 테이블에 데이터 삽입)
     cur_time = data=datetime.datetime.now()
-    records = [
-        {
-        }
-    ]
+    records = [{}]
     records[0]['id'] = id
     records[0]['img_url_top'] = topimguri
     records[0]['img_url_bottom'] = bottomimguri
-    records[0]['']
-
-""""id" : ,
-"img_url_top": {}, 
-"img_url_buttom": {},
-"top_label": {},
-"buttom_label": {},
-"upload_date": {},"""
+    records[0]['top_label'] = top_label
+    records[0]['buttom_label'] = bottom_label
+    records[0]['upload_date'] = cur_time
 
     dataframe = pandas.DataFrame(
         records,
