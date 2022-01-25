@@ -34,6 +34,7 @@ const ResultLego: React.FunctionComponent = () => {
             width="377px"
             height="377px"
             alt="result lego character"
+            property="true"
           ></Image>
         </div>
         <div className=" absolute w-[377px] h-[377px] top-0 left-0">
@@ -42,6 +43,7 @@ const ResultLego: React.FunctionComponent = () => {
             width="377px"
             height="377px"
             alt="result lego HairStyle"
+            property="true"
           ></Image>
         </div>
         <div className=" absolute w-[377px] h-[377px] top-0 left-0">
@@ -49,7 +51,8 @@ const ResultLego: React.FunctionComponent = () => {
             src={topStateValue}
             width="377px"
             height="377px"
-            alt="result lego HairStyle"
+            alt="result top"
+            property="true"
           ></Image>
         </div>
         <div className=" absolute w-[377px] h-[377px] top-0 left-0">
@@ -57,7 +60,8 @@ const ResultLego: React.FunctionComponent = () => {
             src={bottomStateValue}
             width="377px"
             height="377px"
-            alt="result lego HairStyle"
+            alt="result bottom"
+            property="true"
           ></Image>
         </div>
       </div>
