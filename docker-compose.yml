@@ -73,10 +73,14 @@ services:
   #     - "6379:6379"
 
   nginx:
-    image: nginx
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: nginx_service
-    volumes:
-      - ./nginx:/etc/nginx/conf.d/nginx.conf
+    # volumes:
+    #   - ./templates:/etc/nginx/templates
+    #   - ./nginx.conf:/etc/nginx/nginx.conf
+    #   - ./conf.d:/etc/nginx/conf.d
     ports:
       - "80:80"
     depends_on:
