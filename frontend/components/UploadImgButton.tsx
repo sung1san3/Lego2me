@@ -227,42 +227,43 @@ const UploadImgButton: React.FC = () => {
       //fd.append("img_bottom_title", bottomBlob.name);
       fd.append("img_title", uploadImgName);
       axios
-        .post("http://localhost:8000/api/posts/", fd, {
+        .post("http://34.69.160.195:8000/api/posts/", fd, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         })
         .then((res) => {
           console.log("success");
-          console.log(res.data);
           // FIXME: -----------------------여기여기여기여기여기여기여기여기----------------------
           const taskId = res.data.task;
-          axios.get(`http://localhost:8000/api/tasks/${taskId}`).then((res) => {
-            const imgPathTop = "/items/top/";
-            const imgPathBottom = "/items/bottom/";
+          axios
+            .get(`http://34.69.160.195:8000/api/tasks/${taskId}`)
+            .then((res) => {
+              const imgPathTop = "/legoItem/Top/";
+              const imgPathBottom = "/legoItem/Bottom/";
 
-            const objTop = res.data.top;
-            const objBottom = res.data.bottom;
+              const objTop = res.data.top_result;
+              const objBottom = res.data.bottom_result;
 
-            const resultTop = "".concat(imgPathTop, objTop, ".png");
-            const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
+              const resultTop = "".concat(imgPathTop, objTop, ".png");
+              const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
 
-            console.log(resultTop); //White_shrirt
-            console.log(resultBottom); //red_Bottos
+              console.log(resultTop); //White_shrirt
+              console.log(resultBottom); //red_Bottos
 
-            // if (
-            //   hairStateValue !== "/items/default.png" ||
-            //   topStateValue !== "/items/default.png" ||
-            //   bottomStateValue !== "/items/default.png"
-            // ) {
-            //   resetHair();
-            //   resetTop();
-            //   resetBottom();
-            // }
-            // setTopUseSetRecoilState(`${resultTop}`);
-            // setBottomUseSetRecoilState(`${resultBottom}`);
-            // router.push("/result");
-          });
+              if (
+                hairStateValue !== "/items/default.png" ||
+                topStateValue !== "/items/default.png" ||
+                bottomStateValue !== "/items/default.png"
+              ) {
+                resetHair();
+                resetTop();
+                resetBottom();
+              }
+              setTopUseSetRecoilState(`${resultTop}`);
+              setBottomUseSetRecoilState(`${resultBottom}`);
+              router.push("/result");
+            });
         })
         .catch((err) => {
           console.log(err);
