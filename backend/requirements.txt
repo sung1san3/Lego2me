@@ -80,3 +80,4 @@ google-cloud-storage
 #djangorestframework djangorestframework-jwt
 keras
 tensorflow
+bigquery

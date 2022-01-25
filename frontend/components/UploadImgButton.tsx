@@ -72,59 +72,6 @@ const UploadImgButton: React.FC = () => {
   const [bottomBlob, setBottomBlob] = useState<File | null>(null);
   const [uploadImgName, setUploadImgName] = useState<any>(null);
 
-  //FIXME: axios 통신
-  // const setFile = (e: ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files instanceof FileList) {
-  //     const fd = new FormData();
-  //     const upload_file = e.target.files[0];
-  //     console.log(upload_file);
-  //     fd.append("img_top", upload_file);
-  //     //fd.append("img_bottom", upload_file);
-  //     fd.append("img_title", upload_file.name);
-
-  //     axios
-  //       .post("http://localhost:8001/api/posts/", fd, {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       })
-  //       .then((res) => {
-  //         console.log("success");
-  //         axios.get("http://localhost:8001/movies/5").then((res) => {
-  //           const imgPathTop = "/items/top/";
-  //           const imgPathBottom = "/items/bottom/";
-
-  //           const objTop = res.data.top;
-  //           const objBottom = res.data.bottom;
-
-  //           const resultTop = "".concat(imgPathTop, objTop, ".png");
-  //           const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
-
-  //           console.log(resultTop);
-  //           console.log(resultBottom);
-
-  //           if (
-  //             hairStateValue !== "/items/default.png" ||
-  //             topStateValue !== "/items/default.png" ||
-  //             bottomStateValue !== "/items/default.png"
-  //           ) {
-  //             resetHair();
-  //             resetTop();
-  //             resetBottom();
-  //           }
-  //           setTopUseSetRecoilState(`${resultTop}`);
-  //           setBottomUseSetRecoilState(`${resultBottom}`);
-  //           router.push("/result");
-  //         });
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //         handleClose();
-  //         window.alert("try again");
-  //       });
-  //   }
-  // };
-  //상의 결과 저장
   function generateTopImage(
     canvas: {
       toBlob: (arg0: (blob: any) => void, arg1: string, arg2: number) => void;
@@ -234,7 +181,7 @@ const UploadImgButton: React.FC = () => {
         })
         .then((res) => {
           console.log("success");
-          // FIXME: -----------------------여기여기여기여기여기여기여기여기----------------------
+          // FIXME:
           const taskId = res.data.task;
           axios
             .get(`http://34.69.160.195:8000/api/tasks/${taskId}`)
@@ -262,7 +209,10 @@ const UploadImgButton: React.FC = () => {
               }
               setTopUseSetRecoilState(`${resultTop}`);
               setBottomUseSetRecoilState(`${resultBottom}`);
-              router.push("/result");
+              router.push({
+                pathname: "/result",
+                query: { taskId: taskId },
+              });
             });
         })
         .catch((err) => {
