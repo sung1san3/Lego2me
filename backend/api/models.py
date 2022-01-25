@@ -23,6 +23,6 @@ class Task(models.Model):
     bottom_result = models.TextField()
     status = models.TextField()
 
-class star_score(models.Model):
+class Star_score(models.Model):
     id = models.TextField(primary_key=True)
     score = models.IntegerField()
