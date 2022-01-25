@@ -70,11 +70,13 @@ def bigquery_save(newFileName_top, newFileName_bottoms, id, top_label, bottom_la
     )
 
 def bigquery_score_save(id, score):
+    print('들어옴')
     credential_path = "/backend/api/json_key/bigquery-339204-ae0dfd4ee5d8.json"  #json파일 경로
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path #환경변수 세팅
     table_id= "bigquery.dataTable"
     client = bigquery.Client()
-    query_text = (f"UPDATE bigquery.dataTable SET score = {score} WHERE result_id = {id}")
+    query_text = f"UPDATE bigquery.dataTable SET score = {score} WHERE result_id = '{id}'"
+    print(query_text)
     query_job = client.query(query_text)
 
     # Wait for query job to finish.

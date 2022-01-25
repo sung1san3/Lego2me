@@ -63,18 +63,32 @@ class Get_View(APIView):
         serializer = Task_serializers(result)
         return Response(serializer.data)
 
-class PostViewScore(viewsets.ModelViewSet):
-    queryset = Star_score.objects.all()
-    serializer_class = Starscore_serializers
+# class PostViewScore(viewsets.ModelViewSet):
+#     queryset = Star_score.objects.all()
+#     serializer_class = Starscore_serializers
     
-    def create(self, request, *args, **kwargs):
+#     def create(self, request, *args, **kwargs):
+#         data = request.data
+#         id = data.__getitem__('id')
+#         score = data.__getitem__('score')
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         self.perform_create(serializer)
+#         headers = self.get_success_headers(serializer.data)
+#         # bigquery 저장
+#         bigquery_score_save(id, score)
+#         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+class Post_Score_View(APIView):
+    def post(self, request):
         data = request.data
         id = data.__getitem__('id')
+        print(id)
         score = data.__getitem__('score')
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        # bigquery 저장
-        bigquery_score_save(id, score)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        print(score)
+        serializer = Starscore_serializers(data=request.data)
+        if serializer.is_valid():
+            # bigquery 저장
+            bigquery_score_save(id, score)
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)

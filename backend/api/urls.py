@@ -6,9 +6,9 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'posts', PostViewSet, basename = 'Post')  
-router.register(r'scores', PostViewScore, basename = 'Post_score')
 urlpatterns = router.urls
 
 urlpatterns = [
         path('', include(router.urls)),
+        path('scores/', views.Post_Score_View.as_view())
 ]
