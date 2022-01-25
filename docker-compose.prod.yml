@@ -30,7 +30,6 @@ services:
       - db
       - rabbitmq
       - redis
-      
 
   frontend:
     build:
@@ -47,7 +46,7 @@ services:
     hostname: rabbitmq
     image: rabbitmq:3.7.14-management-alpine # 웹 UI management 툴 포함
     # 환경변수 설정
-    environment: 
+    environment:
       - RABBITMQ_USER=guest
       - RABBITMQ_PASSWORD=guest
 
@@ -74,12 +73,12 @@ services:
 
   nginx:
     image: nginx
-    container_name : nginx_service
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+    container_name: nginx_service
+    # volumes:
+    #   - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
     ports:
       - "80:80"
-    depends_on :
+    depends_on:
       - backend
 
 volumes:
