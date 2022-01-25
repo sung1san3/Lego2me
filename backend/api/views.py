@@ -59,16 +59,17 @@ class PostViewSet(viewsets.ModelViewSet):
         task.save()
 
         ai_model(newFileName_top, newFileName_bottoms, task_id)
-
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers, task = task.id)
+        
+        task_dic = {}
+        task_dic['task'] = task_id
+        return Response(task_dic, status=status.HTTP_201_CREATED, headers=headers)
 
 class Get_View(APIView):
     def get(self, request, slug, format=None):
-        result = self.get_object(slug)
+        result = Task.objects.get(id=slug)
         print(slug)
-        type(result)
-        seriallizer = Task_serializers(result)
-        return Response(serializers.data)
+        serializer = Task_serializers(result)
+        return Response(serializer.data)
 
 #         # GET repeat http://localhost:8000/api/posts/tasks/<task_id>
 #         return result ## status = PENDING -> COMPLETED => result ={ top: res.data.top ,bottom: res.data.bottom}

@@ -33,7 +33,7 @@ def ai_model(newFileName_top, newFileName_bottoms, id):
     # json_string = json.dumps(result_sting)
     # print(json_string)
     
-    task = Task.objects.get(task_id = id)
+    task = Task.objects.get(id = id)
     task.top = result_value_top
     task.bottom = result_value_bottom
     task.status = 'true'
