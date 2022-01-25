@@ -227,7 +227,7 @@ const UploadImgButton: React.FC = () => {
       //fd.append("img_bottom_title", bottomBlob.name);
       fd.append("img_title", uploadImgName);
       axios
-        .post("http://34.69.160.195:8001/api/posts/", fd, {
+        .post("http://34.69.160.195:8000/api/posts/", fd, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
