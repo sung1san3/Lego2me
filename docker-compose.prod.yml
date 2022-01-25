@@ -29,6 +29,11 @@ services:
     depends_on:
       - db
       - rabbitmq
+<<<<<<< HEAD
+      - redis
+=======
+      # - redis
+>>>>>>> b5c7999d50536d4a9a66e1da89bf9ac3cf2e555d
 
   frontend:
     build:
