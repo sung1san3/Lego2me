@@ -8,14 +8,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import *
 
-import sys
-import os, os.path
-from .img_upload import upload_blob, db_delete
+import os.path
 from .img_upload import *
 import uuid
 
 from .tasks import ai_model
 
+# 이미지 업로드 및 ai 실행
 class PostViewSet(viewsets.ModelViewSet):
 
     queryset = Img_upload.objects.all()
@@ -56,6 +55,7 @@ class PostViewSet(viewsets.ModelViewSet):
         task_dic['task'] = task_id
         return Response(task_dic, status=status.HTTP_201_CREATED, headers=headers)
 
+# ai 실행 결과
 class Get_View(APIView):
     def get(self, request, slug, format=None):
         result = Task.objects.get(id=slug)
@@ -63,21 +63,7 @@ class Get_View(APIView):
         serializer = Task_serializers(result)
         return Response(serializer.data)
 
-# class PostViewScore(viewsets.ModelViewSet):
-#     queryset = Star_score.objects.all()
-#     serializer_class = Starscore_serializers
-    
-#     def create(self, request, *args, **kwargs):
-#         data = request.data
-#         id = data.__getitem__('id')
-#         score = data.__getitem__('score')
-#         serializer = self.get_serializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         self.perform_create(serializer)
-#         headers = self.get_success_headers(serializer.data)
-#         # bigquery 저장
-#         bigquery_score_save(id, score)
-#         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+# bicquery에 점수 저장
 class Post_Score_View(APIView):
     def post(self, request):
         data = request.data
