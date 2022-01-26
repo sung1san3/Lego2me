@@ -174,7 +174,7 @@ const UploadImgButton: React.FC = () => {
       //fd.append("img_bottom_title", bottomBlob.name);
       fd.append("img_title", uploadImgName);
       axios
-        .post("http://localhost:8000/api/posts/", fd, {
+        .post("http://35.225.137.222:80/api/posts/", fd, {
           // <<여기서 포트 접근할 때는 ngix로 해야하는게??
           headers: {
             "Content-Type": "multipart/form-data",
@@ -184,7 +184,7 @@ const UploadImgButton: React.FC = () => {
           console.log("success");
           // FIXME:
           const taskId = res.data.task;
-          axios.get(`http://localhost:8000/api/tasks/${taskId}`).then((res) => {
+          axios.get(`http://35.225.137.222:80/api/tasks/${taskId}`).then((res) => {
             const imgPathTop = "/legoItem/Top/";
             const imgPathBottom = "/legoItem/Bottom/";
 

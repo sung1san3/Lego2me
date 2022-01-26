@@ -72,7 +72,7 @@ services:
     container_name: nginx_service
 
     ports:
-      - "99:99"
+      - "80:80"
       
     depends_on:
       - backend

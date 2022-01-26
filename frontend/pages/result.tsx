@@ -156,7 +156,7 @@ const Result: NextPage = () => {
     const taskQuery = router.query.taskId;
     console.log(value);
     axios
-      .post("http://localhost:8000/api/scores/", {
+      .post("http://35.225.137.222:80/api/scores/", {
         id: taskQuery,
         score: value,
       })
