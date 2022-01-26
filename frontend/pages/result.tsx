@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import ItemSelect from "../components/ItemSelect";
@@ -7,7 +7,15 @@ import { useRecoilState } from "recoil";
 import { hairState, topState, bottomState } from "../recoil/states";
 import ResultLego from "../components/ResultLego";
 import { useRouter } from "next/router";
-import { Button } from "@mui/material";
+import { styled, SxProps, Theme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import Rating from "@mui/material/Rating";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import axios from "axios";
 
 const Result: NextPage = () => {
   const [hair, setHairState] = useRecoilState(hairState);
@@ -120,6 +128,46 @@ const Result: NextPage = () => {
   const router = useRouter();
   console.log(`taskId : ${router.query.taskId}`);
 
+  //modal
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  //modal style
+  const sxBox: SxProps<Theme> = (theme: Theme) => {
+    return {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: 400,
+      bgcolor: "background.paper",
+      border: "2px solid #000",
+      boxShadow: 24,
+      p: 4,
+    };
+  };
+
+  // 별점
+  const [value, setValue] = React.useState<number | null>(2);
+
+  // rating 서버 전송 함수
+  const handleRatingSubmit = () => {
+    const taskQuery = router.query.taskId;
+    console.log(value);
+    axios
+      .post("http://localhost:8000", {
+        id: taskQuery,
+        score: value,
+      })
+      .then((res) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       <Nav></Nav>
@@ -145,14 +193,62 @@ const Result: NextPage = () => {
         <article className="w-full md:w-[50%] p-3" id="ResultLego">
           <ResultLego />
           <div className="flex justify-center">
-            <Button
-              variant="contained"
-              color="error"
-              component="span"
-              className="mt-4 font-Montserrat"
-            >
-              Submit Feedback!
-            </Button>
+            <div>
+              <Button
+                component="span"
+                variant="contained"
+                color="error"
+                onClick={handleOpen}
+                className="font-Montserrat"
+              >
+                Open modal
+              </Button>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={sxBox} className="rounded-xl">
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                    className="font-Montserrat font-bold"
+                  >
+                    Rating & Review
+                  </Typography>
+                  <Box
+                    sx={{
+                      "& > legend": { mt: 2 },
+                    }}
+                  >
+                    <Rating
+                      className="animate-bounce mt-4"
+                      name="simple-controlled"
+                      value={value}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                    />
+                  </Box>
+                  <Typography
+                    id="modal-modal-description"
+                    sx={{ mt: 1 }}
+                    className="font-Montserrat"
+                  >
+                    Please leave a rating and hit the submit button!
+                  </Typography>
+                  <button
+                    className="mt-4 bg-transparent rounded-full hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent font-Montserrat"
+                    type="button"
+                    onClick={handleRatingSubmit}
+                  >
+                    Submit
+                  </button>
+                </Box>
+              </Modal>
+            </div>
           </div>
         </article>
       </section>
