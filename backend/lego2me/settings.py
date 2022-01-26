@@ -33,9 +33,9 @@ ALLOWED_HOSTS = [
 ]
 
 CORS_ORIGIN_WHITELIST = ['http://localhost:3000',
-'http://34.69.160.195:3000',
-'http://34.69.160.195:8000',
-'http://34.69.160.195:8080',
+'http://35.225.137.222:3000',
+'http://35.225.137.222:8000',
+'http://35.225.137.222:8080',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
