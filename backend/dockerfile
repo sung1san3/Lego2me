@@ -21,4 +21,4 @@ RUN pip install djangorestframework djangorestframework-jwt
 # ERROR: Service 'backend' failed to build : Build failed
 RUN pip3 install -r requirements.txt
 
-RUN pip install bigquery
+RUN pip3 install bigquery
