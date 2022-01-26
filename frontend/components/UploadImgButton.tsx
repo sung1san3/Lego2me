@@ -51,8 +51,8 @@ const UploadImgButton: React.FC = () => {
       transform: "translate(-50%, -50%)",
       bgcolor: "background.paper",
       width: 700,
-      boxShadow: 1,
-      borderRadius: 2,
+      border: "2px solid #000",
+      boxShadow: 24,
       p: 2,
     };
   };
@@ -174,7 +174,8 @@ const UploadImgButton: React.FC = () => {
       //fd.append("img_bottom_title", bottomBlob.name);
       fd.append("img_title", uploadImgName);
       axios
-        .post("http://34.69.160.195:99/api/posts/", fd, { // <<여기서 포트 접근할 때는 ngix로 해야하는게??
+        .post("http://localhost:8000/api/posts/", fd, {
+          // <<여기서 포트 접근할 때는 ngix로 해야하는게??
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -183,37 +184,35 @@ const UploadImgButton: React.FC = () => {
           console.log("success");
           // FIXME:
           const taskId = res.data.task;
-          axios
-            .get(`http://34.69.160.195:99/api/tasks/${taskId}`)
-            .then((res) => {
-              const imgPathTop = "/legoItem/Top/";
-              const imgPathBottom = "/legoItem/Bottom/";
+          axios.get(`http://localhost:8000/api/tasks/${taskId}`).then((res) => {
+            const imgPathTop = "/legoItem/Top/";
+            const imgPathBottom = "/legoItem/Bottom/";
 
-              const objTop = res.data.top_result;
-              const objBottom = res.data.bottom_result;
+            const objTop = res.data.top_result;
+            const objBottom = res.data.bottom_result;
 
-              const resultTop = "".concat(imgPathTop, objTop, ".png");
-              const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
+            const resultTop = "".concat(imgPathTop, objTop, ".png");
+            const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
 
-              console.log(resultTop); //White_shrirt
-              console.log(resultBottom); //red_Bottos
+            console.log(resultTop); //White_shrirt
+            console.log(resultBottom); //red_Bottos
 
-              if (
-                hairStateValue !== "/items/default.png" ||
-                topStateValue !== "/items/default.png" ||
-                bottomStateValue !== "/items/default.png"
-              ) {
-                resetHair();
-                resetTop();
-                resetBottom();
-              }
-              setTopUseSetRecoilState(`${resultTop}`);
-              setBottomUseSetRecoilState(`${resultBottom}`);
-              router.push({
-                pathname: "/result",
-                query: { taskId: taskId },
-              });
+            if (
+              hairStateValue !== "/items/default.png" ||
+              topStateValue !== "/items/default.png" ||
+              bottomStateValue !== "/items/default.png"
+            ) {
+              resetHair();
+              resetTop();
+              resetBottom();
+            }
+            setTopUseSetRecoilState(`${resultTop}`);
+            setBottomUseSetRecoilState(`${resultBottom}`);
+            router.push({
+              pathname: "/result",
+              query: { taskId: taskId },
             });
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -230,6 +229,7 @@ const UploadImgButton: React.FC = () => {
         variant="contained"
         color="error"
         onClick={handleOpen}
+        className="font-Montserrat"
       >
         Get Started
       </Button>
@@ -239,7 +239,7 @@ const UploadImgButton: React.FC = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={sxBox}>
+        <Box sx={sxBox} className="rounded-xl">
           <div>
             <div className="flex justify-center mb-4">
               <input
