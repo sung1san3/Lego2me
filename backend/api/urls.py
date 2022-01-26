@@ -10,5 +10,6 @@ urlpatterns = router.urls
 
 urlpatterns = [
         path('', include(router.urls)),
+        path('tasks/<slug:slug>/', views.Get_View.as_view()),
         path('scores/', views.Post_Score_View.as_view())
 ]
