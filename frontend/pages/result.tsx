@@ -162,9 +162,13 @@ const Result: NextPage = () => {
       })
       .then((res) => {
         console.log("success");
+        handleClose();
+        window.alert("Thank you!");
       })
       .catch((err) => {
         console.log(err);
+        handleClose();
+        window.alert("Sorry Try Again!");
       });
   };
 
@@ -201,7 +205,7 @@ const Result: NextPage = () => {
                 onClick={handleOpen}
                 className="font-Montserrat"
               >
-                Open modal
+                Reviews & Rating
               </Button>
               <Modal
                 open={open}

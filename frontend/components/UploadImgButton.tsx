@@ -16,6 +16,8 @@ import FormData from "form-data";
 import { useRecoilValue, useSetRecoilState, useResetRecoilState } from "recoil";
 import { hairState, topState, bottomState } from "../recoil/states";
 import ReactCrop from "react-image-crop";
+import Skeleton from "@mui/material/Skeleton";
+import { positions } from "@mui/system";
 
 const UploadImgButton: React.FC = () => {
   const router = useRouter();
@@ -165,7 +167,11 @@ const UploadImgButton: React.FC = () => {
     );
   }, [completedCrop]);
 
+  //로딩 상태
+  const [loading, setLoading] = React.useState(false);
+
   const handleResult = () => {
+    setLoading(true);
     const fd = new FormData();
     if (topBlob !== null && bottomBlob !== null) {
       fd.append("img_top", topBlob);
@@ -180,39 +186,42 @@ const UploadImgButton: React.FC = () => {
             "Content-Type": "multipart/form-data",
           },
         })
+
         .then((res) => {
           console.log("success");
           // FIXME:
           const taskId = res.data.task;
-          axios.get(`http://35.225.137.222:80/api/tasks/${taskId}`).then((res) => {
-            const imgPathTop = "/legoItem/Top/";
-            const imgPathBottom = "/legoItem/Bottom/";
+          axios
+            .get(`http://35.225.137.222:80/api/tasks/${taskId}`)
+            .then((res) => {
+              const imgPathTop = "/legoItem/Top/";
+              const imgPathBottom = "/legoItem/Bottom/";
 
-            const objTop = res.data.top_result;
-            const objBottom = res.data.bottom_result;
+              const objTop = res.data.top_result;
+              const objBottom = res.data.bottom_result;
 
-            const resultTop = "".concat(imgPathTop, objTop, ".png");
-            const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
+              const resultTop = "".concat(imgPathTop, objTop, ".png");
+              const resultBottom = "".concat(imgPathBottom, objBottom, ".png");
 
-            console.log(resultTop); //White_shrirt
-            console.log(resultBottom); //red_Bottos
+              console.log(resultTop); //White_shrirt
+              console.log(resultBottom); //red_Bottos
 
-            if (
-              hairStateValue !== "/items/default.png" ||
-              topStateValue !== "/items/default.png" ||
-              bottomStateValue !== "/items/default.png"
-            ) {
-              resetHair();
-              resetTop();
-              resetBottom();
-            }
-            setTopUseSetRecoilState(`${resultTop}`);
-            setBottomUseSetRecoilState(`${resultBottom}`);
-            router.push({
-              pathname: "/result",
-              query: { taskId: taskId },
+              if (
+                hairStateValue !== "/items/default.png" ||
+                topStateValue !== "/items/default.png" ||
+                bottomStateValue !== "/items/default.png"
+              ) {
+                resetHair();
+                resetTop();
+                resetBottom();
+              }
+              setTopUseSetRecoilState(`${resultTop}`);
+              setBottomUseSetRecoilState(`${resultBottom}`);
+              router.push({
+                pathname: "/result",
+                query: { taskId: taskId },
+              });
             });
-          });
         })
         .catch((err) => {
           console.log(err);
