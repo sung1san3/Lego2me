@@ -18,7 +18,6 @@
 ### **Dataware**
 ![image](https://user-images.githubusercontent.com/54930877/151213688-5ee75c1f-e916-482f-890d-5bdf5c91352a.png)
 
-- Architecture
 ## 2. Installation Process
 - Requires a computer with an nvidia GPU.
 ```
