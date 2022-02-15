@@ -58,12 +58,14 @@ class PostViewSet(viewsets.ModelViewSet):
 # ai 실행 결과
 class Get_View(APIView):
     def get(self, request, slug, format=None):
-        task = Task()
-        if task.status == 'true':
+        status = str(Task.objects.filter(id=slug).values('status')[0]['status'])
+        if status == 'true':
             result = Task.objects.get(id=slug)
-            print(slug)
             serializer = Task_serializers(result)
             return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=400)
+        
 
 # bicquery에 점수 저장
 class Post_Score_View(APIView):
