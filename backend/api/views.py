@@ -49,7 +49,7 @@ class PostViewSet(viewsets.ModelViewSet):
         task.status = 'false'
         task.save()
 
-        ai_model(newFileName_top, newFileName_bottoms, task_id)
+        ai_model(newFileName_top, newFileName_bottoms, task_id).deley()
         
         task_dic = {}
         task_dic['task'] = task_id
@@ -58,10 +58,12 @@ class PostViewSet(viewsets.ModelViewSet):
 # ai 실행 결과
 class Get_View(APIView):
     def get(self, request, slug, format=None):
-        result = Task.objects.get(id=slug)
-        print(slug)
-        serializer = Task_serializers(result)
-        return Response(serializer.data)
+        task = Task()
+        if task.status == 'true':
+            result = Task.objects.get(id=slug)
+            print(slug)
+            serializer = Task_serializers(result)
+            return Response(serializer.data)
 
 # bicquery에 점수 저장
 class Post_Score_View(APIView):
