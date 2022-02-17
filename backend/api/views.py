@@ -49,7 +49,7 @@ class PostViewSet(viewsets.ModelViewSet):
         task.status = 'false'
         task.save()
 
-        ai_model(newFileName_top, newFileName_bottoms, task_id).deley()
+        ai_model.deley(newFileName_top, newFileName_bottoms, task_id)
         
         task_dic = {}
         task_dic['task'] = task_id
