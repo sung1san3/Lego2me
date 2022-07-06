@@ -1,5 +1,6 @@
 # Lego2me
 ![Frame 1](https://user-images.githubusercontent.com/54930877/151214445-027c87e3-d8c5-4cbc-aac9-7cec41e1e20d.jpg)
+![151363026-4966f45c-4758-496f-bc26-aac1af291a63](https://user-images.githubusercontent.com/54930877/177606805-bb6f6c1d-e127-4cff-a776-492ab6085c5c.gif)
 
 ## Index
 - [Lego2me](#lego2me)
